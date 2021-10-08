@@ -1,12 +1,74 @@
-# be-definitive
+# be-definitive [TODO]
 
-# be-definitive
-
+be-definitive is an attribute-based version of the [d-fine](https://github.com/bahrus/d-fine) custom element.
 
 ```html
-<be-definitive upgrade=my-custom-element if-wants-be-definitive></be-definitive>
-
+<be-definitive upgrade=* if-wants-to-be=definitive></be-definitive>
 ...
+
+## Example 1:
+
+```html
+<div be-definitive='{
+  "as":"hello-world",
+  "propDefaults":{
+    "place": "Venus"
+  },
+  "transform":{
+    "span": "place"
+  }
+}'>
+  <div>Hello, <span>world</span></div>
+</div>
+<hello-world place=Mars></hello-world>
+```
+
+... generates:
+
+```html
+<div>
+    <div>Hello, <span>Venus</span></div>
+</div>
+<hello-world place=Mars>
+    #shadow
+    <div>
+        <div>Hello, <span>Mars</span></div>
+    </div>
+</hello-world>
+```
+
+So the first instance of the pattern displays without a single byte of Javascript being downloaded.  
+
+Subsequent instances take less bandwidth to download, and generate quite quickly due to use of templates.  It does require the be-definitive library to be loaded once.
+
+## I Object
+
+If we need our HTML to be HTML5 compliant, we should probably prefix be- with data-.  That is supported.
+
+The postfix -definitive is configurable also, within each ShadowDOM realm.
+
+Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
+
+## Example 2
+
+The "definer" can be a template to start with, and we can also apply interpolation-from-a-distance:
+
+```html
+<template be-definitive='{
+  "as": "hello-world",
+  "propDefaults":{
+    "place": "Venus"
+  },
+  "transform":{
+    "div": ["Hello, ", "place"]
+  }
+}'>
+    <div>Sapere aude</div>
+</template>
+<hello-world place=Mars></hello-world>
+<hello-world></hello-world>
+```
+
 
 <my-custom-element be-definitive>
 <template shadowroot="open">
