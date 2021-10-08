@@ -2,6 +2,10 @@
 
 be-definitive is an attribute-based version of the [d-fine](https://github.com/bahrus/d-fine) custom element.
 
+It allows us to take some DOM that needs to repeat, and turn it into a web component.
+
+Or DOM that is already repeating (using declarative Shadow DOM), but that needs to be made interactive, via a web component.
+
 ```html
 <be-definitive upgrade=* if-wants-to-be=definitive></be-definitive>
 ...
@@ -49,7 +53,7 @@ The postfix -definitive is configurable also, within each ShadowDOM realm.
 
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 
-## Example 2 -- Template based declarative web component [TODO]
+## Example 2 -- Template-based declarative web component [TODO]
 
 The "definer" can be a template to start with, and we can also apply interpolation-from-a-distance:
 
