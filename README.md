@@ -6,7 +6,7 @@ be-definitive is an attribute-based version of the [d-fine](https://github.com/b
 <be-definitive upgrade=* if-wants-to-be=definitive></be-definitive>
 ...
 
-## Example 1:
+## Example 1 -- Prerended live DOM that is repeated [TODO]
 
 ```html
 <div be-definitive='{
@@ -49,7 +49,7 @@ The postfix -definitive is configurable also, within each ShadowDOM realm.
 
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 
-## Example 2
+## Example 2 -- Template based declarative web component [TODO]
 
 The "definer" can be a template to start with, and we can also apply interpolation-from-a-distance:
 
@@ -69,31 +69,23 @@ The "definer" can be a template to start with, and we can also apply interpolati
 <hello-world></hello-world>
 ```
 
+## Example 3 -- Pre-rendered web components that use declarative Shadow DOM. [TODO]
 
-<my-custom-element be-definitive>
-<template shadowroot="open">
-  My ShadowDOM Content I
-</template>
-<span slot=mySlot>My Slotted Content I</span>
-</div>
-</my-custom-element>
+This syntax also works:
 
-<my-custom-element>
-  <span slot=mySlot>My Slotted Content II</span>
-</my-custom-element>
-
-<my-custom-element>
-  <template shadowroot="open">
-    My ShadowDOM Content III
-  </template>
-  <span slot=mySlot>My Slotted Content III</span>
-</div>
-
+```html
+<hello-world be-definitive='{
+    "propDefaults":{
+      "place": "Venus"
+    },
+    "transform":{
+      "span": "place"
+    }
+}'>
+    <template shadowroot=open>
+        <div>Hello, <span>world</span></div>
+    </template>
+</hello-world>
+<hello-world place=Mars></hello-world>
 ```
-
-be-metamorphic:
-
-1.  If my-custom-element isn't defined:
-    1.  Defines custom element my-custom-element with template (or shadow DOM) as the main template (use getInnerHTML({includeShadowRoots: true}))?
-    2.  Uses ctor prop which defines the class.  Uses x.tend 
 
