@@ -14,13 +14,16 @@ Or DOM that is already repeating (using declarative Shadow DOM), but that needs 
 
 ```html
 <div be-definitive='{
-  "as":"hello-world",
-  "propDefaults":{
-    "place": "Venus"
-  },
-  "transform":{
-    "span": "place"
+  "config":{
+    "tagName":"hello-world",
+    "propDefaults":{
+      "place": "Venus",
+      "updateTransform":{
+        "span": "place"
+      }
+    },
   }
+
 }'>
   <div>Hello, <span>world</span></div>
 </div>
@@ -59,13 +62,16 @@ The "definer" can be a template to start with, and we can also apply interpolati
 
 ```html
 <template be-definitive='{
-  "as": "hello-world",
-  "propDefaults":{
-    "place": "Venus"
-  },
-  "transform":{
-    "div": ["Hello, ", "place"]
+  "config":{
+    "tagName": "hello-world",
+    "propDefaults":{
+      "place": "Venus"
+    },
+    "updateTransform":{
+      "div": ["Hello, ", "place"]
+    }
   }
+
 }'>
     <div>Sapere aude</div>
 </template>
