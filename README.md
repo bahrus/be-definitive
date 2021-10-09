@@ -56,7 +56,7 @@ The postfix -definitive is configurable also, within each ShadowDOM realm.
 
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 
-## Example 2 -- Template-based declarative web component [TODO]
+## Example 2 -- Template-based declarative web component
 
 The "definer" can be a template to start with, and we can also apply interpolation-from-a-distance:
 
