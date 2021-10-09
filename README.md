@@ -1,4 +1,4 @@
-# be-definitive [TODO]
+# be-definitive
 
 be-definitive is an attribute-based version of the [d-fine](https://github.com/bahrus/d-fine) custom element.
 

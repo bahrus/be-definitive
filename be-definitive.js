@@ -29,7 +29,7 @@ const ce = new CE({
             const doUpdateTransformProps = Object.keys(params.config.propDefaults || {});
             params.config = params.config || {};
             params.config.tagName = params.config.tagName || self.localName;
-            params.actions = {
+            params.config.actions = {
                 ...(params.config.actions || {}),
                 ...tm.doInitTransform,
                 doUpdateTransform: {
@@ -40,6 +40,7 @@ const ce = new CE({
                 ...(params.complexPropDefaults || {}),
                 mainTemplate: toTempl(self, self.localName === params.config.tag && self.shadowRoot !== null),
             };
+            params.mixins = [...(params.mixins || []), tm.TemplMgmtMixin];
             const ce = new CE(params);
         },
         finale: (self, target) => {
