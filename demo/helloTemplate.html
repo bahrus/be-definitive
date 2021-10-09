@@ -7,19 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    <div be-definitive='{
+    <template be-definitive='{
         "config":{
-          "tagName":"hello-world",
+          "tagName": "hello-world",
           "propDefaults":{
             "place": "Venus",
             "updateTransform":{
-              "span": "place"
+                "div": ["Hello, ", "place"]
             }
           }
         }
       }'>
-        <div>Hello, <span>world</span></div>
-    </div>
+          <div>Sapere aude</div>
+      </template>
+      <hello-world place=Mars></hello-world>
+      <hello-world></hello-world>
     <hello-world place=Mars></hello-world>
     <hello-world></hello-world>
     <script type=importmap>

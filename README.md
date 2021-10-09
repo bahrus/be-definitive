@@ -1,4 +1,4 @@
-# be-definitive
+# be-definitive [TODO]
 
 be-definitive is an attribute-based version of the [d-fine](https://github.com/bahrus/d-fine) custom element.
 
@@ -10,7 +10,7 @@ Or DOM that is already repeating (using declarative Shadow DOM), but that needs 
 <be-definitive upgrade=* if-wants-to-be=definitive></be-definitive>
 ...
 
-## Example 1 -- Prerended live DOM that is repeated [TODO]
+## Example 1 -- Prerended live DOM that is repeated
 
 ```html
 <div be-definitive='{
@@ -65,13 +65,12 @@ The "definer" can be a template to start with, and we can also apply interpolati
   "config":{
     "tagName": "hello-world",
     "propDefaults":{
-      "place": "Venus"
-    },
-    "updateTransform":{
-      "div": ["Hello, ", "place"]
+      "place": "Venus",
+      "updateTransform":{
+        "div": ["Hello, ", "place"]
+      }
     }
   }
-
 }'>
     <div>Sapere aude</div>
 </template>
