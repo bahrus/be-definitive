@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div be-definitive='{
+        "config":{
+          "tagName":"hello-world",
+          "propDefaults":{
+            "place": "Venus",
+            "updateTransform":{
+              "span": "place"
+            }
+          }
+        }
+      }'>
+        <div>Hello, <span>world</span></div>
+    </div>
+    <hello-world place=Mars></hello-world>
+    <hello-world></hello-world>
+    <script type=importmap>
+        {
+            "imports":{
+                "trans-render/": "../node_modules/trans-render/",
+                "xtal-element/": "../node_modules/xtal-element/",
+                "xtal-decor/": "../node_modules/xtal-decor/",
+                "xodus/": "../node_modules/xodus/"
+            }
+        }
+    </script>
+    <script type=module>
+        import '../be-definitive.js';
+    </script>
+</body>
+</html>

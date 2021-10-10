@@ -84,17 +84,62 @@ This syntax also works:
 
 ```html
 <hello-world be-definitive='{
+  "config":{
+    "tagName": "hello-world",
     "propDefaults":{
       "place": "Venus"
     },
     "transform":{
       "span": "place"
     }
+  }
 }'>
-    <template shadowroot=open>
-        <div>Hello, <span>world</span></div>
-    </template>
+  <template shadowroot=open>
+    <div>Hello, <span>world</span></div>
+  </template>
 </hello-world>
 <hello-world place=Mars></hello-world>
 ```
+
+## Example 4 Referencing non-JSON serializable entities. [TODO]
+
+There is a reason all the settings we've seen so far have been wrapped inside a "config" key.  That reason is that there are inputs that can go into a web component configuration that are not JSON serializable.  Unfortunately, I could not come up with a short, memorable name for "JSON-serializable config section", so I stuck with "config." But the bottom line is:  **The config section should only contain pure JSON.**
+
+Other recognized "inputs" that can go into a web component definition are non-serializable props, the superclass, and mixins.  So we want to support the ability to pass such things in to the web component stew, while sticking to declarative-ish syntax.
+
+Proposed Syntax:
+
+```html
+<hello-world be-definitive='{
+  "config":{
+    "...": "..."
+  },
+  "complexPropDefaults": {
+    "messageHandler": "my-script:messageHandler"
+  },
+  "superclass": "my-script:myClass",
+  "mixins": ["my-script:myMixin1"]
+}'>
+
+<script nomodule=ish id=my-script>
+
+  export const messageHandler = e => {
+
+  }
+  export const test = class extends HTMLElement{
+
+  }
+
+  export const myMixin1 = class {
+
+  }
+</script>
+```
+
+with the help of 
+
+
+
+
+
 
