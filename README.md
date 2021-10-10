@@ -136,7 +136,7 @@ Proposed Syntax:
 </script>
 ```
 
-with the help of 
+...with the help of the [nomodule](https://github.com/bahrus/nomodule) package.
 
 
 
