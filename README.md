@@ -138,6 +138,8 @@ Proposed Syntax:
 
 ...with the help of the [nomodule](https://github.com/bahrus/nomodule) package.
 
+nomodule-ish script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
+
 
 
 
