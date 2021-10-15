@@ -9,7 +9,7 @@
 		"watch": true
 	},
 	"files":[
-		"be-definitive.ts"
+		"be-definitive2.ts"
 	],
 	"exclude":[
 		"node_modules"
