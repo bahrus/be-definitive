@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "xtal-element": "0.0.443",
-    "xtal-decor": "0.0.52",
     "be-decorated": "0.0.7",
     "xodus": "0.0.3"
   },
