@@ -10,8 +10,8 @@
     "doc": "custom-elements-manifest analyze"
   },
   "dependencies": {
-    "xtal-element": "0.0.443",
-    "be-decorated": "0.0.7",
+    "xtal-element": "0.0.446",
+    "be-decorated": "0.0.18",
     "xodus": "0.0.3"
   },
   "devDependencies": {
