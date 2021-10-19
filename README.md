@@ -1,4 +1,4 @@
-# be-definitive [TODO]
+# be-definitive
 
 be-definitive is an attribute-based version of the [d-fine](https://github.com/bahrus/d-fine) custom element.
 
@@ -78,7 +78,7 @@ The "definer" can be a template to start with, and we can also apply interpolati
 <hello-world></hello-world>
 ```
 
-## Example 3 -- Pre-rendered web components that use declarative Shadow DOM. [TODO]
+## Example 3 -- Pre-rendered web components that use declarative Shadow DOM.
 
 This syntax also works:
 
