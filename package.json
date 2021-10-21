@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "xtal-element": "0.0.450",
-    "be-decorated": "0.0.20",
+    "be-decorated": "0.0.30",
+    "be-hive": "0.0.5",
     "xodus": "0.0.3"
   },
   "devDependencies": {
