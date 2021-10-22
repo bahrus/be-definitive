@@ -3,7 +3,7 @@ import {BeDefinitiveProps, BeDefinitiveActions} from './types';
 import {XE} from 'xtal-element/src/XE.js';
 import {TemplMgmtActions, TemplMgmtProps, tm} from 'trans-render/lib/mixins/TemplMgmtWithPEST.js';
 import {toTempl} from 'xodus/toTempl.js';
-import {register} from 'be-hive/be-hive.js';
+import {register} from 'be-hive/register.js';
 
 export class BeDefinitiveController{
     intro(self: Element, target: Element, beDecorProps: BeDecoratedProps) {
@@ -55,4 +55,3 @@ define<BeDefinitiveProps & BeDecoratedProps, BeDefinitiveActions>({
     }
 });
 register(ifWantsToBe, upgrade, tagName);
-document.head.appendChild(document.createElement(tagName));

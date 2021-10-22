@@ -10,15 +10,15 @@
     "doc": "custom-elements-manifest analyze"
   },
   "dependencies": {
-    "xtal-element": "0.0.450",
-    "be-decorated": "0.0.30",
-    "be-hive": "0.0.5",
+    "xtal-element": "0.0.451",
+    "be-decorated": "0.0.31",
+    "be-hive": "0.0.6",
     "xodus": "0.0.3"
   },
   "devDependencies": {
     "xtal-test": "0.0.51",
     "@skypack/package-check": "0.2.2",
-    "@custom-elements-manifest/analyzer": "0.5.5"
+    "@custom-elements-manifest/analyzer": "0.5.6"
   },
   "repository": {
     "type": "git",

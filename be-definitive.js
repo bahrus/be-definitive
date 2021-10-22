@@ -2,7 +2,7 @@ import { define } from 'be-decorated/be-decorated.js';
 import { XE } from 'xtal-element/src/XE.js';
 import { tm } from 'trans-render/lib/mixins/TemplMgmtWithPEST.js';
 import { toTempl } from 'xodus/toTempl.js';
-import { register } from 'be-hive/be-hive.js';
+import { register } from 'be-hive/register.js';
 export class BeDefinitiveController {
     intro(self, target, beDecorProps) {
         let params = undefined;
@@ -52,4 +52,3 @@ define({
     }
 });
 register(ifWantsToBe, upgrade, tagName);
-document.head.appendChild(document.createElement(tagName));
