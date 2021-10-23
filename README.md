@@ -2,6 +2,8 @@
 
 be-definitive allows us to take some DOM that needs to repeat, and turn it into a web component.
 
+Basically, declarative custom elements (once the necessary dependencies are downloaded).
+
 ## [Demo](https://codepen.io/bahrus/pen/VwzPwmv)
 
 be-definitive is an attribute-based version of the [d-fine](https://github.com/bahrus/d-fine) custom element.
@@ -14,7 +16,7 @@ Or DOM that is already repeating (using declarative Shadow DOM), but that needs 
 <be-definitive upgrade=* if-wants-to-be=definitive></be-definitive>
 ...
 
-## Example 1 -- Prerended live DOM that is repeated
+## Example 1 -- Prerendered live DOM that is repeated
 
 ```html
 <div be-definitive='{
