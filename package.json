@@ -1,8 +1,25 @@
 {
   "name": "be-definitive",
   "version": "0.0.6",
-  "description": "",
-  "main": "index.js",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "custom-element",
+    "custom-elements",
+    "JSON",
+    "Editor"
+  ],
+  "description": "be-definitive allows us to take some DOM that needs to repeat, and turn it into a web component.",
+  "main": "be-definitive.js",
+  "module": "be-definitive.js",
+  "exports":{
+    ".": "./be-definitive.js",
+    "./be-definitive.js": "./be-definitive.js"
+  },
+  "files": [
+    "*.*"
+  ],
+  "types": "types.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "node node_modules/xtal-test/serve.js",

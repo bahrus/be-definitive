@@ -1,5 +1,7 @@
 # be-definitive
 
+be-definitive allows us to take some DOM that needs to repeat, and turn it into a web component.
+
 be-definitive is an attribute-based version of the [d-fine](https://github.com/bahrus/d-fine) custom element.
 
 It allows us to take some DOM that needs to repeat, and turn it into a web component.
