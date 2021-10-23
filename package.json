@@ -1,6 +1,6 @@
 {
   "name": "be-definitive",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "keywords": [
     "web-components",
     "web-component",
@@ -12,7 +12,7 @@
   "description": "be-definitive allows us to take some DOM that needs to repeat, and turn it into a web component.",
   "main": "be-definitive.js",
   "module": "be-definitive.js",
-  "exports":{
+  "exports": {
     ".": "./be-definitive.js",
     "./be-definitive.js": "./be-definitive.js"
   },
