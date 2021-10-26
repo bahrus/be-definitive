@@ -1,20 +1,15 @@
 # be-definitive
 
+be-definitive is an attribute-based version of the [d-fine](https://github.com/bahrus/d-fine) custom element.
+
 be-definitive allows us to take some DOM that needs to repeat, and turn it into a web component.
+
+Or DOM that is already repeating (using declarative Shadow DOM), but that needs to be made interactive, via a web component.
 
 Basically, declarative custom elements (once the necessary dependencies are downloaded).
 
 ## [Demo](https://codepen.io/bahrus/pen/VwzPwmv)
 
-be-definitive is an attribute-based version of the [d-fine](https://github.com/bahrus/d-fine) custom element.
-
-It allows us to take some DOM that needs to repeat, and turn it into a web component.
-
-Or DOM that is already repeating (using declarative Shadow DOM), but that needs to be made interactive, via a web component.
-
-```html
-<be-definitive upgrade=* if-wants-to-be=definitive></be-definitive>
-...
 
 ## Example 1 -- Prerendered live DOM that is repeated
 
@@ -64,7 +59,7 @@ Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://m
 
 ## Example 2 -- Template-based declarative web component
 
-The "definer" can be a template to start with, and we can also apply interpolation-from-a-distance:
+The "definer" can be a template to start with, and we can also apply "interpolation-from-a-distance":
 
 ```html
 <template be-definitive='{
@@ -127,12 +122,12 @@ Proposed Syntax:
   "mixins": ["my-script:myMixin1"]
 }'>
 
-<script nomodule=ish id=my-script>
+<script nomodule id=my-script be-functional>
 
   export const messageHandler = e => {
 
   }
-  export const test = class extends HTMLElement{
+  export const myClass = class extends HTMLElement{
 
   }
 
@@ -142,9 +137,9 @@ Proposed Syntax:
 </script>
 ```
 
-...with the help of the [nomodule](https://github.com/bahrus/nomodule) package.
+...with the help of the soon-to-be-developed [be-functional](https://github.com/bahrus/be-functional) package.
 
-nomodule-ish script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
+be-functional script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
 
 
 
