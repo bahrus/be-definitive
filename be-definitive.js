@@ -7,13 +7,22 @@ export class BeDefinitiveController {
     intro(self, target, beDecorProps) {
         let params = undefined;
         const attr = 'is-' + beDecorProps.ifWantsToBe;
-        const attrVal = self.getAttribute(attr);
-        try {
-            params = JSON.parse(attrVal);
+        const attrVal = self.getAttribute(attr).trim();
+        if (attrVal[0] !== '{' && attrVal[0] !== '[') {
+            params = {
+                config: {
+                    tagName: attrVal
+                }
+            };
         }
-        catch (e) {
-            console.error({ attr, attrVal, e });
-            return;
+        else {
+            try {
+                params = JSON.parse(attrVal);
+            }
+            catch (e) {
+                console.error({ attr, attrVal, e });
+                return;
+            }
         }
         const doUpdateTransformProps = Object.keys(params.config.propDefaults || {});
         params.config = params.config || {};

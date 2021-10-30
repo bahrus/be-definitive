@@ -10,8 +10,16 @@ Basically, declarative custom elements (once the necessary dependencies are down
 
 ## [Demo](https://codepen.io/bahrus/pen/VwzPwmv)
 
+## Example 1 -- Prerendered lib DOM that is repeated
 
-## Example 1 -- Prerendered live DOM that is repeated
+```html
+<div be-definitive=hello-world>
+    <div>Hello, <span>world</span></div>
+</div>
+<hello-world></hello-world>
+```
+
+## Example 2 -- With dynamic properties
 
 ```html
 <div be-definitive='{
@@ -57,7 +65,7 @@ The postfix -definitive is configurable also, within each ShadowDOM realm.
 
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 
-## Example 2 -- Template-based declarative web component
+## Example 3 -- Template-based declarative web component
 
 The "definer" can be a template to start with, and we can also apply "interpolation-from-a-distance":
 
@@ -79,7 +87,7 @@ The "definer" can be a template to start with, and we can also apply "interpolat
 <hello-world></hello-world>
 ```
 
-## Example 3 -- Pre-rendered web components that use declarative Shadow DOM.
+## Example 4 -- Pre-rendered web components that use declarative Shadow DOM.
 
 This syntax also works:
 
@@ -102,7 +110,7 @@ This syntax also works:
 <hello-world place=Mars></hello-world>
 ```
 
-## Example 4 Referencing non-JSON serializable entities. [TODO]
+## Example 5 Referencing non-JSON serializable entities. [TODO]
 
 There is a reason all the settings we've seen so far have been wrapped inside a "config" key.  That reason is that there are inputs that can go into a web component configuration that are not JSON serializable.  Unfortunately, I could not come up with a short, memorable name for "JSON-serializable config section", so I stuck with "config." But the bottom line is:  **The config section should only contain pure JSON.**
 

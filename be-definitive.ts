@@ -9,12 +9,20 @@ export class BeDefinitiveController{
     intro(self: Element, target: Element, beDecorProps: BeDecoratedProps) {
         let params: any = undefined;
         const attr = 'is-' + beDecorProps.ifWantsToBe!;
-        const attrVal = self.getAttribute(attr);
-        try{
-            params = JSON.parse(attrVal!);
-        }catch(e){
-            console.error({attr, attrVal, e});
-            return;
+        const attrVal = self.getAttribute(attr)!.trim();
+        if(attrVal[0] !== '{' && attrVal[0] !== '['){
+            params = {
+                config: {
+                    tagName: attrVal
+                }
+            };
+        }else{
+            try{
+                params = JSON.parse(attrVal!);
+            }catch(e){
+                console.error({attr, attrVal, e});
+                return;
+            }
         }
         const doUpdateTransformProps = Object.keys(params.config.propDefaults || {});
         params.config = params.config || {};
