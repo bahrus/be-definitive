@@ -27,16 +27,16 @@
     "doc": "custom-elements-manifest analyze"
   },
   "dependencies": {
-    "xtal-element": "0.0.452",
-    "trans-render": "0.0.427",
-    "be-decorated": "0.0.36",
-    "be-hive": "0.0.8",
+    "xtal-element": "0.0.453",
+    "trans-render": "0.0.31",
+    "be-decorated": "0.0.38",
+    "be-hive": "0.0.9",
     "xodus": "0.0.3"
   },
   "devDependencies": {
-    "xtal-test": "0.0.51",
+    "xtal-test": "0.0.52",
     "@skypack/package-check": "0.2.2",
-    "@custom-elements-manifest/analyzer": "0.5.6"
+    "@custom-elements-manifest/analyzer": "0.5.7"
   },
   "repository": {
     "type": "git",
