@@ -130,7 +130,7 @@ Proposed Syntax:
   "mixins": ["my-script:myMixin1"]
 }'>
 
-<script nomodule id=my-script be-functional>
+<script nomodule id=my-script be-exportable>
 
   export const messageHandler = e => {
 
@@ -145,9 +145,9 @@ Proposed Syntax:
 </script>
 ```
 
-...with the help of the soon-to-be-developed [be-functional](https://github.com/bahrus/be-functional) package.
+...with the help of the [be-exportable](https://github.com/bahrus/be-exportable) package.
 
-be-functional script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
+be-exportable script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
 
 
 
