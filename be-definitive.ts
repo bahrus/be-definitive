@@ -36,7 +36,7 @@ export class BeDefinitiveController{
         }
         params.complexPropDefaults = {
             ...(params.complexPropDefaults || {}),
-            mainTemplate: toTempl(self, self.localName === params.config.tag && self.shadowRoot !== null),
+            mainTemplate: toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null),
         }
         params.mixins = [...(params.mixins || []), tm.TemplMgmtMixin];
         const ce = new XE<any, any>(params);
