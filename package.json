@@ -5,9 +5,7 @@
     "web-components",
     "web-component",
     "custom-element",
-    "custom-elements",
-    "JSON",
-    "Editor"
+    "custom-elements"
   ],
   "description": "be-definitive allows us to take some DOM that needs to repeat, and turn it into a web component.",
   "main": "be-definitive.js",
@@ -28,13 +26,13 @@
   },
   "dependencies": {
     "xtal-element": "0.0.453",
-    "trans-render": "0.0.431",
-    "be-decorated": "0.0.43",
-    "be-hive": "0.0.9",
+    "trans-render": "0.0.433",
+    "be-decorated": "0.0.48",
+    "be-hive": "0.0.13",
     "xodus": "0.0.3"
   },
   "devDependencies": {
-    "xtal-test": "0.0.52",
+    "xtal-test": "0.0.54",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.5.7"
   },
