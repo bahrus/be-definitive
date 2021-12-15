@@ -52,7 +52,7 @@ define({
             upgrade,
             ifWantsToBe,
             noParse: true,
-            forceVisible: true,
+            forceVisible: ['template'],
             intro: 'intro',
         }
     },
