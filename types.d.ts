@@ -1,9 +1,10 @@
 import {DefineArgs} from 'xtal-element/src/types';
-export interface BeDefinitiveVirtualProps extends DefineArgs{
+import { PropSettings } from '../trans-render/lib/types';
+export interface BeDefinitiveVirtualProps<Props = any, Actions = Props> extends DefineArgs<Props, Actions>{
 
 }
 
-export interface BeDefinitiveProps extends BeDefinitiveVirtualProps{
+export interface BeDefinitiveProps<Props = any, Actions = Props> extends BeDefinitiveVirtualProps<Props, Actions>{
     proxy: Element & BeDefinitiveVirtualProps;
 }
 
