@@ -116,7 +116,7 @@ There is a reason all the settings we've seen so far have been wrapped inside a 
 
 Other recognized "inputs" that can go into a web component definition are non-serializable props, the superclass, and mixins.  So we want to support the ability to pass such things in to the web component stew, while sticking to declarative-ish syntax.
 
-Proposed Syntax:
+The following is supported:
 
 ```html
 <hello-world be-definitive='{
