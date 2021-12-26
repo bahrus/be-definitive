@@ -16,6 +16,10 @@
           "span": "place"
         }
       }
+    },
+    "scriptRef": "my-script",
+    "complexPropDefaults": {
+      "messageHandler": "messageHandler"
     }
   }'>
     <template shadowroot=open>
@@ -23,7 +27,7 @@
     </template>
   </hello-world>
 
-  <script nomodule be-exportable>
+  <script nomodule id=my-script be-exportable>
     export const messageHandler = e => {
       console.log(e);
     };

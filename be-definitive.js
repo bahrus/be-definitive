@@ -4,7 +4,7 @@ import { tm } from 'trans-render/lib/mixins/TemplMgmtWithPEST.js';
 import { toTempl } from 'xodus/toTempl.js';
 import { register } from 'be-hive/register.js';
 export class BeDefinitiveController {
-    intro(self, target, beDecorProps) {
+    async intro(self, target, beDecorProps) {
         let params = undefined;
         const attr = 'is-' + beDecorProps.ifWantsToBe;
         const attrVal = self.getAttribute(attr).trim();
@@ -34,10 +34,42 @@ export class BeDefinitiveController {
                 ifKeyIn: doUpdateTransformProps,
             }
         };
-        params.complexPropDefaults = {
-            ...(params.complexPropDefaults || {}),
-            mainTemplate: toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null),
-        };
+        if (params.scriptRef !== undefined) {
+            const script = self.getRootNode().querySelector('#' + params.scriptRef);
+            if (script.dataset.loaded !== undefined) {
+                this.setParamsFromScript(self, script, params);
+            }
+            else {
+                script.addEventListener('load', () => {
+                    this.setParamsFromScript(self, script, params);
+                });
+            }
+        }
+        else {
+            this.register(self, params);
+        }
+    }
+    setParamsFromScript(self, { _modExport }, params) {
+        const { complexPropDefaults, mixins, superclass } = params;
+        if (complexPropDefaults !== undefined) {
+            for (const key in complexPropDefaults) {
+                const val = complexPropDefaults[key];
+                complexPropDefaults[key] = _modExport[val];
+            }
+        }
+        if (mixins !== undefined) {
+            for (let i = 0, ii = mixins.length; i < ii; i++) {
+                const mixin = mixins[i];
+                mixins[i] = _modExport[mixin];
+            }
+        }
+        if (superclass !== undefined) {
+            params.superclass = _modExport[superclass];
+        }
+        this.register(self, params);
+    }
+    register(self, params) {
+        params.complexPropDefaults = { ...params.complexPropDefaults, mainTemplate: toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null) };
         params.mixins = [...(params.mixins || []), tm.TemplMgmtMixin];
         const ce = new XE(params);
     }

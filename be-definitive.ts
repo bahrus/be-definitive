@@ -1,5 +1,5 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
-import {BeDefinitiveProps, BeDefinitiveActions} from './types';
+import {BeDefinitiveProps, BeDefinitiveActions, BeDefinitiveVirtualProps} from './types';
 import {XE} from 'xtal-element/src/XE.js';
 import {TemplMgmtActions, TemplMgmtProps, tm} from 'trans-render/lib/mixins/TemplMgmtWithPEST.js';
 import {toTempl} from 'xodus/toTempl.js';
@@ -7,7 +7,7 @@ import {register} from 'be-hive/register.js';
 
 export class BeDefinitiveController{
     async intro(self: Element, target: Element, beDecorProps: BeDecoratedProps) {
-        let params: any = undefined;
+        let params: BeDefinitiveVirtualProps | undefined = undefined;
         const attr = 'is-' + beDecorProps.ifWantsToBe!;
         const attrVal = self.getAttribute(attr)!.trim();
         if(attrVal[0] !== '{' && attrVal[0] !== '['){
@@ -24,32 +24,58 @@ export class BeDefinitiveController{
                 return;
             }
         }
-        const doUpdateTransformProps = Object.keys(params.config.propDefaults || {});
-        params.config = params.config || {};
-        params.config.tagName = params.config.tagName || self.localName;
-        params.config.actions = {
-            ...(params.config.actions || {}),
+        const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
+        params!.config = params!.config || {};
+        params!.config.tagName = params!.config.tagName || self.localName;
+        params!.config.actions = {
+            ...(params!.config.actions || {}),
             ...tm.doInitTransform,
             doUpdateTransform: {
                 ifKeyIn: doUpdateTransformProps,
             }
         }
-        if(params.complexPropDefaults !== undefined){
-            for(const key in params.complexPropDefaults){
-                const val = params.complexPropDefaults[key] as string;
-                const split = val.split(':');
-                if(split.length !== 2){
-                    throw 'NI'; //not implemented
-                }
-                const scriptId = split[0];
-                
+        if(params!.scriptRef !== undefined){
+            const script = (self.getRootNode() as DocumentFragment)!.querySelector('#' + params!.scriptRef) as HTMLScriptElement;
+            if(script.dataset.loaded !== undefined){
+                this.setParamsFromScript(self, script, params!);
+            }else{
+                script.addEventListener('load', () => {
+                    this.setParamsFromScript(self, script, params!);
+                });
             }
-        }else{
-            params.complexPropDefaults = {};
-        }
-        params.complexPropDefaults.mainTemplate = toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null);
-        params.mixins = [...(params.mixins || []), tm.TemplMgmtMixin];
 
+        }else{
+            this.register(self, params!);
+        }
+        
+        
+
+        
+    }
+
+    setParamsFromScript(self: Element, {_modExport}: any, params : BeDefinitiveVirtualProps){
+        const {complexPropDefaults, mixins, superclass} = params;
+        if(complexPropDefaults !== undefined){
+            for(const key in complexPropDefaults){
+                const val = complexPropDefaults[key] as string;
+                complexPropDefaults[key] = _modExport[val];
+            }
+        }
+        if(mixins !== undefined){
+            for(let i = 0, ii = mixins.length; i < ii; i++){
+                const mixin = mixins[i];
+                mixins[i] = _modExport[mixin];
+            }
+        }
+        if(superclass !== undefined){
+            params.superclass = _modExport[superclass as any as string];
+        }
+        this.register(self, params);
+    }
+
+    register(self: Element, params: BeDefinitiveVirtualProps){
+        params.complexPropDefaults = {...params.complexPropDefaults, mainTemplate: toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null)};
+        params.mixins = [...(params.mixins || []), tm.TemplMgmtMixin];
         const ce = new XE<any, any>(params);
     }
 }
