@@ -123,11 +123,12 @@ Proposed Syntax:
   "config":{
     "...": "..."
   },
+  "scriptRef": "my-script",
   "complexPropDefaults": {
-    "messageHandler": "my-script:messageHandler"
+    "messageHandler": "messageHandler"
   },
-  "superclass": "my-script:myClass",
-  "mixins": ["my-script:myMixin1"]
+  "superclass": "myClass",
+  "mixins": ["myMixin1"]
 }'>
   <template shadowroot=open>
     <div>Hello, <span>world</span></div>

@@ -6,7 +6,7 @@ import {toTempl} from 'xodus/toTempl.js';
 import {register} from 'be-hive/register.js';
 
 export class BeDefinitiveController{
-    intro(self: Element, target: Element, beDecorProps: BeDecoratedProps) {
+    async intro(self: Element, target: Element, beDecorProps: BeDecoratedProps) {
         let params: any = undefined;
         const attr = 'is-' + beDecorProps.ifWantsToBe!;
         const attrVal = self.getAttribute(attr)!.trim();
@@ -34,11 +34,22 @@ export class BeDefinitiveController{
                 ifKeyIn: doUpdateTransformProps,
             }
         }
-        params.complexPropDefaults = {
-            ...(params.complexPropDefaults || {}),
-            mainTemplate: toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null),
+        if(params.complexPropDefaults !== undefined){
+            for(const key in params.complexPropDefaults){
+                const val = params.complexPropDefaults[key] as string;
+                const split = val.split(':');
+                if(split.length !== 2){
+                    throw 'NI'; //not implemented
+                }
+                const scriptId = split[0];
+                
+            }
+        }else{
+            params.complexPropDefaults = {};
         }
+        params.complexPropDefaults.mainTemplate = toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null);
         params.mixins = [...(params.mixins || []), tm.TemplMgmtMixin];
+
         const ce = new XE<any, any>(params);
     }
 }
