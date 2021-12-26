@@ -7,33 +7,37 @@
     <title>Document</title>
 </head>
 <body>
-    <div be-definitive='{
-        "config":{
-          "tagName":"hello-world",
-          "propDefaults":{
-            "place": "Venus",
-            "updateTransform":{
-              "span": "place"
-            }
+  <hello-world be-definitive='{
+    "config":{
+      "tagName":"hello-world",
+      "propDefaults":{
+        "place": "Venus",
+        "updateTransform":{
+          "span": "place"
+        }
+      }
+    }
+  }'>
+    <template shadowroot=open>
+      <div>Hello, <span>world</span></div>
+    </template>
+  </hello-world>
+
+  <hello-world place=Mars></hello-world>
+  <hello-world></hello-world>
+  <script type=importmap>
+      {
+          "imports":{
+              "trans-render/": "../node_modules/trans-render/",
+              "xtal-element/": "../node_modules/xtal-element/",
+              "be-decorated/": "../node_modules/be-decorated/",
+              "be-hive/": "../node_modules/be-hive/",
+              "xodus/": "../node_modules/xodus/"
           }
-        }
-      }'>
-        <div>Hello, <span>world</span></div>
-    </div>
-    <hello-world place=Mars></hello-world>
-    <hello-world></hello-world>
-    <script type=importmap>
-        {
-            "imports":{
-                "trans-render/": "../node_modules/trans-render/",
-                "xtal-element/": "../node_modules/xtal-element/",
-                "be-decorated/": "../node_modules/be-decorated/",
-                "xodus/": "../node_modules/xodus/"
-            }
-        }
-    </script>
-    <script type=module>
-        import '../be-definitive.js';
-    </script>
+      }
+  </script>
+  <script type=module>
+      import '../be-definitive.js';
+  </script>
 </body>
 </html>

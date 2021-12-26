@@ -129,6 +129,10 @@ Proposed Syntax:
   "superclass": "my-script:myClass",
   "mixins": ["my-script:myMixin1"]
 }'>
+  <template shadowroot=open>
+    <div>Hello, <span>world</span></div>
+  </template>
+</hello-world>
 
 <script nomodule id=my-script be-exportable>
 
