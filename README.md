@@ -110,7 +110,7 @@ This syntax also works:
 <hello-world place=Mars></hello-world>
 ```
 
-## Example 5 Referencing non-JSON serializable entities. [TODO]
+## Example 5 Referencing non-JSON serializable entities.
 
 There is a reason all the settings we've seen so far have been wrapped inside a "config" key.  That reason is that there are inputs that can go into a web component configuration that are not JSON serializable.  Unfortunately, I could not come up with a short, memorable name for "JSON-serializable config section", so I stuck with "config." But the bottom line is:  **The config section should only contain pure JSON.**
 
