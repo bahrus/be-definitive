@@ -1,8 +1,6 @@
 # be-definitive
 
-be-definitive is an attribute-based version of the [d-fine](https://github.com/bahrus/d-fine) custom element.
-
-be-definitive allows us to take some DOM that needs to repeat, and turn it into a web component.
+be-definitive allows us to take some DOM (maybe that that needs to repeat), and turn it into a web component.
 
 Or DOM that is already repeating (using declarative Shadow DOM), but that needs to be made interactive, via a web component.
 
@@ -57,6 +55,8 @@ So the first instance of the pattern displays without a single byte of Javascrip
 
 Subsequent instances take less bandwidth to download, and generate quite quickly due to use of templates.  It does require the be-definitive library to be loaded once.
 
+The updateTransform uses [trans-render](https://github.com/bahrus/trans-render) syntax.
+
 ## I Object
 
 If we need our HTML to be HTML5 compliant, we should probably prefix be- with data-.  That is supported.
@@ -94,7 +94,6 @@ This syntax also works:
 ```html
 <hello-world be-definitive='{
   "config":{
-    "tagName": "hello-world",
     "propDefaults":{
       "place": "Venus"
     },
@@ -154,7 +153,39 @@ The following is supported:
 
 be-exportable script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
 
+## Exammple 6 -- Even less declarative
 
+The trans-render library can work with scenarios where declarative JSON isn't expressive enough to describe what to do. We can tap into this power using the script reference:
+
+```html
+<hello-world be-definitive='{
+  "config":{
+    "propDefaults":{
+      "place": "Venus"
+    }
+  },
+  "scriptRef": "my-script",
+  "complexPropDefaults": {
+    "messageHandler": "messageHandler",
+    "updateTransform": "knockYourselfOut"
+  }
+}'>
+  <template shadowroot=open>
+    <div>Hello, <span>world</span></div>
+  </template>
+</hello-world>
+
+<script nomodule id=my-script be-exportable>
+  export const messageHandler = e => {
+    console.log(e);
+  };
+  export const knockYourselfOut = {
+      span: ({target}) => {
+          target.appendChild(document.body);
+      }
+  }
+</script>
+```
 
 
 

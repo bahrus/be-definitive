@@ -10,15 +10,13 @@
   <hello-world be-definitive='{
     "config":{
       "propDefaults":{
-        "place": "Venus",
-        "updateTransform":{
-          "span": "place"
-        }
+        "place": "Venus"
       }
     },
     "scriptRef": "my-script",
     "complexPropDefaults": {
-      "messageHandler": "messageHandler"
+      "messageHandler": "messageHandler",
+      "updateTransform": "knockYourselfOut"
     }
   }'>
     <template shadowroot=open>
@@ -30,6 +28,11 @@
     export const messageHandler = e => {
       console.log(e);
     };
+    export const knockYourselfOut = {
+        span: ({target}) => {
+            target.appendChild(document.body);
+        }
+    }
   </script>
 
   <hello-world place=Mars></hello-world>
