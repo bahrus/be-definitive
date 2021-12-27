@@ -41,7 +41,7 @@ export class BeDefinitiveController{
             }else{
                 script.addEventListener('load', () => {
                     this.setParamsFromScript(self, script, params!);
-                });
+                }, {once: true});
             }
 
         }else{
