@@ -137,7 +137,7 @@ This poses problems for a syntax like what we have above, that isn't very "JS fr
 
 Cloudflare does support something called HTML Rewriting, which in theory could work with template syntax like we've seen above, but that is a significant amount of work needed and their HTML Rewriting approach is far from an industry standard.  If such a thing could work inside service workers of a browser, it would be a more tempting api to invest in.  Another negative is it also lacks the ability to perform .matches queries on the elements, making the mapping to trans-render syntax rather difficult.
 
-So we need a "server-side compile step".  Similar to how asp.net of yore would take html markup and compile it first to slew of ugly c# write statements, which would then be fully compiled to an optimized binary.
+So we need a "server-side compile step".  Similar to how asp.net of yore would take html markup and compile it first to a slew of ugly c# write statements, which would then be fully compiled to an optimized binary.
 
 A natural place to perform this compile step would be with Puppeteer -- the compiler could be tested in a browser, with all its development debugging tools, then run automatically via a background node process / github action.
 
