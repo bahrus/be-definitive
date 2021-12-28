@@ -222,6 +222,8 @@ The trans-render library can work with scenarios where declarative JSON isn't ex
 </script>
 ```
 
+This also allows for use of powerful rendering libraries like [lit-html](https://www.npmjs.com/package/lit-html) to be tapped into.
+
 
 
 
