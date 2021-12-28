@@ -147,6 +147,9 @@ So we need a "server-side compile step".  Similar to how asp.net of yore would t
 
 A natural place to perform this compile step would be with Puppeteer -- the compiler could be tested in a browser, with all its development debugging tools, then run automatically via a background node process / github action.
 
+So the approach we will try is:
+
+Declarative Web Component File => Compile to a HTML Rewriter class => Save HTML Rewriter class to Cloudflare Worker module. 
 
 </details>
 
