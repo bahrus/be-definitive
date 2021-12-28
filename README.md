@@ -117,11 +117,11 @@ So a natural thought is we should have a file, "hello-world.html" that can be us
 1.  Embeddable in a larger HTML stream during server-side rendering.  Need to populate span with place parameter.
 2.  Standalone web request with query string parameters for the values of the props
 
-I am going to focus on doing this within a Cloudflare Worker environment, as it is a mature cloud based solution that seems "on the conservative" side, providing functionality without sacrificing performance.  I like how, for the most part, it adheres to the syntax of service workers that are available in the browser, so that the api feels like it is "here to stay".
+I am going to focus on doing this within a Cloudflare Worker environment, as it is a mature cloud based solution that seems "on the conservative" side, providing functionality without sacrificing performance.  I like how, for the most part, it [adheres to the syntax of service workers](https://blog.cloudflare.com/introducing-cloudflare-workers/#:~:text=A%20%22Cloudflare%20Worker%22%20is%20JavaScript%20you%20write%20that,and%20is%20written%20against%20the%20Service%20Worker%20API.) that are available in the browser, so that the api feels like it is "here to stay".
 
-The most apparent first step is that we need a function, call it renderFile, that can take said file and process it and write it to some output stream.
+In such a setting, the most apparent first step is that we need a function, call it renderFile, that can take said file and process it and write it to some output stream.
 
-Taking a cue from how Cloudflare's [streaming support works](https://github.com/PierBover/cloudflare-workers-streams-example/blob/master/renderPage.js) (haven't tried it yet, this all theoretical), one of our parameters is a encodeAndWrite function.
+Taking a cue from how Cloudflare's [streaming support works](https://github.com/PierBover/cloudflare-workers-streams-example/blob/master/renderPage.js) (haven't tried it yet, this all theoretical), one of our parameters is a encodeAndWrite function:
 
 ```TypeScript
 renderFile(filePath: string, props: any, encodeAndWrite: (html: string) => void): void
@@ -135,7 +135,7 @@ In some future happy place, [Cloudflare Workers](https://community.cloudflare.co
 
 This poses problems for a syntax like what we have above, that isn't very "JS friendly."
 
-Cloudflare does support something called HTML Rewriting, which in theory could work with template syntax like we've seen above, but that is a significant amount of work needed and their HTML Rewriting approach is far from an industry standard.  If such a thing could work inside service workers of a browser, it would be a more tempting api to invest in.  Another negative is it also lacks the ability to perform .matches queries on the elements, making the mapping to trans-render syntax rather difficult.
+Cloudflare does support something called HTML Rewriting, which in theory could work with template syntax like we've seen above, but that is a significant amount of work needed and their HTML Rewriting approach is far from an industry standard.  If such a thing could work inside service workers of a browser, (okay, it [can apparently](https://github.com/worker-tools/parsed-html-rewriter)) it would be a more tempting api to invest in.  Another negative is it also lacks the ability to perform .matches queries on the elements, making the mapping to trans-render syntax rather difficult.
 
 So we need a "server-side compile step".  Similar to how asp.net of yore would take html markup and compile it first to a slew of ugly c# write statements, which would then be fully compiled to an optimized binary.
 
