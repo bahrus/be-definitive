@@ -135,7 +135,13 @@ In some future happy place, [Cloudflare Workers](https://community.cloudflare.co
 
 This poses problems for a syntax like what we have above, that isn't very "JS friendly."
 
-Cloudflare does support something called HTML Rewriting, which in theory could work with template syntax like we've seen above, but that is a significant amount of work needed and their HTML Rewriting approach is far from an industry standard.  If such a thing could work inside service workers of a browser, (okay, it [can apparently](https://github.com/worker-tools/parsed-html-rewriter)) it would be a more tempting api to invest in.  Another negative is it also lacks the [full range of allowed CSS queries that element.matches](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter#selectors) supports making the mapping to trans-render syntax a bit dicey.
+Cloudflare does support something called HTML Rewriting, which in theory could work with template syntax like we've seen above.  Some hesitations about this idea (and hesitations to my hesitations):
+
+1.  Their HTML Rewriting approach is [far from an industry standard](https://duckduckgo.com/?q=htmlrewriter&t=h_&ia=web).  
+2.  If such a thing could work inside service workers of a browser, that would make it appealing.
+      1.  Okay, it [can apparently](https://github.com/worker-tools/parsed-html-rewriter)).  
+3.  It also appears to lack the [full range of allowed CSS queries that element.matches](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter#selectors) supports making the mapping to trans-render syntax a bit dicey.  
+      1.  However, in many cases, in my experience using trans-render syntax so far, queries rarely get more complicated than what 
 
 So we need a "server-side compile step".  Similar to how asp.net of yore would take html markup and compile it first to a slew of ugly c# write statements, which would then be fully compiled to an optimized binary.
 
