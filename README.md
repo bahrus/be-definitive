@@ -124,7 +124,7 @@ The most apparent first step is that we need a function, call it renderFile, tha
 Taking a cue from how Cloudflare's [streaming support works](https://github.com/PierBover/cloudflare-workers-streams-example/blob/master/renderPage.js) (haven't tried it yet, this all theoretical), one of our parameters is a encodeAndWrite function.
 
 ```TypeScript
-renderFile(file: string, props: any, encodeAndWrite: (html: string) => void): void
+renderFile(filePath: string, props: any, encodeAndWrite: (html: string) => void): void
 ```
 
 This would work fine if we are okay having the span hidden or displaying something generic during SSR, and wait for JS to be loaded to actually see live data.
