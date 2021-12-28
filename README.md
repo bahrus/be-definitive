@@ -109,6 +109,41 @@ This syntax also works:
 <hello-world place=Mars></hello-world>
 ```
 
+<details>
+  <summary>Thoughts on server-side rendering</summary>
+
+So a natural thought is we should have a file, "hello-world.html" that can be used in various scenarios:
+
+1.  Embeddable in a larger HTML stream during server-side rendering.  Need to populate span with place parameter.
+2.  Standalone web request with query string parameters for the values of the props
+
+I am going to focus on doing this within a Cloudflare Worker environment, as it is a mature cloud based solution that seems "on the conservative" side, providing functionality without sacrificing performance.  I like how, for the most part, it adheres to the syntax of service workers that are available in the browser, so that the api feels like it is "here to stay".
+
+The most apparent first step is that we need a function, call it renderFile, that can take said file and process it and write it to some output stream.
+
+Taking a cue from how Cloudflare's [streaming support works](https://github.com/PierBover/cloudflare-workers-streams-example/blob/master/renderPage.js) (haven't tried it yet, this all theoretical), one of our parameters is a encodeAndWrite function.
+
+```TypeScript
+renderFile(file: string, props: any, encodeAndWrite: (html: string) => void): void
+```
+
+This would work fine if we are okay having the span hidden or displaying something generic during SSR, and wait for JS to be loaded to actually see live data.
+
+But let's think through what it would take to get live data into that span.
+
+In some future happy place, [Cloudflare Workers](https://community.cloudflare.com/t/domparser-in-worker/169917) will have support for working with fully parsed HTML, against which queries can be performed, like in a browser.  Ideally because Service Workers would also have such support.  But that seems quite far off.  
+
+This poses problems for a syntax like what we have above, that isn't very "JS friendly."
+
+Cloudflare does support something called HTML Rewriting, which in theory could work with template syntax like we've seen above, but that is a significant amount of work needed and their HTML Rewriting approach is far from an industry standard.  If such a thing could work inside service workers of a browser, it would be a more tempting api to invest in.  It also likes the ability to perform .matches queries on the elements, making the mapping rather difficult.
+
+So we need a "server-side compile step".  Similar to how asp.net of yore would take html markup and compile it first to slew of ugly c# write statements, which would then be fully compiled to an optimized binary.
+
+A natural place to perform this compile step would be with Puppeteer -- the compiler could be tested in a browser, with all its development debugging tools, then run automatically via a background node process / github action.
+
+
+</details>
+
 ## Example 5 Referencing non-JSON serializable entities.
 
 There is a reason all the settings we've seen so far have been wrapped inside a "config" key.  That reason is that there are inputs that can go into a web component configuration that are not JSON serializable.  Unfortunately, I could not come up with a short, memorable name for "JSON-serializable config section", so I stuck with "config." But the bottom line is:  **The config section should only contain pure JSON.**
