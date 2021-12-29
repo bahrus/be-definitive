@@ -197,7 +197,7 @@ The following is supported:
 
 be-exportable script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
 
-## Exammple 6 -- Even less declarative
+## Example 6 -- Even less declarative
 
 The trans-render library can work with scenarios where declarative JSON isn't expressive enough to describe what to do. We can tap into this power using the script reference:
 
