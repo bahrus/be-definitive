@@ -1,19 +1,22 @@
 # be-definitive
 
-be-definitive allows us to take some DOM (maybe that that needs to repeat), and turn it into a web component.
+be-definitive allows us to take some DOM that is in the live DOM tree, and turn it into a web component.  This allows that DOM to appear again in other parts of the page via a single tag.  Customizations can be made to each instance based on the values of properties / attributes.
 
-Or DOM that is already repeating (using declarative Shadow DOM), but that needs to be made interactive, via a web component.
+And even with the original DOM that was in the live DOM tree, turning it into a web component allows us to "hydrate" the static DOM  into something that is interactive.
 
-Basically, declarative custom elements (once the necessary dependencies are downloaded).
+Basically, be-definitive is a solution for declarative custom elements (once the necessary dependencies are downloaded).  But the functionality can be seamlessly extended to support non-declarative custom elements as well, as we will see below.
 
 ## [Demo](https://codepen.io/bahrus/pen/VwzPwmv)
 
-## Example 1 -- Prerendered lib DOM that is repeated
+## Example 1 -- Prerendered live DOM that is reused
 
 ```html
 <div be-definitive=hello-world>
     <div>Hello, <span>world</span></div>
 </div>
+
+...
+
 <hello-world></hello-world>
 ```
 
@@ -65,6 +68,10 @@ The postfix -definitive is configurable also, within each ShadowDOM realm.
 
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 
+And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that exists in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS like syntax.  Typescript 4.6 may add support for mts files that compile to mjs files, which then allows typing of the attributes.  For now, it is necessary for the build step to copy the js file to mts before performing the build.
+
+Anyway.
+
 ## Example 3 -- Template-based declarative web component
 
 The "definer" can be a template to start with, and we can also apply "interpolation-from-a-distance":
@@ -92,70 +99,44 @@ The "definer" can be a template to start with, and we can also apply "interpolat
 This syntax also works:
 
 ```html
-<hello-world be-definitive='{
-  "config":{
-    "propDefaults":{
-      "place": "Venus"
+  <hello-world be-definitive='{
+    "config":{
+      "propDefaults":{
+        "place": "Venus",
+        "updateTransform":{
+          "span": "place"
+        }
+      }
     },
-    "transform":{
-      "span": "place"
+    "scriptRef": "my-script",
+    "complexPropDefaults": {
+      "messageHandler": "messageHandler"
     }
-  }
-}'>
-  <template shadowroot=open>
-    <div>Hello, <span>world</span></div>
-  </template>
-</hello-world>
-<hello-world place=Mars></hello-world>
+  }'>
+    <template shadowroot=open>
+      <div>Hello, <span>world</span></div>
+    </template>
+  </hello-world>
 ```
 
-<details>
-  <summary>Thoughts on server-side rendering</summary>
+## Server-side rendering
 
-So a natural thought is we should have a file, "hello-world.html" that can be used in various scenarios:
+A large swath of useful web components, for example web components that wrap some of the amazing [codepens](https://duckduckgo.com/?q=best+codepens+of&t=h_&ia=web) we see, don't require a single line of custom Javascript.  The slot mechanism supported by web components can go a long way towards weaving in dynamic content.
 
-1.  Embeddable in a larger HTML stream during server-side rendering.  Need to populate span with place parameter.
-2.  Standalone web request with optional query string parameters for the values of the props
+In that scenario, the CDN server of the (built) static HTML file *is* the SSR solution, as long as the HTML file can either be 
+1.  Embedded in the server stream for the entire page, or
+2.  Client-side included, via a solution like like Jquery's [load](https://api.jquery.com/load/) method, [k-fetch](https://github.com/bahrus/k-fetch), [include-fragment-element](https://github.com/github/include-fragment-element), [sl-include](https://shoelace.style/components/include), [templ-mount](https://github.com/bahrus/templ-mount), [xtal-fetch](https://github.com/bahrus/xtal-fetch), [html-includes](https://www.filamentgroup.com/lab/), [wc-include](https://www.npmjs.com/package/@vanillawc/wc-include), [ng-include](https://www.w3schools.com/angular/ng_ng-include.asp), [html-include-element](https://www.npmjs.com/package/html-include-element) or countless other ought-to-be-built-into-the-platform-already-but-isnt options (sigh).
 
-I am going to focus on doing this within a Cloudflare Worker environment, as it is a mature cloud based solution that seems "on the conservative" side, providing functionality without sacrificing performance.  I like how, for the most part, it [adheres to the syntax of service workers](https://blog.cloudflare.com/introducing-cloudflare-workers/#:~:text=A%20%22Cloudflare%20Worker%22%20is%20JavaScript%20you%20write%20that,and%20is%20written%20against%20the%20Service%20Worker%20API.) that are available in the browser, so that the api feels like it is "here to stay".
+However, there are certainly scenarios where weaving in dynamic content in the server is useful, beyond what can be done with slots, in order to provide a better initial view (at the cost of losing offline caching functionality, perhaps).
 
-In such a setting, the most apparent first step is that we need a function, call it renderFile, that can take said file and process it and write it to some output stream.
+One solution being pursued for this functionality is the [xodus cloudflare helper classes project](https://github.com/bahrus/xodus).
 
-Taking a cue from how Cloudflare's [streaming support works](https://github.com/PierBover/cloudflare-workers-streams-example/blob/master/renderPage.js) (haven't tried it yet, this all theoretical), one of our parameters is a encodeAndWrite function:
+Its goal is to apply the "updateTransform" specified above, but in the cloud (or service worker).
 
-```TypeScript
-renderFile(filePath: string, props: any, encodeAndWrite: (html: string) => void): void
-```
 
-This would work fine if we are okay having the span hidden or displaying something generic during SSR, and wait for JS to be loaded to actually see live data.
+## Example 5 -- Referencing non-JSON serializable entities.
 
-But let's think through what it would take to get live data into that span.
-
-In some future happy place, [Cloudflare Workers](https://community.cloudflare.com/t/domparser-in-worker/169917) will have support for working with fully parsed HTML, against which queries can be performed, like in a browser.  Ideally because Service Workers would also have such support.  But that seems quite far off.  
-
-This poses problems for a syntax like what we have above, that isn't very "JS friendly."
-
-Cloudflare does support something called HTML Rewriting, which in theory could work with template syntax like we've seen above.  Some hesitations about this idea (and hesitations to my hesitations):
-
-1.  Their HTML Rewriting approach is [far from an industry standard](https://duckduckgo.com/?q=htmlrewriter&t=h_&ia=web).  
-2.  If such a thing could work inside service workers of a browser, that would make it appealing.
-      1.  Okay, it [can apparently](https://github.com/worker-tools/parsed-html-rewriter)).  
-3.  It also appears to lack the [full range of allowed CSS queries that element.matches](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter#selectors) supports making the mapping to trans-render syntax a bit dicey.  
-      1.  However, in many cases, in my experience using trans-render syntax so far, queries rarely get more complicated than what 
-
-So we need a "server-side compile step".  Similar to how asp.net of yore would take html markup and compile it first to a slew of ugly c# write statements, which would then be fully compiled to an optimized binary.
-
-A natural place to perform this compile step would be with Puppeteer -- the compiler could be tested in a browser, with all its development debugging tools, then run automatically via a background node process / github action.
-
-So the approach we will try is:
-
-Declarative Web Component File => Compile to a HTML Rewriter class => Save HTML Rewriter class to Cloudflare Worker module. 
-
-</details>
-
-## Example 5 Referencing non-JSON serializable entities.
-
-There is a reason all the settings we've seen so far have been wrapped inside a "config" key.  That reason is that there are inputs that can go into a web component configuration that are not JSON serializable.  Unfortunately, I could not come up with a short, memorable name for "JSON-serializable config section", so I stuck with "config." But the bottom line is:  **The config section should only contain pure JSON.**
+There is a reason all the settings we've seen so far have been wrapped inside a "config" key.  That reason is that there are inputs that can go into a web component configuration that are not JSON serializable.  Unfortunately, I could not come up with a short, memorable name for "JSON-serializable config section", so I stuck with "config." But the bottom line is:  **The config section should only contain pure JSON, or JSON-serialiability entities if using an mjs build step.**
 
 Other recognized "inputs" that can go into a web component definition are non-serializable props, the superclass, and mixins.  So we want to support the ability to pass such things in to the web component stew, while sticking to declarative-ish syntax.
 
@@ -193,45 +174,17 @@ The following is supported:
 </script>
 ```
 
-...with the help of the [be-exportable](https://github.com/bahrus/be-exportable) package.
+...with the help of the [be-exportable](https://github.com/bahrus/be-exportable) script tag decorator.
+
+This also allows for use of powerful rendering libraries like [lit-html](https://www.npmjs.com/package/lit-html) to be tapped into.
 
 be-exportable script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
 
-## Example 6 -- Even less declarative
+Another way to reference external web components is via the [be-active](https://github.com/bahrus/be-active) template tag decorator.
 
-The trans-render library can work with scenarios where declarative JSON isn't expressive enough to describe what to do. We can tap into this power using the script reference:
 
-```html
-<hello-world be-definitive='{
-  "config":{
-    "propDefaults":{
-      "place": "Venus"
-    }
-  },
-  "scriptRef": "my-script",
-  "complexPropDefaults": {
-    "messageHandler": "messageHandler",
-    "updateTransform": "knockYourselfOut"
-  }
-}'>
-  <template shadowroot=open>
-    <div>Hello, <span>world</span></div>
-  </template>
-</hello-world>
 
-<script nomodule id=my-script be-exportable>
-  export const messageHandler = e => {
-    console.log(e);
-  };
-  export const knockYourselfOut = {
-      span: ({target}) => {
-          target.appendChild(document.body);
-      }
-  }
-</script>
-```
 
-This also allows for use of powerful rendering libraries like [lit-html](https://www.npmjs.com/package/lit-html) to be tapped into.
 
 
 
