@@ -118,21 +118,23 @@ This syntax also works:
   </hello-world>
 ```
 
+Requires declarative [ShadowDOM polyfill for Firefox / Safari](https://web.dev/declarative-shadow-dom/#detection-support).
+
 ## Server-side rendering
 
 A large swath of useful web components, for example web components that wrap some of the amazing [codepens](https://duckduckgo.com/?q=best+codepens+of&t=h_&ia=web) we see, don't (or shouldn't, anyway) require a single line of custom Javascript.  The slot mechanism supported by web components can go a long way towards weaving in dynamic content.
 
 In that scenario, the CDN server of the (built) static HTML file *is* the SSR solution, as long as the HTML file can either be 
 1.  Embedded in the server stream for the entire page, or
-2.  Client-side included, via a solution like like Jquery's [load](https://api.jquery.com/load/) method, [k-fetch](https://github.com/bahrus/k-fetch), [include-fragment-element](https://github.com/github/include-fragment-element), [sl-include](https://shoelace.style/components/include), [templ-mount](https://github.com/bahrus/templ-mount), [xtal-fetch](https://github.com/bahrus/xtal-fetch), [html-includes](https://www.filamentgroup.com/lab/), [wc-include](https://www.npmjs.com/package/@vanillawc/wc-include), [ng-include](https://www.w3schools.com/angular/ng_ng-include.asp), [html-include-element](https://www.npmjs.com/package/html-include-element) or countless other ought-to-be-built-into-the-platform-already-but-isnt options (sigh).
+2.  Client-side included, via a solution like Jquery's [load](https://api.jquery.com/load/) method, [k-fetch](https://github.com/bahrus/k-fetch), [include-fragment-element](https://github.com/github/include-fragment-element), [sl-include](https://shoelace.style/components/include), [templ-mount](https://github.com/bahrus/templ-mount), [xtal-fetch](https://github.com/bahrus/xtal-fetch), [html-includes](https://www.filamentgroup.com/lab/), [wc-include](https://www.npmjs.com/package/@vanillawc/wc-include), [ng-include](https://www.w3schools.com/angular/ng_ng-include.asp), [html-include-element](https://www.npmjs.com/package/html-include-element) or countless other ought-to-be-built-into-the-platform-already-but-isnt options (sigh).
 
 The latter approach is more conducive to fine-grained caching.
 
-However, there are certainly scenarios where weaving in dynamic content in the server is useful, beyond what can be done with slots, in order to provide a better initial view (at the cost of losing offline caching functionality, perhaps).
+However, there are certainly scenarios where weaving in dynamic content in the server is useful, beyond what can be done with slots, in order to provide a better initial view (at the cost of losing fine-grained caching functionality, perhaps).
 
 One solution being pursued for this functionality is the [xodus cloudflare helper classes project](https://github.com/bahrus/xodus).
 
-Its goal is to apply the "updateTransform" specified above, but in the cloud (or service worker).
+Its goal is to apply the "updateTransform" specified above, but in the cloud (or service worker) for the initial render (or pre-render?).
 
 
 ## Example 5 -- Referencing non-JSON serializable entities.
