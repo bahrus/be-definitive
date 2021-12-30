@@ -110,10 +110,6 @@ This syntax also works:
           "span": "place"
         }
       }
-    },
-    "scriptRef": "my-script",
-    "complexPropDefaults": {
-      "messageHandler": "messageHandler"
     }
   }'>
     <template shadowroot=open>
@@ -141,7 +137,7 @@ Its goal is to apply the "updateTransform" specified above, but in the cloud (or
 
 ## Example 5 -- Referencing non-JSON serializable entities.
 
-There is a reason all the settings we've seen so far have been wrapped inside a "config" key.  That reason is that there are inputs that can go into a web component configuration that are not JSON serializable.  Unfortunately, I could not come up with a short, memorable name for "JSON-serializable config section", so I stuck with "config." But the bottom line is:  **The config section should only contain pure JSON, or JSON-serialiability entities if using an mjs build step.**
+There is a reason all the settings we've seen so far have been wrapped inside a "config" key.  That reason is that there are inputs that can go into a web component configuration that are not JSON serializable.  Unfortunately, I could not come up with a short, memorable name for "JSON-serializable config section", so I stuck with "config." But the bottom line is:  **The config section should only contain pure JSON, or JSON-serializable entities if using an mjs build step.**
 
 Other recognized "inputs" that can go into a web component definition are non-serializable props, the superclass, and mixins.  So we want to support the ability to pass such things in to the web component stew, while sticking to declarative-ish syntax.
 
