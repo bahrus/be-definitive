@@ -68,7 +68,7 @@ The postfix -definitive is configurable also, within each ShadowDOM realm.
 
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 
-And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 may add support for mts files that compile to mjs files, which then allows typing of the attributes.  For now, it is necessary for the build step to copy the js file to mts before performing the build.  Examples of this in practice are:
+And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 may add support for mts files that compile to mjs files, which then allows typing of the attributes.  For now, it is necessary for the build step to copy the js file to mjs before performing the build.  Examples of this in practice are:
 
 1.  [xtal-side-nav](https://github.com/bahrus/xtal-side-nav)
 2.  xtal-editor [WIP]
@@ -141,7 +141,7 @@ Its goal is to apply the "updateTransform" specified above, but in the cloud (or
 
 There is a reason all the settings we've seen so far have been wrapped inside a "config" key.  That reason is that there are inputs that can go into a web component configuration that are not JSON serializable.  Unfortunately, I could not come up with a short, memorable name for "JSON-serializable config section", so I stuck with "config." But the bottom line is:  **The config section should only contain pure JSON, or JSON-serializable entities if using an mjs build step.**
 
-Other recognized "inputs" that can go into a web component definition are non-serializable props, the superclass, and mixins.  So we want to support the ability to pass such things in to the web component stew, while sticking to declarative-ish syntax.
+Other recognized "inputs" that can go into a web component definition are non-serializable prop default values, the superclass, and mixins.  So we want to support the ability to pass such things in to the web component stew, while sticking to declarative-ish syntax.
 
 The following is supported:
 
@@ -179,7 +179,7 @@ The following is supported:
 
 ...with the help of the [be-exportable](https://github.com/bahrus/be-exportable) script tag decorator.
 
-This also allows for use of powerful rendering libraries like [lit-html](https://www.npmjs.com/package/lit-html) to be tapped into.
+This also allows us to tap into powerful rendering libraries like [lit-html](https://www.npmjs.com/package/lit-html).
 
 be-exportable script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
 
