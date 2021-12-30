@@ -58,7 +58,7 @@ So the first instance of the pattern displays without a single byte of Javascrip
 
 Subsequent instances take less bandwidth to download, and generate quite quickly due to use of templates.  It does require the be-definitive library to be loaded once.
 
-The updateTransform uses [trans-render](https://github.com/bahrus/trans-render) syntax.
+The updateTransform uses [trans-render](https://github.com/bahrus/trans-render) syntax, but welcomes inline binding with Template Instantiation being built into the platform as well.
 
 ## I Object
 
@@ -68,7 +68,10 @@ The postfix -definitive is configurable also, within each ShadowDOM realm.
 
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 
-And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that exists in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS like syntax.  Typescript 4.6 may add support for mts files that compile to mjs files, which then allows typing of the attributes.  For now, it is necessary for the build step to copy the js file to mts before performing the build.
+And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 may add support for mts files that compile to mjs files, which then allows typing of the attributes.  For now, it is necessary for the build step to copy the js file to mts before performing the build.  Examples of this in practice are:
+
+1.  [xtal-side-nav](https://github.com/bahrus/xtal-side-nav)
+2.  xtal-editor [WIP]
 
 Anyway.
 
@@ -121,11 +124,13 @@ This syntax also works:
 
 ## Server-side rendering
 
-A large swath of useful web components, for example web components that wrap some of the amazing [codepens](https://duckduckgo.com/?q=best+codepens+of&t=h_&ia=web) we see, don't require a single line of custom Javascript.  The slot mechanism supported by web components can go a long way towards weaving in dynamic content.
+A large swath of useful web components, for example web components that wrap some of the amazing [codepens](https://duckduckgo.com/?q=best+codepens+of&t=h_&ia=web) we see, don't (or shouldn't, anyway) require a single line of custom Javascript.  The slot mechanism supported by web components can go a long way towards weaving in dynamic content.
 
 In that scenario, the CDN server of the (built) static HTML file *is* the SSR solution, as long as the HTML file can either be 
 1.  Embedded in the server stream for the entire page, or
 2.  Client-side included, via a solution like like Jquery's [load](https://api.jquery.com/load/) method, [k-fetch](https://github.com/bahrus/k-fetch), [include-fragment-element](https://github.com/github/include-fragment-element), [sl-include](https://shoelace.style/components/include), [templ-mount](https://github.com/bahrus/templ-mount), [xtal-fetch](https://github.com/bahrus/xtal-fetch), [html-includes](https://www.filamentgroup.com/lab/), [wc-include](https://www.npmjs.com/package/@vanillawc/wc-include), [ng-include](https://www.w3schools.com/angular/ng_ng-include.asp), [html-include-element](https://www.npmjs.com/package/html-include-element) or countless other ought-to-be-built-into-the-platform-already-but-isnt options (sigh).
+
+The latter approach is more conducive to fine-grained caching.
 
 However, there are certainly scenarios where weaving in dynamic content in the server is useful, beyond what can be done with slots, in order to provide a better initial view (at the cost of losing offline caching functionality, perhaps).
 
