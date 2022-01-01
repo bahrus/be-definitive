@@ -7,7 +7,7 @@
     "custom-element",
     "custom-elements"
   ],
-  "description": "be-definitive allows us to take some DOM that needs to repeat, and turn it into a web component.",
+  "description": "be-definitive allows us to take some DOM that needs to repeat elsewhere on the page, and turn it into a web component.",
   "main": "be-definitive.js",
   "module": "be-definitive.js",
   "exports": {
