@@ -1,6 +1,10 @@
 # be-definitive
 
-be-definitive allows us to take some DOM that is in the live DOM tree, and turn it into a web component.  This allows that DOM to appear again in other parts of the page via a single tag.  Customizations can be made to each instance based on the values of properties / attributes.
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/be-definitive)
+
+<a href="https://nodei.co/npm/be-switched/"><img src="https://nodei.co/npm/be-switched.png"></a>
+
+be-definitive allows us to take some DOM that is in the live DOM tree, or DOM that is imported into the tree via fetch, and turn it into a web component.  This allows that DOM to appear again in other parts of the page via a single tag.  Customizations can be made to each instance based on the values of properties / attributes.
 
 And even with the original DOM that was in the live DOM tree, turning it into a web component allows us to "hydrate" the static DOM  into something that is interactive.
 
@@ -64,7 +68,7 @@ The updateTransform uses [trans-render](https://github.com/bahrus/trans-render) 
 
 If we need our HTML to be HTML5 compliant, we should probably prefix be- with data-.  That is supported.
 
-The postfix -definitive is configurable also, within each ShadowDOM realm.
+The ending -definitive is configurable also, within each ShadowDOM realm.
 
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 
@@ -124,18 +128,18 @@ Requires declarative [ShadowDOM polyfill for Firefox / Safari](https://web.dev/d
 
 A large swath of useful web components, for example web components that wrap some of the amazing [codepens](https://duckduckgo.com/?q=best+codepens+of&t=h_&ia=web) we see, don't (or shouldn't, anyway) require a single line of custom Javascript.  The slot mechanism supported by web components can go a long way towards weaving in dynamic content.
 
-In that scenario, the CDN server of the (built) static HTML file *is* the SSR solution, as long as the HTML file can either be 
+In that scenario, the CDN server of the (pre-built) static HTML file *is* the SSR solution, as long as the HTML file can either be 
 1.  Embedded in the server stream for the entire page, or
 2.  Client-side included, via a solution like Jquery's [load](https://api.jquery.com/load/) method, [k-fetch](https://github.com/bahrus/k-fetch), [include-fragment-element](https://github.com/github/include-fragment-element), [sl-include](https://shoelace.style/components/include), [templ-mount](https://github.com/bahrus/templ-mount), [xtal-fetch](https://github.com/bahrus/xtal-fetch), [html-includes](https://www.filamentgroup.com/lab/), [wc-include](https://www.npmjs.com/package/@vanillawc/wc-include), [ng-include](https://www.w3schools.com/angular/ng_ng-include.asp), [html-include-element](https://www.npmjs.com/package/html-include-element) or countless other ought-to-be-built-into-the-platform-already-but-isnt options (sigh).
+3.  On the client-side include side, [be-importing](https://github.com/bahrus/be-importing) is specifically tailored for this scenario.
 
-The latter approach is more conducive to fine-grained caching.
+The client-side approach is more conducive to fine-grained caching, while the server-side stream approach better for above-the-fold initial view metrics.
 
-However, there are certainly scenarios where weaving in dynamic content in the server is useful, beyond what can be done with slots, in order to provide a better initial view (at the cost of losing fine-grained caching functionality, perhaps).
+Of going with the server-side route, there are certainly scenarios where weaving in dynamic content in the server is useful, beyond what can be done with slots, in order to provide a better initial view.
 
 One solution being pursued for this functionality is the [xodus cloudflare helper classes project](https://github.com/bahrus/xodus).
 
 Its goal is to apply the "updateTransform" specified above, but in the cloud (or service worker) for the initial render (or pre-render?).
-
 
 ## Example 5 -- Referencing non-JSON serializable entities.
 
@@ -184,6 +188,16 @@ This also allows us to tap into powerful rendering libraries like [lit-html](htt
 be-exportable script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
 
 Another way to reference external web components is via the [be-active](https://github.com/bahrus/be-active) template tag decorator.
+
+## Viewing this element Locally
+
+1.  Install git.
+2.  Fork/clone this repo.
+3.  Install node.
+4.  Open command window to folder where you cloned this repo.
+5.  > npm install
+6.  > npm run serve
+7.  Open http://localhost:3030/demo/dev in a modern browser.
 
 
 
