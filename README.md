@@ -75,7 +75,7 @@ Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://m
 And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 may add support for mts files that compile to mjs files, which then allows typing of the attributes.  For now, it is necessary for the build step to copy the js file to mjs before performing the build.  Examples of this in practice are:
 
 1.  [xtal-side-nav](https://github.com/bahrus/xtal-side-nav)
-2.  xtal-editor [WIP]
+2.  [xtal-editor](https://github.com/bahrus/xtal-editor)
 
 Anyway.
 
