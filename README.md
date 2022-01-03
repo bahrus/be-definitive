@@ -4,6 +4,8 @@
 
 <a href="https://nodei.co/npm/be-switched/"><img src="https://nodei.co/npm/be-switched.png"></a>
 
+[![Actions Status](https://github.com/bahrus/be-definitive/workflows/CI/badge.svg)](https://github.com/bahrus/be-definitive/actions?query=workflow%3ACI)
+
 be-definitive allows us to take some DOM that is in the live DOM tree, or DOM that is imported into the tree via fetch, and turn it into a web component.  This allows that DOM to appear again in other parts of the page via a single tag.  Customizations can be made to each instance based on the values of properties / attributes.
 
 And even with the original DOM that was in the live DOM tree, turning it into a web component allows us to "hydrate" the static DOM  into something that is interactive.
