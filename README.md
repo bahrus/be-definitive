@@ -137,7 +137,7 @@ In that scenario, the CDN server of the (pre-built) static HTML file *is* the SS
 
 The client-side approach is more conducive to fine-grained caching, while the server-side stream approach better for above-the-fold initial view metrics.
 
-Of going with the server-side route, there are certainly scenarios where weaving in dynamic content in the server is useful, beyond what can be done with slots, in order to provide a better initial view.
+If going with the server-side route, there are certainly scenarios where weaving in dynamic content in the server is useful, beyond what can be done with slots, in order to provide a better initial view.
 
 One solution being pursued for this functionality is the [xodus cloudflare helper classes project](https://github.com/bahrus/xodus).
 
@@ -191,7 +191,7 @@ be-exportable script tags can use ESM Module imports, so the amount of code foun
 
 Another way to reference external web components is via the [be-active](https://github.com/bahrus/be-active) template tag decorator.
 
-## Viewing this element Locally
+## Viewing this element locally
 
 1.  Install git.
 2.  Fork/clone this repo.
