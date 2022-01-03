@@ -6,7 +6,7 @@ export interface BeDefinitiveVirtualProps<Props = any, Actions = Props> extends 
     /**
      * Used for providing hints to server side processing what css queries should be observed if using HTMLRewriter.
      */
-    keyQueries: string[];
+    keyQueries?: string[];
 }
 
 export interface BeDefinitiveProps<Props = any, Actions = Props> extends BeDefinitiveVirtualProps<Props, Actions>{
