@@ -201,6 +201,12 @@ Another way to reference external web components is via the [be-active](https://
 6.  > npm run serve
 7.  Open http://localhost:3030/demo/dev in a modern browser.
 
+## Running Tests
+
+```
+> npm run test
+```
+
 
 
 
