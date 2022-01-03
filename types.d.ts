@@ -4,7 +4,7 @@ export interface BeDefinitiveVirtualProps<Props = any, Actions = Props> extends 
     scriptRef?: string;
 
     /**
-     * Used for providing hints to server side processing using the HTML what queries should be observed if using HTMLRewriter.
+     * Used for providing hints to server side processing what css queries should be observed if using HTMLRewriter.
      */
     keyQueries: string[];
 }
