@@ -2,7 +2,7 @@ import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeDefinitiveProps, BeDefinitiveActions, BeDefinitiveVirtualProps} from './types';
 import {XE} from 'xtal-element/src/XE.js';
 import {TemplMgmtActions, TemplMgmtProps, tm} from 'trans-render/lib/mixins/TemplMgmtWithPEST.js';
-import {toTempl} from 'xodus/toTempl.js';
+import {toTempl} from './toTempl.js';
 import {register} from 'be-hive/register.js';
 
 export class BeDefinitiveController{
