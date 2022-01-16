@@ -1,7 +1,6 @@
 import { define } from 'be-decorated/be-decorated.js';
 import { XE } from 'xtal-element/src/XE.js';
 import { tm } from 'trans-render/lib/mixins/TemplMgmtWithPEST.js';
-import { toTempl } from './toTempl.js';
 import { register } from 'be-hive/register.js';
 export class BeDefinitiveController {
     async intro(self, target, beDecorProps) {
@@ -93,3 +92,18 @@ define({
     }
 });
 register(ifWantsToBe, upgrade, tagName);
+export function toTempl(templ, fromShadow) {
+    let templateToClone = templ;
+    if (!(templateToClone instanceof HTMLTemplateElement)) {
+        templateToClone = document.createElement('template');
+        if (fromShadow) {
+            templateToClone.innerHTML = templ.shadowRoot.innerHTML;
+        }
+        else {
+            templateToClone.innerHTML = templ.innerHTML;
+        }
+    }
+    // insertMoustache('x-f', templateToClone);
+    // insertMoustache('data-xf', templateToClone);
+    return templateToClone;
+}

@@ -2,7 +2,6 @@ import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeDefinitiveProps, BeDefinitiveActions, BeDefinitiveVirtualProps} from './types';
 import {XE} from 'xtal-element/src/XE.js';
 import {TemplMgmtActions, TemplMgmtProps, tm} from 'trans-render/lib/mixins/TemplMgmtWithPEST.js';
-import {toTempl} from './toTempl.js';
 import {register} from 'be-hive/register.js';
 
 export class BeDefinitiveController{
@@ -47,10 +46,6 @@ export class BeDefinitiveController{
         }else{
             this.register(self, params!);
         }
-        
-        
-
-        
     }
 
     setParamsFromScript(self: Element, {_modExport}: any, params : BeDefinitiveVirtualProps){
@@ -100,3 +95,19 @@ define<BeDefinitiveProps & BeDecoratedProps, BeDefinitiveActions>({
     }
 });
 register(ifWantsToBe, upgrade, tagName);
+
+export function toTempl(templ: Element, fromShadow: boolean){
+    let templateToClone = templ as HTMLTemplateElement;
+    if(!(templateToClone instanceof HTMLTemplateElement)){
+        templateToClone = document.createElement('template');
+        if(fromShadow){
+            templateToClone.innerHTML = templ.shadowRoot!.innerHTML;
+        }else{
+            templateToClone.innerHTML = templ.innerHTML;
+        }
+                
+    }
+    // insertMoustache('x-f', templateToClone);
+    // insertMoustache('data-xf', templateToClone);
+    return templateToClone;
+}
