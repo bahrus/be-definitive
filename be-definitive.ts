@@ -107,7 +107,7 @@ export function toTempl(templ: Element, fromShadow: boolean){
             if(beHive !== null){
                 const decoratorElements = Array.from(beHive.children) as any as BeDecoratedProps[];
                 for(const decorEl of decoratorElements){
-                    const ifWantsToBe = decorEl.ifWantsToBe;
+                    const ifWantsToBe = (decorEl as any as Element).getAttribute('if-wants-to-be');
                     if(ifWantsToBe === undefined) continue;
                     const isAttr = 'is-' + ifWantsToBe;
                     const beAttr = 'be-' + ifWantsToBe;
