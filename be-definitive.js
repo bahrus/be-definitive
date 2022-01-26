@@ -98,6 +98,24 @@ export function toTempl(templ, fromShadow) {
         templateToClone = document.createElement('template');
         if (fromShadow) {
             templateToClone.innerHTML = templ.shadowRoot.innerHTML;
+            const content = templateToClone.content;
+            const beHive = content.querySelector('be-hive');
+            if (beHive !== null) {
+                const decoratorElements = Array.from(beHive.children);
+                for (const decorEl of decoratorElements) {
+                    const ifWantsToBe = decorEl.ifWantsToBe;
+                    if (ifWantsToBe === undefined)
+                        continue;
+                    const isAttr = 'is-' + ifWantsToBe;
+                    const beAttr = 'be-' + ifWantsToBe;
+                    const converted = Array.from(content.querySelectorAll(`[${isAttr}]`));
+                    for (const el of converted) {
+                        const attr = el.getAttribute(isAttr);
+                        el.removeAttribute(isAttr);
+                        el.setAttribute(beAttr, attr);
+                    }
+                }
+            }
         }
         else {
             templateToClone.innerHTML = templ.innerHTML;
