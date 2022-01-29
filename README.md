@@ -191,6 +191,20 @@ be-exportable script tags can use ESM Module imports, so the amount of code foun
 
 Another way to reference external web components is via the [be-active](https://github.com/bahrus/be-active) template tag decorator.
 
+Example 6:  Creating a web component out of third-party HTML stream using declarative Shadow DOM [TODO]
+
+Assuming we have the ability to insert an HTML inside the third party stream, if we insert:
+
+```html
+<template be-definitive='{
+  "applyTo": "host"
+}'></template>
+```
+
+It will apply the be-deinitive decorator to the host element.
+
+Content inside the template is not used.
+
 ## Viewing this element locally
 
 1.  Install git.
