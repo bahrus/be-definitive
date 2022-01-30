@@ -161,7 +161,10 @@ The following is supported:
     "messageHandler": "messageHandler"
   },
   "superclass": "myClass",
-  "mixins": ["myMixin1"]
+  "mixins": ["myMixin1"],
+  "transformPlugins": [
+    "beBased": "beBasedPlugin"
+  ]
 }'>
   <template shadowroot=open>
     <div>Hello, <span>world</span></div>
@@ -179,6 +182,10 @@ The following is supported:
 
   export const myMixin1 = class {
 
+  }
+
+  export const beBasedPlugin = (ctx) => {
+    
   }
 </script>
 ```

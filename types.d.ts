@@ -3,6 +3,7 @@ import { PropSettings } from '../trans-render/lib/types';
 export interface BeDefinitiveVirtualProps<Props = any, Actions = Props> extends DefineArgs<Props, Actions>{
     scriptRef?: string;
     scriptPath?: string;
+    transformPlugins?: {[key: string]: string};
 }
 
 export interface BeDefinitiveProps<Props = any, Actions = Props> extends BeDefinitiveVirtualProps<Props, Actions>{

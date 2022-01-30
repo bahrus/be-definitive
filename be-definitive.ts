@@ -49,7 +49,7 @@ export class BeDefinitiveController{
     }
 
     setParamsFromScript(self: Element, {_modExport}: any, params : BeDefinitiveVirtualProps){
-        const {complexPropDefaults, mixins, superclass} = params;
+        const {complexPropDefaults, mixins, superclass, transformPlugins} = params;
         if(complexPropDefaults !== undefined){
             for(const key in complexPropDefaults){
                 const val = complexPropDefaults[key] as string;
@@ -64,6 +64,12 @@ export class BeDefinitiveController{
         }
         if(superclass !== undefined){
             params.superclass = _modExport[superclass as any as string];
+        }
+        if(transformPlugins !== undefined){
+            for(const key in transformPlugins){
+                const val = transformPlugins[key] as string;
+                transformPlugins[key] = _modExport[val];
+            }
         }
         this.register(self, params);
     }
