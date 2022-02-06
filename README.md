@@ -208,7 +208,7 @@ Assuming we have the ability to insert an HTML inside the third party stream, if
 }'></template>
 ```
 
-It will apply the be-deinitive decorator to the host element.
+It will apply the be-definitive decorator to the host element.
 
 Content inside the template is not used.
 

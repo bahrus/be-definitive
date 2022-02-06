@@ -1,7 +1,8 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeDefinitiveProps, BeDefinitiveActions, BeDefinitiveVirtualProps} from './types';
 import {XE} from 'xtal-element/src/XE.js';
-import {TemplMgmtActions, TemplMgmtProps, tm} from 'trans-render/lib/mixins/TemplMgmtWithPEST.js';
+//import {TemplMgmtActions, TemplMgmtProps, tm} from 'trans-render/lib/mixins/TemplMgmtWithPEST.js';
+import {Action, TemplMgmt, TemplMgmtActions, TemplMgmtProps, beTransformed} from 'trans-render/lib/mixins/TemplMgmt.js';
 import {register} from 'be-hive/register.js';
 
 export class BeDefinitiveController{
@@ -25,13 +26,14 @@ export class BeDefinitiveController{
         }
         const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params!.config = params!.config || {};
-        params!.config.tagName = params!.config.tagName || self.localName;
+        const {config} = params!;
+        config.tagName = config.tagName || self.localName;
+        config.propDefaults = config.propDefaults || {};
+        const {propDefaults} = config;
+        propDefaults.transform = propDefaults.transform || {};
         params!.config.actions = {
             ...(params!.config.actions || {}),
-            ...tm.doInitTransform,
-            doUpdateTransform: {
-                ifKeyIn: doUpdateTransformProps,
-            }
+            ...beTransformed,
         }
         if(params!.scriptRef !== undefined){
             const script = (self.getRootNode() as DocumentFragment)!.querySelector('#' + params!.scriptRef) as HTMLScriptElement;
@@ -76,7 +78,7 @@ export class BeDefinitiveController{
 
     register(self: Element, params: BeDefinitiveVirtualProps){
         params.complexPropDefaults = {...params.complexPropDefaults, mainTemplate: toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null)};
-        params.mixins = [...(params.mixins || []), tm.TemplMgmtMixin];
+        params.mixins = [...(params.mixins || []), TemplMgmt];
         const ce = new XE<any, any>(params);
     }
 }
