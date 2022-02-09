@@ -26,6 +26,21 @@ Basically, be-definitive is a solution for declarative custom elements (once the
 <hello-world></hello-world>
 ```
 
+Renders:
+
+```html
+<div be-definitive=hello-world>
+    <div>Hello, <span>world</span></div>
+</div>
+
+<hello-world>
+  #shadow-root
+    <div>Hello, <span>world</span></div>
+</hello-world>
+...
+
+**NB:** Shadow DOM can be bypassed via the "noshadow" config setting.  It might make sense in this case not to use Shadow DOM for consistency between the original, defining element and subsequent instances.
+
 ## Example 2 -- With dynamic properties
 
 ```html
@@ -34,7 +49,7 @@ Basically, be-definitive is a solution for declarative custom elements (once the
     "tagName":"hello-world",
     "propDefaults":{
       "place": "Venus",
-      "updateTransform":{
+      "tansform":{
         "span": "place"
       }
     },
@@ -64,7 +79,9 @@ So the first instance of the pattern displays without a single byte of Javascrip
 
 Subsequent instances take less bandwidth to download, and generate quite quickly due to use of templates.  It does require the be-definitive library to be loaded once.
 
-The updateTransform uses [trans-render](https://github.com/bahrus/trans-render) syntax, but welcomes inline binding with Template Instantiation being built into the platform as well.
+The transform uses [DTR](https://github.com/bahrus/trans-render) syntax, but welcomes inline binding with Template Instantiation being built into the platform as well.
+
+To apply multiple transforms, use an array.  Each transform should only be applied when the dependent properties change ("place" in this case).
 
 ## I Object
 
@@ -74,14 +91,15 @@ The ending -definitive is configurable also, within each ShadowDOM realm.
 
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 
-And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 may add support for mts files that compile to mjs files, which then allows typing of the attributes.  For now, it is necessary for the build step to copy the js file to mjs before performing the build.  Examples of this in practice are:
+And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 is adding support for mts files that compile to mjs files, which then allows typing of the attributes.  For now, it is necessary for the build step to copy the js file to mjs before performing the build, or specify the beta or nightly version.  Examples of this in practice are:
 
 1.  [xtal-side-nav](https://github.com/bahrus/xtal-side-nav)
 2.  [xtal-editor](https://github.com/bahrus/xtal-editor)
+3.  [cotus](https://https://github.com/bahrus/cotus)
 
 Anyway.
 
-## Example 3 -- Template-based declarative web component
+## Example 3 -- Template-based declarative web components
 
 The "definer" can be a template to start with, and we can also apply "interpolation-from-a-distance":
 
@@ -102,6 +120,8 @@ The "definer" can be a template to start with, and we can also apply "interpolat
 <hello-world place=Mars></hello-world>
 <hello-world></hello-world>
 ```
+
+The interpolation is currently a bit limited  (can't interpolate between a closing tag and an opening tag), and doesn't use Ranges[TODO].
 
 ## Example 4 -- Pre-rendered web components that use declarative Shadow DOM.
 
@@ -124,15 +144,15 @@ This syntax also works:
   </hello-world>
 ```
 
-Requires declarative [ShadowDOM polyfill for Firefox / Safari](https://web.dev/declarative-shadow-dom/#detection-support).
+It requires declarative [ShadowDOM polyfill for Firefox / Safari](https://web.dev/declarative-shadow-dom/#detection-support).
 
 ## Server-side rendering
 
 A large swath of useful web components, for example web components that wrap some of the amazing [codepens](https://duckduckgo.com/?q=best+codepens+of&t=h_&ia=web) we see, don't (or shouldn't, anyway) require a single line of custom Javascript.  The slot mechanism supported by web components can go a long way towards weaving in dynamic content.
 
-In that scenario, the CDN server of the (pre-built) static HTML file *is* the SSR solution, as long as the HTML file can either be 
+In that scenario, the CDN server of the (pre-built) static HTML file (or a local file inclusion, imported into the solution via npm) *is* the SSR solution, as long as the HTML file can either be 
 1.  Embedded in the server stream for the entire page, or
-2.  Client-side included, via a solution like Jquery's [load](https://api.jquery.com/load/) method, [k-fetch](https://github.com/bahrus/k-fetch), [include-fragment-element](https://github.com/github/include-fragment-element), [sl-include](https://shoelace.style/components/include), [templ-mount](https://github.com/bahrus/templ-mount), [xtal-fetch](https://github.com/bahrus/xtal-fetch), [html-includes](https://www.filamentgroup.com/lab/), [wc-include](https://www.npmjs.com/package/@vanillawc/wc-include), [ng-include](https://www.w3schools.com/angular/ng_ng-include.asp), [html-include-element](https://www.npmjs.com/package/html-include-element) or countless other ought-to-be-built-into-the-platform-already-but-isnt options (sigh).
+2.  Client-side included, via a solution like Jquery's [load](https://api.jquery.com/load/) method, [k-fetch](https://github.com/bahrus/k-fetch), [include-fragment-element](https://github.com/github/include-fragment-element), [sl-include](https://shoelace.style/components/include), [templ-mount](https://github.com/bahrus/templ-mount), [xtal-fetch](https://github.com/bahrus/xtal-fetch), [html-includes](https://www.filamentgroup.com/lab/), [wc-include](https://www.npmjs.com/package/@vanillawc/wc-include), [ng-include](https://www.w3schools.com/angular/ng_ng-include.asp), [html-include-element](https://www.npmjs.com/package/html-include-element) or countless other ought-to-be-built-into-the-platform-already-but-isn't options (sigh).
 3.  On the client-side include side, [be-importing](https://github.com/bahrus/be-importing) is specifically tailored for this scenario.
 
 The client-side approach is more conducive to fine-grained caching, while the server-side stream approach better for above-the-fold initial view metrics.
@@ -141,7 +161,7 @@ If going with the server-side route, there are certainly scenarios where weaving
 
 One solution being pursued for this functionality is the [xodus cloudflare helper classes project](https://github.com/bahrus/xodus).
 
-Its goal is to apply the "updateTransform" specified above, but in the cloud (or service worker) for the initial render (or pre-render?).
+Its goal is to apply the "transform(s)" specified above, but in the cloud (or service worker) for the initial render (or pre-render?).
 
 ## Example 5 -- Referencing non-JSON serializable entities.
 
