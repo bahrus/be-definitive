@@ -49,7 +49,7 @@ Renders:
     "tagName":"hello-world",
     "propDefaults":{
       "place": "Venus",
-      "tansform":{
+      "transform":{
         "span": "place"
       }
     },
@@ -65,7 +65,7 @@ Renders:
 
 ```html
 <div>
-    <div>Hello, <span>Venus</span></div>
+    <div>Hello, <span>world</span></div>
 </div>
 <hello-world place=Mars>
     #shadow
@@ -132,7 +132,7 @@ This syntax also works:
     "config":{
       "propDefaults":{
         "place": "Venus",
-        "updateTransform":{
+        "transform":{
           "span": "place"
         }
       }
