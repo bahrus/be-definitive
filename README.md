@@ -232,6 +232,20 @@ It will apply the be-definitive decorator to the host element.
 
 Content inside the template is not used.
 
+## Styling
+
+For more efficient template cloning / repetitive styling, use style tag with attributed "be-adopted":
+
+```html
+<style be-adopted>
+  div{
+    color:red;
+  }
+</style>
+```
+
+This will take advantage of constructible stylesheets when available.
+
 ## Viewing this element locally
 
 1.  Install git.
