@@ -1,6 +1,5 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeDefinitiveProps, BeDefinitiveActions, BeDefinitiveVirtualProps} from './types';
-//import {TemplMgmtActions, TemplMgmtProps, tm} from 'trans-render/lib/mixins/TemplMgmtWithPEST.js';
 import {Action, TemplMgmt, TemplMgmtActions, TemplMgmtProps, beTransformed} from 'trans-render/lib/mixins/TemplMgmt.js';
 import {register} from 'be-hive/register.js';
 

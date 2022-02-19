@@ -25,17 +25,18 @@
     "doc": "custom-elements-manifest analyze"
   },
   "dependencies": {
-    "xtal-element": "0.0.472",
-    "trans-render": "0.0.473",
-    "be-decorated": "0.0.79",
-    "be-hive": "0.0.28"
+    "xtal-element": "0.0.477",
+    "trans-render": "0.0.484",
+    "be-decorated": "0.0.81",
+    "be-hive": "0.0.31"
   },
   "devDependencies": {
     "xtal-test": "0.0.55",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.5.7",
     "be-exportable": "0.0.10",
-    "xtal-editor": "0.0.130"
+    "xtal-editor": "0.0.138",
+    "xtal-shell": "0.0.25"
   },
   "repository": {
     "type": "git",
