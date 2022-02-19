@@ -22,7 +22,7 @@ export class BeDefinitiveController{
                 return;
             }
         }
-        const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
+        //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params!.config = params!.config || {};
         const {config} = params!;
         config.tagName = config.tagName || self.localName;
@@ -75,7 +75,15 @@ export class BeDefinitiveController{
     }
 
     async register(self: Element, params: BeDefinitiveVirtualProps){
-        params.complexPropDefaults = {...params.complexPropDefaults, mainTemplate: toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null)};
+        const mainTemplate = toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null);
+        //TODO:  make this a transform plugin?
+        const adopted = Array.from(mainTemplate.content.querySelectorAll('style[be-adopted]'));
+        const styles = adopted.map(s => {
+            const inner = s.innerHTML;
+            s.remove();
+            return inner;
+        }).join('');
+        params.complexPropDefaults = {...params.complexPropDefaults, mainTemplate, styles};
         params.mixins = [...(params.mixins || []), TemplMgmt];
         const {XE} = await import('xtal-element/src/XE.js');
         const ce = new XE<any, any>(params);
