@@ -75,7 +75,7 @@ export class BeDefinitiveController{
     }
 
     async register(self: Element, params: BeDefinitiveVirtualProps){
-        const mainTemplate = toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null);
+        const mainTemplate = await toTempl(self, self.localName === params.config.tagName && self.shadowRoot !== null);
         //TODO:  make this a transform plugin?
         const adopted = Array.from(mainTemplate.content.querySelectorAll('style[be-adopted]'));
         const styles = adopted.map(s => {
@@ -111,7 +111,7 @@ define<BeDefinitiveProps & BeDecoratedProps, BeDefinitiveActions>({
 });
 register(ifWantsToBe, upgrade, tagName);
 
-export function toTempl(templ: Element, fromShadow: boolean){
+export async function toTempl(templ: Element, fromShadow: boolean){
     let templateToClone = templ as HTMLTemplateElement;
     if(!(templateToClone instanceof HTMLTemplateElement)){
         templateToClone = document.createElement('template');
@@ -120,19 +120,21 @@ export function toTempl(templ: Element, fromShadow: boolean){
             const content = templateToClone.content;
             const beHive = content.querySelector('be-hive');
             if(beHive !== null){
-                const decoratorElements = Array.from(beHive.children) as any as BeDecoratedProps[];
-                for(const decorEl of decoratorElements){
-                    const ifWantsToBe = (decorEl as any as Element).getAttribute('if-wants-to-be');
-                    if(ifWantsToBe === undefined) continue;
-                    const isAttr = 'is-' + ifWantsToBe;
-                    const beAttr = 'be-' + ifWantsToBe;
-                    const converted = Array.from(content.querySelectorAll(`[${isAttr}]`));
-                    for(const el of converted){
-                        const attr = el.getAttribute(isAttr)!;
-                        el.removeAttribute(isAttr);
-                        el.setAttribute(beAttr, attr);
-                    }
-                }
+                const {freeze} = await import('trans-render/lib/freeze.js');
+                freeze(content, beHive);
+                // const decoratorElements = Array.from(beHive.children) as any as BeDecoratedProps[];
+                // for(const decorEl of decoratorElements){
+                //     const ifWantsToBe = (decorEl as any as Element).getAttribute('if-wants-to-be');
+                //     if(ifWantsToBe === undefined) continue;
+                //     const isAttr = 'is-' + ifWantsToBe;
+                //     const beAttr = 'be-' + ifWantsToBe;
+                //     const converted = Array.from(content.querySelectorAll(`[${isAttr}]`));
+                //     for(const el of converted){
+                //         const attr = el.getAttribute(isAttr)!;
+                //         el.removeAttribute(isAttr);
+                //         el.setAttribute(beAttr, attr);
+                //     }
+                // }
             }
         }else{
             templateToClone.innerHTML = templ.innerHTML;
