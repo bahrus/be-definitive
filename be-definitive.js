@@ -1,16 +1,11 @@
 import { define } from 'be-decorated/be-decorated.js';
-import { tempAttrLookup } from 'be-decorated/upgrade.js';
+import { getVal } from 'be-decorated/upgrade.js';
 import { TemplMgmt, beTransformed } from 'trans-render/lib/mixins/TemplMgmt.js';
 import { register } from 'be-hive/register.js';
 export class BeDefinitiveController {
     async intro(self, target, beDecorProps) {
         let params = undefined;
-        const lookup = tempAttrLookup.get(target);
-        const val = lookup[beDecorProps.ifWantsToBe];
-        delete lookup[beDecorProps.ifWantsToBe];
-        if (Object.keys(lookup).length === 0) {
-            tempAttrLookup.delete(target);
-        }
+        const val = getVal(target, beDecorProps.ifWantsToBe);
         const attrVal = val[0];
         // const attr = 'be-' + beDecorProps.ifWantsToBe!;
         // const attrVal = self.getAttribute(attr)!.trim();
