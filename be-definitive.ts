@@ -9,6 +9,10 @@ export class BeDefinitiveController{
         let params: BeDefinitiveVirtualProps | undefined = undefined;
         const lookup = tempAttrLookup.get(target)!;
         const val = lookup[beDecorProps.ifWantsToBe];
+        delete lookup[beDecorProps.ifWantsToBe];
+        if(Object.keys(lookup).length === 0){
+            tempAttrLookup.delete(target);
+        }
         const attrVal = val[0]!;
         // const attr = 'be-' + beDecorProps.ifWantsToBe!;
         // const attrVal = self.getAttribute(attr)!.trim();
