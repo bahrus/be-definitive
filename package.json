@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "xtal-element": "0.0.486",
-    "trans-render": "0.0.518",
-    "be-decorated": "0.0.96",
+    "trans-render": "0.0.523",
+    "be-decorated": "0.0.105",
     "be-hive": "0.0.38"
   },
   "devDependencies": {

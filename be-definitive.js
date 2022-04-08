@@ -1,14 +1,11 @@
 import { define } from 'be-decorated/be-decorated.js';
-import { getVal } from 'be-decorated/upgrade.js';
 import { TemplMgmt, beTransformed } from 'trans-render/lib/mixins/TemplMgmt.js';
 import { register } from 'be-hive/register.js';
 export class BeDefinitiveController {
     async intro(self, target, beDecorProps) {
         let params = undefined;
-        const val = getVal(target, beDecorProps.ifWantsToBe);
-        const attrVal = val[0];
-        // const attr = 'be-' + beDecorProps.ifWantsToBe!;
-        // const attrVal = self.getAttribute(attr)!.trim();
+        const attr = 'be-' + beDecorProps.ifWantsToBe;
+        const attrVal = self.getAttribute(attr).trim();
         if (attrVal[0] !== '{' && attrVal[0] !== '[') {
             params = {
                 config: {
@@ -21,7 +18,7 @@ export class BeDefinitiveController {
                 params = JSON.parse(attrVal);
             }
             catch (e) {
-                console.error({ val, attrVal, e });
+                console.error({ attr, attrVal, e });
                 return;
             }
         }

@@ -1,5 +1,4 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
-import {getVal} from 'be-decorated/upgrade.js';
 import {BeDefinitiveProps, BeDefinitiveActions, BeDefinitiveVirtualProps} from './types';
 import {Action, TemplMgmt, TemplMgmtActions, TemplMgmtProps, beTransformed} from 'trans-render/lib/mixins/TemplMgmt.js';
 import {register} from 'be-hive/register.js';
@@ -7,10 +6,8 @@ import {register} from 'be-hive/register.js';
 export class BeDefinitiveController{
     async intro(self: Element, target: Element, beDecorProps: BeDecoratedProps) {
         let params: BeDefinitiveVirtualProps | undefined = undefined;
-        const val = getVal(target!, beDecorProps.ifWantsToBe);
-        const attrVal = val[0]!;
-        // const attr = 'be-' + beDecorProps.ifWantsToBe!;
-        // const attrVal = self.getAttribute(attr)!.trim();
+        const attr = 'be-' + beDecorProps.ifWantsToBe!;
+        const attrVal = self.getAttribute(attr)!.trim();
         if(attrVal[0] !== '{' && attrVal[0] !== '['){
             params = {
                 config: {
@@ -21,7 +18,7 @@ export class BeDefinitiveController{
             try{
                 params = JSON.parse(attrVal!);
             }catch(e){
-                console.error({val, attrVal, e});
+                console.error({attr, attrVal, e});
                 return;
             }
         }
