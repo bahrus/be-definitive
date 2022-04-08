@@ -4,7 +4,7 @@ import { register } from 'be-hive/register.js';
 export class BeDefinitiveController {
     async intro(self, target, beDecorProps) {
         let params = undefined;
-        const attr = 'be-' + beDecorProps.ifWantsToBe;
+        const attr = 'is-' + beDecorProps.ifWantsToBe;
         const attrVal = self.getAttribute(attr).trim();
         if (attrVal[0] !== '{' && attrVal[0] !== '[') {
             params = {
