@@ -34,12 +34,11 @@ Renders:
 </div>
 
 <hello-world>
-  #shadow-root
     <div>Hello, <span>world</span></div>
 </hello-world>
 ...
 
-**NB:** Shadow DOM can be bypassed via the "noshadow" config setting.  It might make sense in this case not to use Shadow DOM for consistency between the original, defining element and subsequent instances.
+**NB:** Shadow DOM is bypassed in this instance (an exception to the general rule).  It makes sense in this case not to use Shadow DOM for consistency between the original, defining element and subsequent instances.
 
 ## Example 2 -- With dynamic properties
 
@@ -73,6 +72,29 @@ Renders:
         <div>Hello, <span>Mars</span></div>
     </div>
 </hello-world>
+```
+
+Use of ShadowDOM is somewhat iffy in this scenario, as styling is fundamentally different between the "defining" element and subsequent elements.  But this behavior is left to allow the developer the ability to choose which way to go.
+
+To disable ShadowDOM:
+
+```html
+<div be-definitive='{
+  "config":{
+    "tagName":"hello-world",
+    "propDefaults":{
+      "place": "Venus",
+      "transform":{
+        "span": "place"
+      },
+      "noshadow": true
+    },
+  }
+
+}'>
+  <div>Hello, <span>world</span></div>
+</div>
+<hello-world place=Mars></hello-world>
 ```
 
 So the first instance of the pattern displays without a single byte of Javascript being downloaded.  

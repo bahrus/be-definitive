@@ -9,7 +9,10 @@ export class BeDefinitiveController {
         if (attrVal[0] !== '{' && attrVal[0] !== '[') {
             params = {
                 config: {
-                    tagName: attrVal
+                    tagName: attrVal,
+                    propDefaults: {
+                        noshadow: true,
+                    }
                 }
             };
         }
