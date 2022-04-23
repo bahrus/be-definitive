@@ -14,13 +14,12 @@ Basically, be-definitive is a solution for declarative custom elements (once the
 
 ## [Demo](https://codepen.io/bahrus/pen/VwzPwmv)
 
-## Example 1 -- Prerendered live DOM that is reused
+## Example 1 -- Pre-rendered live DOM that is reused
 
 ```html
 <div be-definitive=hello-world>
     <div>Hello, <span>world</span></div>
 </div>
-
 ...
 
 <hello-world></hello-world>
@@ -32,13 +31,13 @@ Renders:
 <div be-definitive=hello-world>
     <div>Hello, <span>world</span></div>
 </div>
-
+...
 <hello-world>
     <div>Hello, <span>world</span></div>
 </hello-world>
-...
+```
 
-**NB:** Shadow DOM is bypassed in this instance (an exception to the general rule).  It makes sense in this case not to use Shadow DOM for consistency between the original, defining element and subsequent instances.
+**NB:** Shadow DOM is bypassed in this instance (an exception to the general rule).  It makes sense in this case not to use Shadow DOM for consistency between the original, defining element, and subsequent instances, for styling consistency.
 
 ## Example 2 -- With dynamic properties
 
@@ -74,9 +73,9 @@ Renders:
 </hello-world>
 ```
 
-Use of ShadowDOM is somewhat iffy in this scenario, as styling is fundamentally different between the "defining" element and subsequent elements.  But this behavior is left to allow the developer the ability to choose which way to go.
+In this use case, using ShadowDOM is somewhat iffy in this scenario, as now styling is fundamentally different between the "defining" element and subsequent elements.  But this behavior is left this way by default in order to allow the developer the ability to choose which way to go in a consistent manner.
 
-To disable ShadowDOM:
+To disable ShadowDOM, use the "noshadow" setting:
 
 ```html
 <div be-definitive='{
@@ -101,7 +100,7 @@ So the first instance of the pattern displays without a single byte of Javascrip
 
 Subsequent instances take less bandwidth to download, and generate quite quickly due to use of templates.  It does require the be-definitive library to be loaded once.
 
-The transform uses [DTR](https://github.com/bahrus/trans-render) syntax, but welcomes inline binding with Template Instantiation being built into the platform as well.
+The "transform" setting uses [DTR](https://github.com/bahrus/trans-render) syntax, similar to CSS in order to bind the template, but *be-definitive" eagerly awaits inline binding with Template Instantiation being built into the platform as well.
 
 To apply multiple transforms, use an array.  Each transform should only be applied when the dependent properties change ("place" in this case).
 
@@ -113,7 +112,7 @@ The ending -definitive is configurable also, within each ShadowDOM realm.
 
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 
-And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 is adding support for mts files that compile to mjs files, which then allows typing of the attributes.  Examples of this in practice are:
+And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 supports compiling mts to mjs files, which then allows typing of the attributes.  Examples of this in practice are:
 
 1.  [xtal-side-nav](https://github.com/bahrus/xtal-side-nav)
 2.  [xtal-editor](https://github.com/bahrus/xtal-editor)
