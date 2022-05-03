@@ -19,24 +19,25 @@
   ],
   "types": "types.d.ts",
   "scripts": {
-    "test": "node test/test-all.js",
-    "serve": "node node_modules/xtal-test/serve.js",
+    "serve": "node node_modules/may-it-serve/serve.js",
+    "test": "playwright test",
     "package-check": "package-check",
     "doc": "custom-elements-manifest analyze"
   },
   "dependencies": {
-    "xtal-element": "0.0.492",
-    "trans-render": "0.0.535",
-    "be-decorated": "0.0.112",
-    "be-hive": "0.0.44"
+    "xtal-element": "0.0.493",
+    "trans-render": "0.0.536",
+    "be-decorated": "0.0.113",
+    "be-hive": "0.0.45"
   },
   "devDependencies": {
-    "xtal-test": "0.0.56",
+    "@playwright/test": "1.21.1",
+    "may-it-serve": "0.0.0",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.5.7",
-    "be-exportable": "0.0.20",
-    "xtal-editor": "0.0.160",
-    "xtal-shell": "0.0.25"
+    "be-exportable": "0.0.21",
+    "xtal-editor": "0.0.169",
+    "xtal-shell": "0.0.27"
   },
   "repository": {
     "type": "git",
