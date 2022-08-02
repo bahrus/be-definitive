@@ -188,7 +188,7 @@ The good people of github, in particular, earn a definitive stamp of approval fr
 
 >A proxy may attempt to fetch and replace the fragment if the request finishes before the timeout. Otherwise the tag is delivered to the client. This library only implements the client side aspect.
 
-Amen!
+[Music to my ears!](https://youtu.be/rnM-ULNxDus?t=239)
 
 
 
@@ -196,7 +196,7 @@ The client-side approach is more conducive to fine-grained caching, while the se
 
 If going with the server-side route, there are certainly scenarios where weaving in dynamic content in the server is useful, beyond what can be done with slots, in order to provide a better initial view.
 
-One solution being pursued for this functionality is the [xodus cloudflare helper classes project](https://github.com/bahrus/xodus).
+One solution being pursued for this functionality is the [xodus cloudflare helper classes project](https://github.com/bahrus/xodus)/[edge-of-tomorrow](https://github.com/bahrus/edge-of-tomorrow).  Eventually.
 
 Its goal is to apply the "transform(s)" specified above, but in the cloud (or service worker) for the initial render (or pre-render?).
 
