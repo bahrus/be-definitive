@@ -25,18 +25,18 @@
     "doc": "custom-elements-manifest analyze"
   },
   "dependencies": {
-    "xtal-element": "0.0.493",
-    "trans-render": "0.0.536",
-    "be-decorated": "0.0.113",
-    "be-hive": "0.0.45"
+    "xtal-element": "0.0.496",
+    "trans-render": "0.0.553",
+    "be-decorated": "0.0.127",
+    "be-hive": "0.0.48"
   },
   "devDependencies": {
-    "@playwright/test": "1.21.1",
-    "may-it-serve": "0.0.0",
+    "@playwright/test": "1.24.2",
+    "may-it-serve": "0.0.2",
     "@skypack/package-check": "0.2.2",
-    "@custom-elements-manifest/analyzer": "0.5.7",
+    "@custom-elements-manifest/analyzer": "0.6.4",
     "be-exportable": "0.0.21",
-    "xtal-editor": "0.0.169",
+    "xtal-editor": "0.0.176",
     "xtal-shell": "0.0.27"
   },
   "repository": {
