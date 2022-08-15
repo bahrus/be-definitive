@@ -6,6 +6,10 @@
 
 [![Playwright Tests](https://github.com/bahrus/be-definitive/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-definitive/actions/workflows/CI.yml)
 
+[![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-definitive?style=for-the-badge)](https://bundlephobia.com/result?p=be-definitive)
+
+<img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-definitive?compression=gzip">
+
 be-definitive allows us to take some DOM that is in the live DOM tree, or DOM that is imported into the tree via fetch, and turn it into a web component.  This allows that DOM to appear again in other parts of the page via a single tag.  Customizations can be made to each instance based on the values of properties / attributes.
 
 And even with the original DOM that was in the live DOM tree, turning it into a web component allows us to "hydrate" the static DOM  into something that is interactive.
@@ -38,6 +42,28 @@ Renders:
 ```
 
 **NB:** Shadow DOM is bypassed in this instance (an exception to the general rule).  It makes sense in this case not to use Shadow DOM for consistency between the original, defining element, and subsequent instances, for styling consistency.
+
+In fact, the following may make more sense from a styling perspective, and also works:
+
+## Example 1a -- Pre-rendered live DOM specifies the name of the web component:
+
+```html
+<hello-world be-definitive>
+    <div>Hello, <span>world</span></div>
+</hello-world>
+<hello-world></hello-world>
+```
+
+Renders:
+
+```html
+<hello-world be-definitive>
+  <div>Hello, <span>world</span></div>
+</hello-world>
+<hello-world>
+  <div>Hello, <span>world</span></div>
+</hello-world>
+```
 
 ## Example 2 -- With dynamic properties
 

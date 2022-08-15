@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <hello-world be-definitive>
+        <div>Hello, <span>world</span></div>
+    </hello-world>
+    <hello-world></hello-world>
+    <script type=importmap>
+        {
+            "imports":{
+                "trans-render/": "../node_modules/trans-render/",
+                "xtal-element/": "../node_modules/xtal-element/",
+                "be-decorated/": "../node_modules/be-decorated/",
+                "be-hive/": "../node_modules/be-hive/",
+                "xodus/": "../node_modules/xodus/"
+            }
+        }
+    </script>
+    <script type=module>
+        import '../be-definitive.js';
+    </script>
+</body>
+</html>
