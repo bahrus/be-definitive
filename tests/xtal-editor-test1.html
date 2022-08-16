@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.4/dist/es-module-shims.js"></script>
-    <link rel=preload as=script id="xtal-editor/theme.css" href="./theme.css" crossorigin="anonymous">
+    <link rel=preload as=script id="xtal-editor/theme.css" href="../theme.css" crossorigin="anonymous">
 </head>
 <body>
     <xtal-editor id=abc>
@@ -48,6 +47,7 @@
                 "be-noticed/": "../node_modules/be-noticed/",
                 "be-observant/": "../node_modules/be-observant/",
                 "be-persistent/": "../node_modules/be-persistent/",
+                "be-preemptive/": "../node_modules/be-preemptive/",
                 "be-repeated/": "../node_modules/be-repeated/",
                 "be-switched/": "../node_modules/be-switched/",
                 "be-transformative/": "../node_modules/be-transformative/",
@@ -92,7 +92,7 @@
                     $hell.cd('/xtal-editor#abc/main/xtal-vlist#vlist/div/div/div[0]/div/div[6]/div[0]/input#object');
                     if($hell.$0.value.indexOf('jethro tull') !== -1){
                         $hell.cd('/xtal-editor');
-                        $hell.$0.setAttribute('mark', 'approved');
+                        $hell.$0.setAttribute('mark', '');
                     }else{
                         console.error('jethro tull not found in higher nodes.');
                     }
