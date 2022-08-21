@@ -37,41 +37,35 @@ export class BeDefinitiveController {
             ...beTransformed,
         };
         if (params.scriptRef !== undefined) {
-            const script = self.getRootNode().querySelector('#' + params.scriptRef);
-            if (script.dataset.loaded !== undefined) {
-                this.setParamsFromScript(self, script, params);
-            }
-            else {
-                script.addEventListener('load', () => {
-                    this.setParamsFromScript(self, script, params);
-                }, { once: true });
-            }
+            const { importFromScriptRef } = await import('be-exportable/importFromScriptRef.js');
+            const exports = await importFromScriptRef(target, params.scriptRef);
+            this.setParamsFromScript(self, exports, params);
         }
         else {
             this.register(self, params);
         }
     }
-    setParamsFromScript(self, { _modExport }, params) {
+    setParamsFromScript(self, exports, params) {
         const { complexPropDefaults, mixins, superclass, transformPlugins } = params;
         if (complexPropDefaults !== undefined) {
             for (const key in complexPropDefaults) {
                 const val = complexPropDefaults[key];
-                complexPropDefaults[key] = _modExport[val];
+                complexPropDefaults[key] = exports[val];
             }
         }
         if (mixins !== undefined) {
             for (let i = 0, ii = mixins.length; i < ii; i++) {
                 const mixin = mixins[i];
-                mixins[i] = _modExport[mixin];
+                mixins[i] = exports[mixin];
             }
         }
         if (superclass !== undefined) {
-            params.superclass = _modExport[superclass];
+            params.superclass = exports[superclass];
         }
         if (transformPlugins !== undefined) {
             for (const key in transformPlugins) {
                 const val = transformPlugins[key];
-                transformPlugins[key] = _modExport[val];
+                transformPlugins[key] = exports[val];
             }
         }
         this.register(self, params);
