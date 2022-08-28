@@ -1,6 +1,7 @@
 import {DefineArgs} from 'xtal-element/src/types';
-import { PropSettings } from '../trans-render/lib/types';
-export interface BeDefinitiveVirtualProps<Props = any, Actions = Props> extends DefineArgs<Props, Actions>{
+import {MinimalProxy} from 'be-decorated/types';
+
+export interface BeDefinitiveVirtualProps<Props = any, Actions = Props> extends DefineArgs<Props, Actions>, MinimalProxy{
     scriptRef?: string;
     scriptPath?: string;
     transformPlugins?: {[key: string]: string};

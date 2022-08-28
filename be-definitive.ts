@@ -3,11 +3,11 @@ import {BeDefinitiveProps, BeDefinitiveActions, BeDefinitiveVirtualProps} from '
 import {Action, TemplMgmt, TemplMgmtActions, TemplMgmtProps, beTransformed} from 'trans-render/lib/mixins/TemplMgmt.js';
 import {register} from 'be-hive/register.js';
 
-export class BeDefinitiveController{
-    async intro(self: Element, target: Element, beDecorProps: BeDecoratedProps) {
+export class BeDefinitiveController extends EventTarget{
+    async intro(proxy: Element, target: Element, beDecorProps: BeDecoratedProps) {
         let params: BeDefinitiveVirtualProps | undefined = undefined;
         const attr = 'is-' + beDecorProps.ifWantsToBe!;
-        const attrVal = self.getAttribute(attr)!.trim();
+        const attrVal = proxy.getAttribute(attr)!.trim();
         if(attrVal[0] !== '{' && attrVal[0] !== '['){
             params = {
                 config: {
@@ -16,19 +16,20 @@ export class BeDefinitiveController{
                         noshadow: true,
                     }
                 }
-            };
+            } as Partial<BeDefinitiveVirtualProps> as BeDefinitiveVirtualProps;
         }else{
             try{
                 params = JSON.parse(attrVal!);
-            }catch(e){
+            }catch(e: any){
                 console.error({attr, attrVal, e});
+                this.proxy.rejected = e.message;
                 return;
             }
         }
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params!.config = params!.config || {};
         const {config} = params!;
-        config.tagName = config.tagName || self.localName;
+        config.tagName = config.tagName || proxy.localName;
         config.propDefaults = config.propDefaults || {};
         const {propDefaults} = config;
         propDefaults.transform = propDefaults.transform || {};
@@ -39,10 +40,11 @@ export class BeDefinitiveController{
         if(params!.scriptRef !== undefined){
             const {importFromScriptRef} = await import('be-exportable/importFromScriptRef.js');
             const exports = await importFromScriptRef(target, params!.scriptRef!);
-            this.setParamsFromScript(self, exports, params!);
+            this.setParamsFromScript(proxy, exports, params!);
         }else{
-            this.register(self, params!);
+            this.register(proxy, params!);
         }
+        this.proxy.resolved = true;
     }
 
     setParamsFromScript(self: Element, exports: any, params : BeDefinitiveVirtualProps){
@@ -85,6 +87,7 @@ export class BeDefinitiveController{
         params.mixins = [...(params.mixins || []), TemplMgmt];
         const {XE} = await import('xtal-element/src/XE.js');
         const ce = new XE<any, any>(params);
+        
     }
 }
 export interface BeDefinitiveController extends BeDefinitiveProps{}
