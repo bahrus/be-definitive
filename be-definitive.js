@@ -22,7 +22,7 @@ export class BeDefinitiveController extends EventTarget {
             }
             catch (e) {
                 console.error({ attr, attrVal, e });
-                this.proxy.rejected = e.message;
+                proxy.rejected = e.message;
                 return;
             }
         }
@@ -45,7 +45,7 @@ export class BeDefinitiveController extends EventTarget {
         else {
             this.register(proxy, params);
         }
-        this.proxy.resolved = true;
+        proxy.resolved = true;
     }
     setParamsFromScript(self, exports, params) {
         const { complexPropDefaults, mixins, superclass, transformPlugins } = params;

@@ -1,10 +1,10 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
-import {BeDefinitiveProps, BeDefinitiveActions, BeDefinitiveVirtualProps} from './types';
+import {BeDefinitiveActions, BeDefinitiveVirtualProps, Proxy} from './types';
 import {Action, TemplMgmt, TemplMgmtActions, TemplMgmtProps, beTransformed} from 'trans-render/lib/mixins/TemplMgmt.js';
 import {register} from 'be-hive/register.js';
 
 export class BeDefinitiveController extends EventTarget{
-    async intro(proxy: Element, target: Element, beDecorProps: BeDecoratedProps) {
+    async intro(proxy: Proxy, target: Element, beDecorProps: BeDecoratedProps) {
         let params: BeDefinitiveVirtualProps | undefined = undefined;
         const attr = 'is-' + beDecorProps.ifWantsToBe!;
         const attrVal = proxy.getAttribute(attr)!.trim();
@@ -22,7 +22,7 @@ export class BeDefinitiveController extends EventTarget{
                 params = JSON.parse(attrVal!);
             }catch(e: any){
                 console.error({attr, attrVal, e});
-                this.proxy.rejected = e.message;
+                proxy.rejected = e.message;
                 return;
             }
         }
@@ -44,7 +44,7 @@ export class BeDefinitiveController extends EventTarget{
         }else{
             this.register(proxy, params!);
         }
-        this.proxy.resolved = true;
+        proxy.resolved = true;
     }
 
     setParamsFromScript(self: Element, exports: any, params : BeDefinitiveVirtualProps){
@@ -90,12 +90,11 @@ export class BeDefinitiveController extends EventTarget{
         
     }
 }
-export interface BeDefinitiveController extends BeDefinitiveProps{}
 
 const tagName = 'be-definitive';
 const ifWantsToBe = 'definitive';
 const upgrade = '*';
-define<BeDefinitiveProps & BeDecoratedProps, BeDefinitiveActions>({
+define<BeDefinitiveVirtualProps & BeDecoratedProps, BeDefinitiveActions>({
     config:{
         tagName,
         propDefaults:{

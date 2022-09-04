@@ -99,7 +99,7 @@ Renders:
 </hello-world>
 ```
 
-In this use case, using ShadowDOM is somewhat iffy in this scenario, as now styling is fundamentally different between the "defining" element and subsequent elements.  But this behavior is left this way by default in order to allow the developer the ability to choose which way to go in a consistent manner.
+In this use case, using ShadowDOM is somewhat iffy, as now styling is fundamentally different between the "defining" element and subsequent elements.  But is the default behavior, in order to allow the developer the ability to choose which way to go in a consistent manner.
 
 To disable ShadowDOM, use the "noshadow" setting:
 
@@ -126,7 +126,7 @@ So the first instance of the pattern displays without a single byte of Javascrip
 
 Subsequent instances take less bandwidth to download, and generate quite quickly due to use of templates.  It does require the be-definitive library to be loaded once.
 
-The "transform" setting uses [DTR](https://github.com/bahrus/trans-render) syntax, similar to CSS in order to bind the template, but *be-definitive" eagerly awaits inline binding with Template Instantiation being built into the platform as well.
+The "transform" setting uses [DTR](https://github.com/bahrus/trans-render) syntax, similar to CSS, in order to bind the template, but *be-definitive" eagerly awaits inline binding with Template Instantiation being built into the platform as well.
 
 To apply multiple transforms, use an array.  Each transform should only be applied when the dependent properties change ("place" in this case).
 
