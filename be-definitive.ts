@@ -1,11 +1,11 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
-import {BeDefinitiveActions, BeDefinitiveVirtualProps, Proxy} from './types';
+import {Actions, VirtualProps, Proxy} from './types';
 import {Action, TemplMgmt, TemplMgmtActions, TemplMgmtProps, beTransformed} from 'trans-render/lib/mixins/TemplMgmt.js';
 import {register} from 'be-hive/register.js';
 
 export class BeDefinitiveController extends EventTarget{
     async intro(proxy: Proxy, target: Element, beDecorProps: BeDecoratedProps) {
-        let params: BeDefinitiveVirtualProps | undefined = undefined;
+        let params: VirtualProps | undefined = undefined;
         const attr = 'is-' + beDecorProps.ifWantsToBe!;
         const attrVal = proxy.getAttribute(attr)!.trim();
         if(attrVal[0] !== '{' && attrVal[0] !== '['){
@@ -16,7 +16,7 @@ export class BeDefinitiveController extends EventTarget{
                         noshadow: true,
                     }
                 }
-            } as Partial<BeDefinitiveVirtualProps> as BeDefinitiveVirtualProps;
+            } as Partial<VirtualProps> as VirtualProps;
         }else{
             try{
                 params = JSON.parse(attrVal!);
@@ -47,7 +47,7 @@ export class BeDefinitiveController extends EventTarget{
         proxy.resolved = true;
     }
 
-    setParamsFromScript(self: Element, exports: any, params : BeDefinitiveVirtualProps){
+    setParamsFromScript(self: Element, exports: any, params : VirtualProps){
         const {complexPropDefaults, mixins, superclass, transformPlugins} = params;
         if(complexPropDefaults !== undefined){
             for(const key in complexPropDefaults){
@@ -73,7 +73,7 @@ export class BeDefinitiveController extends EventTarget{
         this.register(self, params);
     }
 
-    async register(self: Element, params: BeDefinitiveVirtualProps){
+    async register(self: Element, params: VirtualProps){
         const tagName = params.config.tagName;
         const mainTemplate = await toTempl(self, self.localName === tagName && self.shadowRoot !== null, tagName!);
         //TODO:  make this a transform plugin?
@@ -94,7 +94,7 @@ export class BeDefinitiveController extends EventTarget{
 const tagName = 'be-definitive';
 const ifWantsToBe = 'definitive';
 const upgrade = '*';
-define<BeDefinitiveVirtualProps & BeDecoratedProps, BeDefinitiveActions>({
+define<VirtualProps & BeDecoratedProps, Actions>({
     config:{
         tagName,
         propDefaults:{

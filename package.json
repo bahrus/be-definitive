@@ -25,10 +25,10 @@
     "doc": "custom-elements-manifest analyze"
   },
   "dependencies": {
-    "trans-render": "0.0.583",
-    "be-decorated": "0.0.151",
-    "be-exportable": "0.0.27",
-    "be-hive": "0.0.59"
+    "trans-render": "0.0.585",
+    "be-decorated": "0.0.153",
+    "be-exportable": "0.0.30",
+    "be-hive": "0.0.63"
   },
   "devDependencies": {
     "@playwright/test": "1.25.1",
