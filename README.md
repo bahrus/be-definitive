@@ -311,6 +311,22 @@ This will take advantage of constructible stylesheets when available.
 > npm run test
 ```
 
+## Importing in ES Modules:
+
+```JavaScript
+import 'be-definitive/be-definitive.js';
+
+const {importFromScriptRef} = await import('be-definitive/importFromScriptRef.js');
+```
+
+## Using from CDN:
+
+```html
+<script type=module crossorigin=anonymous>
+    import 'https://esm.run/be-definitive';
+</script>
+```
+
 
 
 
