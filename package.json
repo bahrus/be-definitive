@@ -25,13 +25,13 @@
     "doc": "custom-elements-manifest analyze"
   },
   "dependencies": {
-    "trans-render": "0.0.608",
-    "be-decorated": "0.0.161",
-    "be-exportable": "0.0.32",
-    "be-hive": "0.0.66"
+    "trans-render": "0.0.618",
+    "be-decorated": "0.0.165",
+    "be-exportable": "0.0.37",
+    "be-hive": "0.0.70"
   },
   "devDependencies": {
-    "@playwright/test": "1.25.2",
+    "@playwright/test": "1.26.1",
     "may-it-serve": "0.0.2",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.6.4",

@@ -129,7 +129,5 @@ export async function toTempl(templ, fromShadow, tagName) {
             }
         }
     }
-    // insertMoustache('x-f', templateToClone);
-    // insertMoustache('data-xf', templateToClone);
     return templateToClone;
 }

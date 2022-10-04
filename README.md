@@ -315,8 +315,6 @@ This will take advantage of constructible stylesheets when available.
 
 ```JavaScript
 import 'be-definitive/be-definitive.js';
-
-const {importFromScriptRef} = await import('be-definitive/importFromScriptRef.js');
 ```
 
 ## Using from CDN:
