@@ -1,4 +1,4 @@
-import { define } from 'be-decorated/be-decorated.js';
+import { define } from 'be-decorated/DE.js';
 import { TemplMgmt, beTransformed } from 'trans-render/lib/mixins/TemplMgmt.js';
 import { register } from 'be-hive/register.js';
 export class BeDefinitiveController extends EventTarget {
@@ -129,5 +129,7 @@ export async function toTempl(templ, fromShadow, tagName) {
             }
         }
     }
+    // insertMoustache('x-f', templateToClone);
+    // insertMoustache('data-xf', templateToClone);
     return templateToClone;
 }
