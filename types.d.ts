@@ -1,4 +1,4 @@
-import {DefineArgs} from 'xtal-element/src/types';
+import {DefineArgs} from 'xtal-element/types';
 import {MinimalProxy} from 'be-decorated/types';
 
 export interface EndUserProps<Props = any, Actions = Props> extends DefineArgs<Props, Actions>{

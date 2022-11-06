@@ -85,7 +85,7 @@ export class BeDefinitiveController extends EventTarget{
         }).join('');
         params.complexPropDefaults = {...params.complexPropDefaults, mainTemplate, styles};
         params.mixins = [...(params.mixins || []), TemplMgmt];
-        const {XE} = await import('xtal-element/src/XE.js');
+        const {XE} = await import('xtal-element/XE.js');
         const ce = new XE<any, any>(params);
         
     }

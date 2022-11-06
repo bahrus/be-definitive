@@ -84,7 +84,7 @@ export class BeDefinitiveController extends EventTarget {
         }).join('');
         params.complexPropDefaults = { ...params.complexPropDefaults, mainTemplate, styles };
         params.mixins = [...(params.mixins || []), TemplMgmt];
-        const { XE } = await import('xtal-element/src/XE.js');
+        const { XE } = await import('xtal-element/XE.js');
         const ce = new XE(params);
     }
 }
@@ -129,7 +129,5 @@ export async function toTempl(templ, fromShadow, tagName) {
             }
         }
     }
-    // insertMoustache('x-f', templateToClone);
-    // insertMoustache('data-xf', templateToClone);
     return templateToClone;
 }
