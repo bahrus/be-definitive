@@ -1,7 +1,7 @@
-import {DefineArgs} from 'xtal-element/types';
+import {CEArgs} from 'trans-render/froop/types';
 import {MinimalProxy} from 'be-decorated/types';
 
-export interface EndUserProps<Props = any, Actions = Props> extends DefineArgs<Props, Actions>{
+export interface EndUserProps<Props = any, Actions = Props> extends CEArgs<Props, Actions>{
     scriptRef?: string;
     scriptPath?: string;
     transformPlugins?: {[key: string]: string};
