@@ -28,13 +28,13 @@ export class BeDefinitiveController extends EventTarget {
         }
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params.config = params.config || {};
-        const { config } = params;
+        const config = params.config;
         config.tagName = config.tagName || proxy.localName;
         config.propDefaults = config.propDefaults || {};
         const { propDefaults } = config;
         propDefaults.transform = propDefaults.transform || {};
-        params.config.actions = {
-            ...(params.config.actions || {}),
+        config.actions = {
+            ...(config.actions || {}),
             ...beTransformed,
         };
         if (params.scriptRef !== undefined) {
@@ -76,7 +76,7 @@ export class BeDefinitiveController extends EventTarget {
         const tagName = params.config.tagName;
         const mainTemplate = await toTempl(self, self.localName === tagName && self.shadowRoot !== null, tagName);
         //TODO:  make this a transform plugin?
-        const adopted = Array.from(mainTemplate.content.querySelectorAll('style[be-adopted]'));
+        const adopted = Array.from(mainTemplate.content.querySelectorAll('style[adopt]'));
         const styles = adopted.map(s => {
             const inner = s.innerHTML;
             s.remove();

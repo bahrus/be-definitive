@@ -286,7 +286,7 @@ Another way to reference external web components is via the [be-active](https://
 For more efficient template cloning / repetitive styling, use style tag with attributed "be-adopted":
 
 ```html
-<style be-adopted>
+<style adopt>
   div{
     color:red;
   }

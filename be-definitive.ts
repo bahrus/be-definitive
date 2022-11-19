@@ -2,6 +2,7 @@ import {define, BeDecoratedProps} from 'be-decorated/DE.js';
 import {Actions, VirtualProps, Proxy} from './types';
 import {Action, TemplMgmt, TemplMgmtActions, TemplMgmtProps, beTransformed} from 'trans-render/lib/mixins/TemplMgmt.js';
 import {register} from 'be-hive/register.js';
+import { WCConfig } from 'trans-render/lib/types';
 
 export class BeDefinitiveController extends EventTarget{
     async intro(proxy: Proxy, target: Element, beDecorProps: BeDecoratedProps) {
@@ -28,13 +29,13 @@ export class BeDefinitiveController extends EventTarget{
         }
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params!.config = params!.config || {};
-        const {config} = params!;
+        const config = params!.config as WCConfig;
         config.tagName = config.tagName || proxy.localName;
         config.propDefaults = config.propDefaults || {};
         const {propDefaults} = config;
         propDefaults.transform = propDefaults.transform || {};
-        params!.config.actions = {
-            ...(params!.config.actions || {}),
+        config.actions = {
+            ...(config.actions || {}),
             ...beTransformed,
         }
         if(params!.scriptRef !== undefined){
@@ -77,7 +78,7 @@ export class BeDefinitiveController extends EventTarget{
         const tagName = params.config.tagName;
         const mainTemplate = await toTempl(self, self.localName === tagName && self.shadowRoot !== null, tagName!);
         //TODO:  make this a transform plugin?
-        const adopted = Array.from(mainTemplate.content.querySelectorAll('style[be-adopted]'));
+        const adopted = Array.from(mainTemplate.content.querySelectorAll('style[adopt]'));
         const styles = adopted.map(s => {
             const inner = s.innerHTML;
             s.remove();
