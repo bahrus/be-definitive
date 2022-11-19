@@ -14,7 +14,7 @@ export class BeDefinitiveController extends EventTarget{
                 config: {
                     tagName: attrVal,
                     propDefaults:{
-                        noshadow: true,
+                        noshadow: target.shadowRoot === null,
                     }
                 }
             } as Partial<VirtualProps> as VirtualProps;
@@ -75,7 +75,7 @@ export class BeDefinitiveController extends EventTarget{
     }
 
     async register(self: Element, params: VirtualProps){
-        const tagName = params.config.tagName;
+        const tagName = (params.config as WCConfig).tagName;
         const mainTemplate = await toTempl(self, self.localName === tagName && self.shadowRoot !== null, tagName!);
         //TODO:  make this a transform plugin?
         const adopted = Array.from(mainTemplate.content.querySelectorAll('style[adopt]'));

@@ -11,7 +11,7 @@ export class BeDefinitiveController extends EventTarget {
                 config: {
                     tagName: attrVal,
                     propDefaults: {
-                        noshadow: true,
+                        noshadow: target.shadowRoot === null,
                     }
                 }
             };
