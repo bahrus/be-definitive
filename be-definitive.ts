@@ -8,25 +8,31 @@ export class BeDefinitiveController extends EventTarget{
     async intro(proxy: Proxy, target: Element, beDecorProps: BeDecoratedProps) {
         let params: VirtualProps | undefined = undefined;
         const attr = 'is-' + beDecorProps.ifWantsToBe!;
-        const attrVal = proxy.getAttribute(attr)!.trim();
-        if(attrVal[0] !== '{' && attrVal[0] !== '['){
-            params = {
-                config: {
-                    tagName: attrVal,
-                    propDefaults:{
-                        noshadow: target.shadowRoot === null,
-                    }
-                }
-            } as Partial<VirtualProps> as VirtualProps;
+        if(!proxy.hasAttribute(attr)) {
+            params = (<any>proxy).beDecorated.definitiveProps;
+
         }else{
-            try{
-                params = JSON.parse(attrVal!);
-            }catch(e: any){
-                console.error({attr, attrVal, e});
-                proxy.rejected = e.message;
-                return;
+            const attrVal = proxy.getAttribute(attr)!.trim();
+            if(attrVal[0] !== '{' && attrVal[0] !== '['){
+                params = {
+                    config: {
+                        tagName: attrVal,
+                        propDefaults:{
+                            noshadow: target.shadowRoot === null,
+                        }
+                    }
+                } as Partial<VirtualProps> as VirtualProps;
+            }else{
+                try{
+                    params = JSON.parse(attrVal!);
+                }catch(e: any){
+                    console.error({attr, attrVal, e});
+                    proxy.rejected = e.message;
+                    return;
+                }
             }
         }
+
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params!.config = params!.config || {};
         const config = params!.config as WCConfig;

@@ -5,25 +5,30 @@ export class BeDefinitiveController extends EventTarget {
     async intro(proxy, target, beDecorProps) {
         let params = undefined;
         const attr = 'is-' + beDecorProps.ifWantsToBe;
-        const attrVal = proxy.getAttribute(attr).trim();
-        if (attrVal[0] !== '{' && attrVal[0] !== '[') {
-            params = {
-                config: {
-                    tagName: attrVal,
-                    propDefaults: {
-                        noshadow: target.shadowRoot === null,
-                    }
-                }
-            };
+        if (!proxy.hasAttribute(attr)) {
+            params = proxy.beDecorated.definitiveProps;
         }
         else {
-            try {
-                params = JSON.parse(attrVal);
+            const attrVal = proxy.getAttribute(attr).trim();
+            if (attrVal[0] !== '{' && attrVal[0] !== '[') {
+                params = {
+                    config: {
+                        tagName: attrVal,
+                        propDefaults: {
+                            noshadow: target.shadowRoot === null,
+                        }
+                    }
+                };
             }
-            catch (e) {
-                console.error({ attr, attrVal, e });
-                proxy.rejected = e.message;
-                return;
+            else {
+                try {
+                    params = JSON.parse(attrVal);
+                }
+                catch (e) {
+                    console.error({ attr, attrVal, e });
+                    proxy.rejected = e.message;
+                    return;
+                }
             }
         }
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
