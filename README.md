@@ -2,9 +2,7 @@
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/be-definitive)
 [![NPM version](https://badge.fury.io/js/be-definitive.png)](http://badge.fury.io/js/be-definitive)
-
 [![Playwright Tests](https://github.com/bahrus/be-definitive/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-definitive/actions/workflows/CI.yml)
-
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-definitive?style=for-the-badge)](https://bundlephobia.com/result?p=be-definitive)
 
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-definitive?compression=gzip">

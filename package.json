@@ -26,13 +26,13 @@
   },
   "dependencies": {
     "trans-render": "0.0.653",
-    "xtal-element": "0.0.546",
-    "be-decorated": "0.0.210",
-    "be-exportable": "0.0.51",
+    "xtal-element": "0.0.547",
+    "be-decorated": "0.0.211",
+    "be-exportable": "0.0.52",
     "be-hive": "0.0.78"
   },
   "devDependencies": {
-    "@playwright/test": "1.29.0",
+    "@playwright/test": "1.29.1",
     "may-it-serve": "0.0.4",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.6.4",
