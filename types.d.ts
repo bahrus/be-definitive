@@ -4,7 +4,7 @@ import {MinimalProxy} from 'be-decorated/types';
 export interface EndUserProps<Props = any, Actions = Props> extends CEArgs<Props, Actions>{
     scriptRef?: string;
     scriptPath?: string;
-    transformPlugins?: {[key: string]: string};
+    //transformPlugins?: {[key: string]: string};
 }
 
 export interface VirtualProps<Props = any, Actions = Props> extends EndUserProps<Props, Actions>, MinimalProxy{

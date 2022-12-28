@@ -37,6 +37,7 @@ export class BeDefinitiveController extends EventTarget{
         params!.config = params!.config || {};
         const config = params!.config as WCConfig;
         config.tagName = config.tagName || proxy.localName;
+        if(customElements.get(config.tagName)) return;
         config.propDefaults = config.propDefaults || {};
         const {propDefaults} = config;
         propDefaults.transform = propDefaults.transform || {};
@@ -55,7 +56,7 @@ export class BeDefinitiveController extends EventTarget{
     }
 
     setParamsFromScript(self: Element, exports: any, params : VirtualProps){
-        const {complexPropDefaults, mixins, superclass, transformPlugins} = params;
+        const {complexPropDefaults, mixins, superclass} = params;
         if(complexPropDefaults !== undefined){
             for(const key in complexPropDefaults){
                 const val = complexPropDefaults[key] as string;
@@ -70,12 +71,6 @@ export class BeDefinitiveController extends EventTarget{
         }
         if(superclass !== undefined){
             params.superclass = exports[superclass as any as string];
-        }
-        if(transformPlugins !== undefined){
-            for(const key in transformPlugins){
-                const val = transformPlugins[key] as string;
-                transformPlugins[key] = exports[val];
-            }
         }
         this.register(self, params);
     }
