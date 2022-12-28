@@ -28,8 +28,8 @@
     "trans-render": "0.0.653",
     "xtal-element": "0.0.547",
     "be-decorated": "0.0.211",
-    "be-exportable": "0.0.52",
-    "be-hive": "0.0.78"
+    "be-exportable": "0.0.53",
+    "be-hive": "0.0.79"
   },
   "devDependencies": {
     "@playwright/test": "1.29.1",
