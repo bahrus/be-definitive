@@ -46,8 +46,12 @@ export class BeDefinitiveController extends EventTarget{
             ...beTransformed,
         }
         if(params!.scriptRef !== undefined){
-            const {importFromScriptRef} = await import('be-exportable/importFromScriptRef.js');
-            const exports = await importFromScriptRef(target, params!.scriptRef!);
+            let exports: any;
+            exports = (<any>target.shadowRoot?.querySelector('#' + params!.scriptRef!))?._modExport;
+            if(exports === undefined){
+                const {importFromScriptRef} = await import('be-exportable/importFromScriptRef.js');
+                exports = await importFromScriptRef(target, params!.scriptRef!);
+            }
             this.setParamsFromScript(proxy, exports, params!);
         }else{
             this.register(proxy, params!);
