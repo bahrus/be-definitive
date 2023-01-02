@@ -272,6 +272,8 @@ The following is supported:
 
 ...with the help of the [be-exportable](https://github.com/bahrus/be-exportable) script tag decorator.
 
+The script tag can also be placed within the shadowDOM of the web component if applicable.  The code searches first within the Shadow DOM.
+
 This also allows us to tap into powerful rendering libraries like [lit-html](https://www.npmjs.com/package/lit-html).
 
 be-exportable script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
