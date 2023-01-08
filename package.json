@@ -25,14 +25,14 @@
     "doc": "custom-elements-manifest analyze"
   },
   "dependencies": {
-    "trans-render": "0.0.655",
-    "xtal-element": "0.0.549",
-    "be-decorated": "0.0.217",
-    "be-exportable": "0.0.58",
+    "trans-render": "0.0.658",
+    "xtal-element": "0.0.550",
+    "be-decorated": "0.0.218",
+    "be-exportable": "0.0.60",
     "be-hive": "0.0.79"
   },
   "devDependencies": {
-    "@playwright/test": "1.29.1",
+    "@playwright/test": "1.29.2",
     "may-it-serve": "0.0.4",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.6.4",
