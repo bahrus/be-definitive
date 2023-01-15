@@ -91,6 +91,7 @@ export class BeDefinitiveController extends EventTarget{
             s.remove();
             return inner;
         }).join('');
+        const beGone = mainTemplate.content.querySelectorAll('[be-gone],[data-be-gone]').forEach(g => g.remove());
         params.complexPropDefaults = {...params.complexPropDefaults, mainTemplate, styles};
         params.mixins = [...(params.mixins || []), TemplMgmt];
         const {XE} = await import('xtal-element/XE.js');
