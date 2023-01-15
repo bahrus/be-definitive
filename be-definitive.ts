@@ -36,7 +36,9 @@ export class BeDefinitiveController extends EventTarget{
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params!.config = params!.config || {};
         const config = params!.config as WCConfig;
-        config.tagName = config.tagName || proxy.localName;
+        let tagName = config.tagName || target.localName;
+        if(tagName.indexOf('-') === -1) tagName = target.id;
+        config.tagName = tagName;
         if(customElements.get(config.tagName)) return;
         config.propDefaults = config.propDefaults || {};
         const {propDefaults} = config;
