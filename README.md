@@ -96,7 +96,7 @@ Renders:
 </hello-world>
 ```
 
-In this use case, using ShadowDOM is somewhat iffy, as now styling is fundamentally different between the "defining" element and subsequent elements.  But is the default behavior, in order to allow the developer the ability to choose which way to go in a consistent manner.
+In this use case, using ShadowDOM is somewhat iffy, as now styling is fundamentally different between the "defining" element and subsequent elements.  But it is the default behavior, in order provide the developer the ability to choose which way to go in a consistent manner.
 
 To disable ShadowDOM, use the "noshadow" setting:
 
@@ -123,7 +123,7 @@ So the first instance of the pattern displays without a single byte of Javascrip
 
 Subsequent instances take less bandwidth to download, and generate quite quickly due to use of templates.  It does require the be-definitive library to be loaded once.
 
-The "transform" setting uses [DTR](https://github.com/bahrus/trans-render) syntax, similar to CSS, in order to bind the template, but *be-definitive" eagerly awaits inline binding with Template Instantiation being built into the platform as well.
+The "transform" setting uses [DTR](https://github.com/bahrus/trans-render) syntax, similar to CSS, in order to bind the template, but *be-definitive^ eagerly awaits inline binding with Template Instantiation being built into the platform as well.
 
 To apply multiple transforms, use an array.  Each transform should only be applied when the dependent properties change ("place" in this case).
 
@@ -139,7 +139,7 @@ And in practice, it is also quite ergonomic to edit these declarative web compon
 
 1.  [xtal-side-nav](https://github.com/bahrus/xtal-side-nav)
 2.  [xtal-editor](https://github.com/bahrus/xtal-editor)
-3.  [cotus](https://https://github.com/bahrus/cotus)
+3.  [cotus](https://github.com/bahrus/cotus)
 
 Anyway.
 
@@ -182,13 +182,13 @@ This syntax also works:
       }
     }
   }'>
-    <template shadowroot=open>
+    <template shadowrootmode=open>
       <div>Hello, <span>world</span></div>
     </template>
   </hello-world>
 ```
 
-It requires declarative [ShadowDOM polyfill for Firefox / Safari](https://web.dev/declarative-shadow-dom/#detection-support).
+It requires declarative [ShadowDOM polyfill for Firefox](https://web.dev/declarative-shadow-dom/#detection-support).
 
 ## Server-side rendering
 
