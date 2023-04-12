@@ -123,7 +123,7 @@ So the first instance of the pattern displays without a single byte of Javascrip
 
 Subsequent instances take less bandwidth to download, and generate quite quickly due to use of templates.  It does require the be-definitive library to be loaded once.
 
-The "transform" setting uses [DTR](https://github.com/bahrus/trans-render) syntax, similar to CSS, in order to bind the template, but *be-definitive^ eagerly awaits inline binding with Template Instantiation being built into the platform as well.
+The "transform" setting uses [DTR](https://github.com/bahrus/trans-render) syntax, similar to CSS, in order to bind the template, but *be-definitive* eagerly awaits inline binding with Template Instantiation being built into the platform as well.
 
 To apply multiple transforms, use an array.  Each transform should only be applied when the dependent properties change ("place" in this case).
 
