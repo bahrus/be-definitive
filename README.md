@@ -282,7 +282,7 @@ Another way to reference external web components is via the [be-active](https://
 
 ## Styling
 
-For more efficient template cloning / repetitive styling, use style tag with attributed "be-adopted":
+For more efficient template cloning / repetitive styling, use style tag with attribute "adopt":
 
 ```html
 <style adopt>
