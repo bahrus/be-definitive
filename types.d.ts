@@ -1,21 +1,21 @@
 import {XEArgs} from 'xtal-element/types';
-import {MinimalProxy} from 'be-decorated/types';
+import { ActionOnEventConfigs } from "trans-render/froop/types";
+import {IBE} from 'be-enhanced/types';
 
-export interface EndUserProps<Props = any, Actions = Props> extends XEArgs<Props, Actions>{
+export interface EndUserProps<Props = any, Actions = Props> extends IBE, XEArgs<Props, Actions>{
     scriptRef?: string;
     scriptPath?: string;
-    //transformPlugins?: {[key: string]: string};
 }
 
-export interface VirtualProps<Props = any, Actions = Props> extends EndUserProps<Props, Actions>, MinimalProxy{
+export interface AllProps extends EndUserProps {}
 
-}
+export type AP = AllProps;
 
-export type Proxy<Props = any, Actions = Props> = Element & VirtualProps<Props, Actions>;
+export type PAP = Partial<AP>;
 
-export interface ProxyProps<Props = any, Actions = Props> extends  VirtualProps<Props, Actions>{
-    proxy: Proxy<Props, Actions>
-}
+export type ProPAP = Promise<PAP>;
+
+export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>];
 
 
 export interface Actions{
