@@ -15,27 +15,26 @@
     "./be-definitive.js": "./be-definitive.js"
   },
   "files": [
-    "*.*"
+    "*.js",
+    "types.d.ts"
   ],
   "types": "types.d.ts",
   "scripts": {
     "serve": "node node_modules/may-it-serve/serve.js",
     "test": "playwright test",
-    "package-check": "package-check",
-    "doc": "custom-elements-manifest analyze"
+    "safari": "npx playwright wk http://localhost:3030"
   },
   "dependencies": {
-    "trans-render": "0.0.671",
-    "xtal-element": "0.0.555",
-    "be-decorated": "0.0.238",
-    "be-exportable": "0.0.68",
-    "be-hive": "0.0.82"
+    
+    "be-enhanced": "0.0.17",
+    "be-exportable": "0.0.71",
+    "be-hive": "0.0.92",
+    "trans-render": "0.0.680",
+    "xtal-element": "0.0.560"
   },
   "devDependencies": {
-    "@playwright/test": "1.32.1",
+    "@playwright/test": "1.33.0",
     "may-it-serve": "0.0.5",
-    "@skypack/package-check": "0.2.2",
-    "@custom-elements-manifest/analyzer": "0.6.4",
     "xtal-shell": "0.0.27"
   },
   "repository": {
