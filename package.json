@@ -29,7 +29,7 @@
     "be-enhanced": "0.0.17",
     "be-exportable": "0.0.71",
     "be-hive": "0.0.92",
-    "trans-render": "0.0.680",
+    "trans-render": "0.0.681",
     "xtal-element": "0.0.560"
   },
   "devDependencies": {
