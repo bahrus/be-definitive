@@ -1,42 +1,44 @@
-import { define } from 'be-decorated/DE.js';
-import { TemplMgmt, beTransformed } from 'trans-render/lib/mixins/TemplMgmt.js';
+import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
+import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
-export class BeDefinitiveController extends EventTarget {
-    async intro(proxy, target, beDecorProps) {
+import { TemplMgmt, beTransformed } from 'trans-render/lib/mixins/TemplMgmt.js';
+export class BeDefinitive extends BE {
+    static get beConfig() {
+        return {
+            parse: false,
+        };
+    }
+    async attach(enhancedElement, enhancementInfo) {
+        await super.attach(enhancedElement, enhancementInfo);
+        const { enh } = enhancementInfo;
         let params = undefined;
-        const attr = 'is-' + beDecorProps.ifWantsToBe;
-        if (!proxy.hasAttribute(attr)) {
-            params = proxy.beDecorated.definitiveProps;
+        const attrVal = enhancedElement.getAttribute(enh).trim();
+        if (attrVal[0] !== '{' && attrVal[0] !== '[') {
+            params = {
+                config: {
+                    tagName: attrVal,
+                    propDefaults: {
+                        noshadow: enhancedElement.shadowRoot === null,
+                    }
+                }
+            };
         }
         else {
-            const attrVal = proxy.getAttribute(attr).trim();
-            if (attrVal[0] !== '{' && attrVal[0] !== '[') {
-                params = {
-                    config: {
-                        tagName: attrVal,
-                        propDefaults: {
-                            noshadow: target.shadowRoot === null,
-                        }
-                    }
-                };
+            try {
+                params = JSON.parse(attrVal);
             }
-            else {
-                try {
-                    params = JSON.parse(attrVal);
-                }
-                catch (e) {
-                    console.error({ attr, attrVal, e });
-                    proxy.rejected = e.message;
-                    return;
-                }
+            catch (e) {
+                console.error({ enh, attrVal, e });
+                this.rejected = true;
+                return;
             }
         }
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params.config = params.config || {};
         const config = params.config;
-        let tagName = config.tagName || target.localName;
+        let tagName = config.tagName || enhancedElement.localName;
         if (tagName.indexOf('-') === -1)
-            tagName = target.id;
+            tagName = enhancedElement.id;
         config.tagName = tagName;
         if (customElements.get(config.tagName))
             return;
@@ -47,38 +49,24 @@ export class BeDefinitiveController extends EventTarget {
             ...(config.actions || {}),
             ...beTransformed,
         };
+        config.propInfo = {
+            ...(config.propInfo || {})
+        };
         if (params.scriptRef !== undefined) {
-            let exports;
-            exports = target.shadowRoot?.querySelector('#' + params.scriptRef)?._modExport;
-            if (exports === undefined) {
-                const { importFromScriptRef } = await import('be-exportable/importFromScriptRef.js');
-                exports = await importFromScriptRef(target, params.scriptRef);
-            }
-            this.setParamsFromScript(proxy, exports, params);
+            throw 'NI';
+            // let exports: any;
+            // //TODO, this has changed
+            // exports = (<any>enhancedElement.shadowRoot?.querySelector('#' + params!.scriptRef!))?._modExport;
+            // if(exports === undefined){
+            //     const {importFromScriptRef} = await import('be-exportable/importFromScriptRef.js');
+            //     exports = await importFromScriptRef(target, params!.scriptRef!);
+            // }
+            // this.setParamsFromScript(proxy, exports, params!);
         }
         else {
-            this.register(proxy, params);
+            await this.register(enhancedElement, params);
         }
-        proxy.resolved = true;
-    }
-    setParamsFromScript(self, exports, params) {
-        const { complexPropDefaults, mixins, superclass } = params;
-        if (complexPropDefaults !== undefined) {
-            for (const key in complexPropDefaults) {
-                const val = complexPropDefaults[key];
-                complexPropDefaults[key] = exports[val];
-            }
-        }
-        if (mixins !== undefined) {
-            for (let i = 0, ii = mixins.length; i < ii; i++) {
-                const mixin = mixins[i];
-                mixins[i] = exports[mixin];
-            }
-        }
-        if (superclass !== undefined) {
-            params.superclass = exports[superclass];
-        }
-        this.register(self, params);
+        this.resolved = true;
     }
     async register(self, params) {
         const tagName = params.config.tagName;
@@ -97,25 +85,6 @@ export class BeDefinitiveController extends EventTarget {
         const ce = new XE(params);
     }
 }
-const tagName = 'be-definitive';
-const ifWantsToBe = 'definitive';
-const upgrade = '*';
-define({
-    config: {
-        tagName,
-        propDefaults: {
-            upgrade,
-            ifWantsToBe,
-            noParse: true,
-            forceVisible: ['template'],
-            intro: 'intro',
-        }
-    },
-    complexPropDefaults: {
-        controller: BeDefinitiveController
-    }
-});
-register(ifWantsToBe, upgrade, tagName);
 export async function toTempl(templ, fromShadow, tagName) {
     let templateToClone = templ;
     const { beatify } = await import('be-hive/beatify.js');
@@ -140,3 +109,20 @@ export async function toTempl(templ, fromShadow, tagName) {
     }
     return templateToClone;
 }
+const tagName = 'be-definitive';
+const ifWantsToBe = 'definitive';
+const upgrade = '*';
+const xe = new XE({
+    config: {
+        tagName,
+        propDefaults: {
+            ...propDefaults,
+        },
+        propInfo: {
+            ...propInfo
+        },
+        actions: {}
+    },
+    superclass: BeDefinitive
+});
+register(ifWantsToBe, upgrade, tagName);

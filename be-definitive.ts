@@ -1,43 +1,47 @@
-import {define, BeDecoratedProps} from 'be-decorated/DE.js';
-import {Actions, VirtualProps, Proxy} from './types';
-import {Action, TemplMgmt, TemplMgmtActions, TemplMgmtProps, beTransformed} from 'trans-render/lib/mixins/TemplMgmt.js';
+import {BE, propDefaults, propInfo} from 'be-enhanced/BE.js';
+import {BEConfig, EnhancementInfo} from 'be-enhanced/types';
+import {XE} from 'xtal-element/XE.js';
+import {Actions, AllProps, AP, PAP, ProPAP, POA} from './types';
 import {register} from 'be-hive/register.js';
 import { WCConfig } from 'trans-render/lib/types';
+import {Action, TemplMgmt, TemplMgmtActions, TemplMgmtProps, beTransformed} from 'trans-render/lib/mixins/TemplMgmt.js';
 
-export class BeDefinitiveController extends EventTarget{
-    async intro(proxy: Proxy, target: Element, beDecorProps: BeDecoratedProps) {
-        let params: VirtualProps | undefined = undefined;
-        const attr = 'is-' + beDecorProps.ifWantsToBe!;
-        if(!proxy.hasAttribute(attr)) {
-            params = (<any>proxy).beDecorated.definitiveProps;
+export class BeDefinitive extends BE<AP, Actions> implements Actions {
+    static override get beConfig(): BEConfig<any> {
+        return {
+            parse: false,
+        } as BEConfig
+    }
 
-        }else{
-            const attrVal = proxy.getAttribute(attr)!.trim();
-            if(attrVal[0] !== '{' && attrVal[0] !== '['){
-                params = {
-                    config: {
-                        tagName: attrVal,
-                        propDefaults:{
-                            noshadow: target.shadowRoot === null,
-                        }
+    override async attach(enhancedElement: Element, enhancementInfo: EnhancementInfo): Promise<void> {
+        await super.attach(enhancedElement, enhancementInfo);
+        const {enh} = enhancementInfo;
+        let params: any= undefined;
+        const attrVal = enhancedElement.getAttribute(enh)!.trim();
+        if(attrVal[0] !== '{' && attrVal[0] !== '['){
+            params = {
+                config: {
+                    tagName: attrVal,
+                    propDefaults:{
+                        noshadow: enhancedElement.shadowRoot === null,
                     }
-                } as Partial<VirtualProps> as VirtualProps;
-            }else{
-                try{
-                    params = JSON.parse(attrVal!);
-                }catch(e: any){
-                    console.error({attr, attrVal, e});
-                    proxy.rejected = e.message;
-                    return;
                 }
+            };
+        }else{
+            try{
+                params = JSON.parse(attrVal!);
+            }catch(e: any){
+                console.error({enh, attrVal, e});
+                this.rejected = true;
+                return;
             }
         }
 
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params!.config = params!.config || {};
         const config = params!.config as WCConfig;
-        let tagName = config.tagName || target.localName;
-        if(tagName.indexOf('-') === -1) tagName = target.id;
+        let tagName = config.tagName || enhancedElement.localName;
+        if(tagName.indexOf('-') === -1) tagName = enhancedElement.id;
         config.tagName = tagName;
         if(customElements.get(config.tagName)) return;
         config.propDefaults = config.propDefaults || {};
@@ -46,42 +50,27 @@ export class BeDefinitiveController extends EventTarget{
         config.actions = {
             ...(config.actions || {}),
             ...beTransformed,
-        }
+        };
+        config.propInfo = {
+            ...(config.propInfo || {})
+        };
         if(params!.scriptRef !== undefined){
-            let exports: any;
-            exports = (<any>target.shadowRoot?.querySelector('#' + params!.scriptRef!))?._modExport;
-            if(exports === undefined){
-                const {importFromScriptRef} = await import('be-exportable/importFromScriptRef.js');
-                exports = await importFromScriptRef(target, params!.scriptRef!);
-            }
-            this.setParamsFromScript(proxy, exports, params!);
+            throw 'NI';
+            // let exports: any;
+            // //TODO, this has changed
+            // exports = (<any>enhancedElement.shadowRoot?.querySelector('#' + params!.scriptRef!))?._modExport;
+            // if(exports === undefined){
+            //     const {importFromScriptRef} = await import('be-exportable/importFromScriptRef.js');
+            //     exports = await importFromScriptRef(target, params!.scriptRef!);
+            // }
+            // this.setParamsFromScript(proxy, exports, params!);
         }else{
-            this.register(proxy, params!);
+            await this.register(enhancedElement, params!);
         }
-        proxy.resolved = true;
+        this.resolved = true;
     }
 
-    setParamsFromScript(self: Element, exports: any, params : VirtualProps){
-        const {complexPropDefaults, mixins, superclass} = params;
-        if(complexPropDefaults !== undefined){
-            for(const key in complexPropDefaults){
-                const val = complexPropDefaults[key] as string;
-                complexPropDefaults[key] = exports[val];
-            }
-        }
-        if(mixins !== undefined){
-            for(let i = 0, ii = mixins.length; i < ii; i++){
-                const mixin = mixins[i];
-                mixins[i] = exports[mixin];
-            }
-        }
-        if(superclass !== undefined){
-            params.superclass = exports[superclass as any as string];
-        }
-        this.register(self, params);
-    }
-
-    async register(self: Element, params: VirtualProps){
+    async register(self: Element, params:any){
         const tagName = (params.config as WCConfig).tagName;
         const mainTemplate = await toTempl(self, self.localName === tagName && self.shadowRoot !== null, tagName!);
         //TODO:  make this a transform plugin?
@@ -98,27 +87,9 @@ export class BeDefinitiveController extends EventTarget{
         const ce = new XE<any, any>(params);
         
     }
-}
 
-const tagName = 'be-definitive';
-const ifWantsToBe = 'definitive';
-const upgrade = '*';
-define<VirtualProps & BeDecoratedProps, Actions>({
-    config:{
-        tagName,
-        propDefaults:{
-            upgrade,
-            ifWantsToBe,
-            noParse: true,
-            forceVisible: ['template'],
-            intro: 'intro',
-        }
-    },
-    complexPropDefaults:{
-        controller: BeDefinitiveController
-    }
-});
-register(ifWantsToBe, upgrade, tagName);
+
+}
 
 export async function toTempl(templ: Element, fromShadow: boolean, tagName: string){
     let templateToClone = templ as HTMLTemplateElement;
@@ -146,3 +117,27 @@ export async function toTempl(templ: Element, fromShadow: boolean, tagName: stri
     }
     return templateToClone;
 }
+
+export interface BeDefinitive extends AllProps{}
+
+const tagName = 'be-definitive';
+const ifWantsToBe = 'definitive';
+const upgrade = '*';
+
+const xe = new XE<AP, Actions>({
+    config: {
+        tagName,
+        propDefaults: {
+            ...propDefaults,
+        }, 
+        propInfo: {
+            ...propInfo
+        },
+        actions: {
+
+        }
+    },
+    superclass: BeDefinitive
+});
+
+register(ifWantsToBe, upgrade, tagName);
