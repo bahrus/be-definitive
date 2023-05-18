@@ -38,7 +38,7 @@ Renders:
 </hello-world>
 ```
 
-**NB:** Shadow DOM is bypassed in this instance (an exception to the general rule).  It makes sense in this case not to use Shadow DOM for consistency between the original, defining element, and subsequent instances, for styling consistency.
+**NB:** Shadow DOM is bypassed in this instance.  It makes sense in this case not to use Shadow DOM for consistency between the original, defining element, and subsequent instances, for styling consistency.
 
 In fact, the following may make more sense from a styling perspective, and also works:
 
@@ -89,16 +89,15 @@ Renders:
     <div>Hello, <span>world</span></div>
 </div>
 <hello-world place=Mars>
-    #shadow
     <div>
         <div>Hello, <span>Mars</span></div>
     </div>
 </hello-world>
 ```
 
-In this use case, using ShadowDOM is somewhat iffy, as now styling is fundamentally different between the "defining" element and subsequent elements.  But it is the default behavior, in order provide the developer the ability to choose which way to go in a consistent manner.
+Again, using ShadowDOM is somewhat iffy, as styling is fundamentally different between the "defining" element and subsequent elements.  But it is the default behavior, in order provide the developer the ability to choose which way to go in a consistent manner.
 
-To disable ShadowDOM, use the "noshadow" setting:
+To enable ShadowDOM, use the "shadowRootMode" setting:
 
 ```html
 <div be-definitive='{
@@ -109,7 +108,7 @@ To disable ShadowDOM, use the "noshadow" setting:
       "transform":{
         "span": "place"
       },
-      "noshadow": true
+      "shadowRootMode": "open"
     },
   }
 
