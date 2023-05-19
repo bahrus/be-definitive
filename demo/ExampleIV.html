@@ -13,15 +13,12 @@
         "place": "Venus",
         "transform":{
           "span": "place"
-        }
+        },
+        "shadowRootMode": "open"
       }
-    },
-    "scriptRef": "my-script",
-    "complexPropDefaults": {
-      "messageHandler": "messageHandler"
     }
   }'>
-    <template shadowroot=open>
+    <template shadowrootmode=open>
       <div>Hello, <span>world</span></div>
       <style adopt>
         span {
@@ -31,29 +28,22 @@
     </template>
   </hello-world>
 
-  <script nomodule id=my-script be-exportable>
-    export const messageHandler = e => {
-      console.log(e);
-    };
-  </script>
+
 
   <hello-world place=Mars></hello-world>
   <hello-world></hello-world>
   <script type=importmap>
       {
           "imports":{
-              "trans-render/": "../node_modules/trans-render/",
-              "xtal-element/": "../node_modules/xtal-element/",
-              "be-exportable/": "../node_modules/be-exportable/",
-              "be-decorated/": "../node_modules/be-decorated/",
-              "be-hive/": "../node_modules/be-hive/",
-              "xodus/": "../node_modules/xodus/"
+            "be-enhanced/": "../node_modules/be-enhanced/",
+            "be-hive/": "../node_modules/be-hive/",
+            "trans-render/": "../node_modules/trans-render/",
+            "xtal-element/": "../node_modules/xtal-element/"
           }
       }
   </script>
   <script type=module>
       import '../be-definitive.js';
-      import 'be-exportable/be-exportable.js';
   </script>
 </body>
 </html>
