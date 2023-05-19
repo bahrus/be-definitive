@@ -250,7 +250,7 @@ The following is supported:
   </template>
 </hello-world>
 
-<script nomodule id=my-script be-exportable>
+<script nomodule id=my-script>
 
   export const messageHandler = e => {
 
@@ -268,8 +268,6 @@ The following is supported:
   }
 </script>
 ```
-
-...with the help of the [be-exportable](https://github.com/bahrus/be-exportable) script tag decorator.
 
 The script tag can also be placed within the shadowDOM of the web component if applicable.  The code searches first within the Shadow DOM.
 
