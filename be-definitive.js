@@ -53,20 +53,41 @@ export class BeDefinitive extends BE {
             ...(config.propInfo || {})
         };
         if (params.scriptRef !== undefined) {
-            throw 'NI';
-            // let exports: any;
-            // //TODO, this has changed
-            // exports = (<any>enhancedElement.shadowRoot?.querySelector('#' + params!.scriptRef!))?._modExport;
-            // if(exports === undefined){
-            //     const {importFromScriptRef} = await import('be-exportable/importFromScriptRef.js');
-            //     exports = await importFromScriptRef(target, params!.scriptRef!);
-            // }
-            // this.setParamsFromScript(proxy, exports, params!);
+            const qry = '#' + params.scriptRef;
+            const scriptElement = enhancedElement.getRootNode().querySelector(qry) || (enhancedElement.shadowRoot?.querySelector(qry));
+            if (scriptElement !== undefined) {
+                import('be-exportable/be-exportable.js');
+                await scriptElement.beEnhanced.whenResolved('be-exportable');
+                const exports = scriptElement.exports;
+                await this.setParamsFromScript(enhancedElement, exports, params);
+            }
+            else {
+                console.error({ qry, message: '404' });
+            }
         }
         else {
             await this.register(enhancedElement, params);
         }
         this.resolved = true;
+    }
+    async setParamsFromScript(self, exports, params) {
+        const { complexPropDefaults, mixins, superclass } = params;
+        if (complexPropDefaults !== undefined) {
+            for (const key in complexPropDefaults) {
+                const val = complexPropDefaults[key];
+                complexPropDefaults[key] = exports[val];
+            }
+        }
+        if (mixins !== undefined) {
+            for (let i = 0, ii = mixins.length; i < ii; i++) {
+                const mixin = mixins[i];
+                mixins[i] = exports[mixin];
+            }
+        }
+        if (superclass !== undefined) {
+            params.superclass = exports[superclass];
+        }
+        await this.register(self, params);
     }
     async register(self, params) {
         const tagName = params.config.tagName;
