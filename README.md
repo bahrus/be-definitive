@@ -128,9 +128,9 @@ To apply multiple transforms, use an array.  Each transform should only be appli
 
 ## I Object
 
-If we need our HTML to be HTML5 compliant, we should probably prefix be- with data-.  That is supported.
+<!--If we need our HTML to be HTML5 compliant, we should probably prefix be- with data-.  That is supported.
 
-The ending -definitive is configurable also, within each ShadowDOM realm.
+The ending -definitive is configurable also, within each ShadowDOM realm.-->
 
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 

@@ -25,14 +25,14 @@
     "safari": "npx playwright wk http://localhost:3030"
   },
   "dependencies": {
-    "be-enhanced": "0.0.18",
-    "be-exportable": "0.0.72",
-    "be-hive": "0.0.93",
+    "be-enhanced": "0.0.21",
+    "be-exportable": "0.0.74",
+    "be-hive": "0.0.95",
     "trans-render": "0.0.681",
-    "xtal-element": "0.0.561"
+    "xtal-element": "0.0.562"
   },
   "devDependencies": {
-    "@playwright/test": "1.33.0",
+    "@playwright/test": "1.34.0",
     "may-it-serve": "0.0.5",
     "xtal-shell": "0.0.27"
   },
