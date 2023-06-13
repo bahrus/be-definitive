@@ -45,7 +45,7 @@ In fact, the following may make more sense from a styling perspective, and also 
 ## Example 1a -- Pre-rendered live DOM specifies the name of the web component:
 
 ```html
-<hello-world be-definitive>
+<hello-world enh-by-be-definitive>
     <div>Hello, <span>world</span></div>
 </hello-world>
 <hello-world></hello-world>
@@ -54,13 +54,15 @@ In fact, the following may make more sense from a styling perspective, and also 
 Renders:
 
 ```html
-<hello-world be-definitive>
+<hello-world enh-by-be-definitive>
   <div>Hello, <span>world</span></div>
 </hello-world>
 <hello-world>
   <div>Hello, <span>world</span></div>
 </hello-world>
 ```
+
+The need for prefixing be-definitive with enh-by is there to simply reduce the chances of causing conflicts with web components that uses be-definitive as an attribute it recognizes.
 
 ## Example 2 -- With dynamic properties
 
