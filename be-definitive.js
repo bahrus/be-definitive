@@ -44,7 +44,7 @@ export class BeDefinitive extends BE {
             return;
         config.propDefaults = config.propDefaults || {};
         const { propDefaults } = config;
-        propDefaults.transform = propDefaults.transform || {};
+        propDefaults.transform = propDefaults.transform;
         config.actions = {
             ...(config.actions || {}),
             ...beTransformed,
@@ -108,21 +108,14 @@ export class BeDefinitive extends BE {
 }
 export async function toTempl(templ, fromShadow, tagName) {
     let templateToClone = templ;
-    const { beatify } = await import('be-hive/beatify.js');
     if (!(templateToClone instanceof HTMLTemplateElement)) {
         templateToClone = document.createElement('template');
         if (fromShadow) {
             templateToClone.innerHTML = templ.shadowRoot.innerHTML;
             const content = templateToClone.content;
-            const beHive = content.querySelector('be-hive');
-            if (beHive !== null) {
-                beatify(content, beHive);
-            }
         }
         else {
             templateToClone.innerHTML = templ.innerHTML;
-            const beHive = templ.getRootNode().querySelector('be-hive');
-            beatify(templateToClone.content, beHive);
             if (tagName === templ.localName) {
                 templ.innerHTML = '';
             }

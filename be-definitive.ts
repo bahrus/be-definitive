@@ -17,7 +17,7 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
         await super.attach(enhancedElement, enhancementInfo);
         const {enh} = enhancementInfo;
         let params: any= undefined;
-        const attrVal = enhancedElement.getAttribute(enh)!.trim();
+        const attrVal = enhancedElement.getAttribute(enh!)!.trim();
         if(attrVal[0] !== '{' && attrVal[0] !== '['){
             params = {
                 config: {
@@ -46,7 +46,7 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
         if(customElements.get(config.tagName)) return;
         config.propDefaults = config.propDefaults || {};
         const {propDefaults} = config;
-        propDefaults.transform = propDefaults.transform || {};
+        propDefaults.transform = propDefaults.transform;
         config.actions = {
             ...(config.actions || {}),
             ...beTransformed,
@@ -114,21 +114,13 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
 
 export async function toTempl(templ: Element, fromShadow: boolean, tagName: string){
     let templateToClone = templ as HTMLTemplateElement;
-    const {beatify} = await import('be-hive/beatify.js');
     if(!(templateToClone instanceof HTMLTemplateElement)){
         templateToClone = document.createElement('template');
         if(fromShadow){
             templateToClone.innerHTML = templ.shadowRoot!.innerHTML;
             const content = templateToClone.content;
-            const beHive = content.querySelector('be-hive');
-            if(beHive !== null){
-                beatify(content, beHive);
-            }
         }else{
-
             templateToClone.innerHTML = templ.innerHTML;
-            const beHive = (templ.getRootNode() as DocumentFragment).querySelector('be-hive');
-            beatify(templateToClone.content, beHive!);
             if(tagName === templ.localName){
                 templ.innerHTML = '';
             }
