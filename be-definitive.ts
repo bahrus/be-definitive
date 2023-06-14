@@ -16,26 +16,31 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
     override async attach(enhancedElement: Element, enhancementInfo: EnhancementInfo): Promise<void> {
         await super.attach(enhancedElement, enhancementInfo);
         const {enh} = enhancementInfo;
-        let params: any= undefined;
-        const attrVal = enhancedElement.getAttribute(enh!)!.trim();
-        if(attrVal[0] !== '{' && attrVal[0] !== '['){
-            params = {
-                config: {
-                    tagName: attrVal,
-                    propDefaults:{
-                        noshadow: enhancedElement.shadowRoot === null,
+        let params: any = undefined;
+        if(enhancedElement.hasAttribute(enh!)){
+            const attrVal = enhancedElement.getAttribute(enh!)!.trim();
+            if(attrVal[0] !== '{' && attrVal[0] !== '['){
+                params = {
+                    config: {
+                        tagName: attrVal,
+                        propDefaults:{
+                            noshadow: enhancedElement.shadowRoot === null,
+                        }
                     }
+                };
+            }else{
+                try{
+                    params = JSON.parse(attrVal!);
+                }catch(e: any){
+                    console.error({enh, attrVal, e});
+                    this.rejected = true;
+                    return;
                 }
-            };
-        }else{
-            try{
-                params = JSON.parse(attrVal!);
-            }catch(e: any){
-                console.error({enh, attrVal, e});
-                this.rejected = true;
-                return;
             }
+        }else{
+            params = {};
         }
+
 
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params!.config = params!.config || {};

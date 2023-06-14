@@ -64,7 +64,7 @@ Renders:
 
 The need for prefixing be-definitive with enh-by is there to simply reduce the chances of causing conflicts with web components that uses be-definitive as an attribute it recognizes.
 
-## Example 2 -- With dynamic properties
+## Example 2 -- With dynamic properties, binding from a distance
 
 ```html
 <div be-definitive='{
@@ -127,6 +127,31 @@ Subsequent instances take less bandwidth to download, and generate quite quickly
 The "transform" setting uses [DTR](https://github.com/bahrus/trans-render) syntax, similar to CSS, in order to bind the template, but *be-definitive* eagerly awaits inline binding with Template Instantiation being built into the platform as well.
 
 To apply multiple transforms, use an array.  Each transform should only be applied when the dependent properties change ("place" in this case).
+
+Example IIa:  With inline binding
+
+We get the same results with explicit inline binding imported via be-enhanced custom enhancements:
+
+```html
+<div be-definitive='{
+    "config":{
+      "tagName":"hello-world",
+      "propDefaults":{
+        "place": "Venus",
+      }
+    }
+  }'>
+    <div itemscope be='{
+            "linked": "Share * from host."
+        }'>Hello, <span itemprop=place>world</span>
+    </div>
+</div>
+<hello-world place=Mars></hello-world>
+<hello-world></hello-world>
+```
+
+
+
 
 ## I Object
 

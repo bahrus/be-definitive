@@ -11,14 +11,13 @@
         "config":{
           "tagName":"hello-world",
           "propDefaults":{
-            "place": "Venus",
-            "transform":{
-              "span": "place"
-            }
+            "place": "Venus"
           }
         }
       }'>
-        <div be-linked="Share * from host">Hello, <span itemprop=place>world</span></div>
+        <div itemscope be='{
+            "linked": "Share * from host."
+        }'>Hello, <span itemprop=place>world</span></div>
     </div>
     <hello-world place=Mars></hello-world>
     <hello-world></hello-world>
@@ -27,12 +26,15 @@
             "imports":{
               "be-enhanced/": "../node_modules/be-enhanced/",
               "be-hive/": "../node_modules/be-hive/",
+              "be-linked/": "../node_modules/be-linked/",
+              "be-propagating/": "../node_modules/be-propagating/",
               "trans-render/": "../node_modules/trans-render/",
               "xtal-element/": "../node_modules/xtal-element/"
             }
         }
     </script>
     <script type=module>
+        import 'be-linked/be-linked.js';
         import '../be-definitive.js';
     </script>
 </body>

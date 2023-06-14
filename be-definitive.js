@@ -12,26 +12,31 @@ export class BeDefinitive extends BE {
         await super.attach(enhancedElement, enhancementInfo);
         const { enh } = enhancementInfo;
         let params = undefined;
-        const attrVal = enhancedElement.getAttribute(enh).trim();
-        if (attrVal[0] !== '{' && attrVal[0] !== '[') {
-            params = {
-                config: {
-                    tagName: attrVal,
-                    propDefaults: {
-                        noshadow: enhancedElement.shadowRoot === null,
+        if (enhancedElement.hasAttribute(enh)) {
+            const attrVal = enhancedElement.getAttribute(enh).trim();
+            if (attrVal[0] !== '{' && attrVal[0] !== '[') {
+                params = {
+                    config: {
+                        tagName: attrVal,
+                        propDefaults: {
+                            noshadow: enhancedElement.shadowRoot === null,
+                        }
                     }
+                };
+            }
+            else {
+                try {
+                    params = JSON.parse(attrVal);
                 }
-            };
+                catch (e) {
+                    console.error({ enh, attrVal, e });
+                    this.rejected = true;
+                    return;
+                }
+            }
         }
         else {
-            try {
-                params = JSON.parse(attrVal);
-            }
-            catch (e) {
-                console.error({ enh, attrVal, e });
-                this.rejected = true;
-                return;
-            }
+            params = {};
         }
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params.config = params.config || {};
