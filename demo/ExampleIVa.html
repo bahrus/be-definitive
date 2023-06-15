@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <hello-world be-definitive='{
+    "config":{
+      "propDefaults":{
+        "place": "Venus",
+        "shadowRootMode": "open"
+      }
+    }
+  }'>
+    <template shadowrootmode=open>
+      <div be='{
+        "linked": "Share * from host."
+      }'
+      >Hello, <span itemprop=place>world</span></div>
+      <style adopt>
+        span {
+          color: green;
+        }
+      </style>
+    </template>
+  </hello-world>
+
+
+
+  <hello-world place=Mars></hello-world>
+  <hello-world></hello-world>
+  <script type=importmap>
+      {
+          "imports":{
+            "be-enhanced/": "../node_modules/be-enhanced/",
+            "be-hive/": "../node_modules/be-hive/",
+            "trans-render/": "../node_modules/trans-render/",
+            "xtal-element/": "../node_modules/xtal-element/"
+          }
+      }
+  </script>
+  <script type=module>
+      import '../be-definitive.js';
+  </script>
+</body>
+</html>
