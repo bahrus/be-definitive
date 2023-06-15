@@ -5,7 +5,7 @@ import {Actions, AllProps, AP, PAP, ProPAP, POA} from './types';
 import {register} from 'be-hive/register.js';
 import { WCConfig } from 'trans-render/lib/types';
 import {Action, TemplMgmt, TemplMgmtActions, TemplMgmtProps, beTransformed} from 'trans-render/lib/mixins/TemplMgmt.js';
-
+import {} from 'be-hive/types';
 export class BeDefinitive extends BE<AP, Actions> implements Actions {
     static override get beConfig(): BEConfig<any> {
         return {
@@ -120,12 +120,19 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
 export async function toTempl(templ: Element, fromShadow: boolean, tagName: string){
     let templateToClone = templ as HTMLTemplateElement;
     if(!(templateToClone instanceof HTMLTemplateElement)){
+        debugger;
+        
+        
         templateToClone = document.createElement('template');
         if(fromShadow){
-            templateToClone.innerHTML = templ.shadowRoot!.innerHTML;
+            const beHive = (templ.shadowRoot!).querySelector('be-hive') as any;
+            const beatified = await beHive.beatify(templ.shadowRoot!);
+            templateToClone.innerHTML = beatified.outerHTML;
             const content = templateToClone.content;
         }else{
-            templateToClone.innerHTML = templ.innerHTML;
+            const beHive = (templ.getRootNode() as DocumentFragment).querySelector('be-hive') as any;
+            const beatified = await beHive.beatify(templ);
+            templateToClone.innerHTML = beatified.outerHTML;
             if(tagName === templ.localName){
                 templ.innerHTML = '';
             }

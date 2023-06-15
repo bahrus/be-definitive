@@ -114,13 +114,18 @@ export class BeDefinitive extends BE {
 export async function toTempl(templ, fromShadow, tagName) {
     let templateToClone = templ;
     if (!(templateToClone instanceof HTMLTemplateElement)) {
+        debugger;
         templateToClone = document.createElement('template');
         if (fromShadow) {
-            templateToClone.innerHTML = templ.shadowRoot.innerHTML;
+            const beHive = (templ.shadowRoot).querySelector('be-hive');
+            const beatified = await beHive.beatify(templ.shadowRoot);
+            templateToClone.innerHTML = beatified.outerHTML;
             const content = templateToClone.content;
         }
         else {
-            templateToClone.innerHTML = templ.innerHTML;
+            const beHive = templ.getRootNode().querySelector('be-hive');
+            const beatified = await beHive.beatify(templ);
+            templateToClone.innerHTML = beatified.outerHTML;
             if (tagName === templ.localName) {
                 templ.innerHTML = '';
             }
