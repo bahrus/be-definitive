@@ -9,6 +9,7 @@ export class BeDefinitive extends BE {
         };
     }
     async attach(enhancedElement, enhancementInfo) {
+        enhancedElement.skipTemplateClone = true;
         await super.attach(enhancedElement, enhancementInfo);
         const { enh } = enhancementInfo;
         let params = undefined;
@@ -114,7 +115,6 @@ export class BeDefinitive extends BE {
 export async function toTempl(templ, fromShadow, tagName) {
     let templateToClone = templ;
     if (!(templateToClone instanceof HTMLTemplateElement)) {
-        debugger;
         templateToClone = document.createElement('template');
         if (fromShadow) {
             const beHive = (templ.shadowRoot).querySelector('be-hive');
@@ -125,10 +125,11 @@ export async function toTempl(templ, fromShadow, tagName) {
         else {
             const beHive = templ.getRootNode().querySelector('be-hive');
             const beatified = await beHive.beatify(templ);
-            templateToClone.innerHTML = beatified.outerHTML;
-            if (tagName === templ.localName) {
-                templ.innerHTML = '';
-            }
+            templateToClone.innerHTML = beatified.innerHTML;
+            console.log({ innerHTML: beatified.innerHTML });
+            // if(tagName === templ.localName){
+            //     templ.innerHTML = '';
+            // }
         }
     }
     return templateToClone;

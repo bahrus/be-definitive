@@ -14,6 +14,7 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
     }
 
     override async attach(enhancedElement: Element, enhancementInfo: EnhancementInfo): Promise<void> {
+        (enhancedElement as any as TemplMgmtProps).skipTemplateClone = true;
         await super.attach(enhancedElement, enhancementInfo);
         const {enh} = enhancementInfo;
         let params: any = undefined;
@@ -120,9 +121,6 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
 export async function toTempl(templ: Element, fromShadow: boolean, tagName: string){
     let templateToClone = templ as HTMLTemplateElement;
     if(!(templateToClone instanceof HTMLTemplateElement)){
-        debugger;
-        
-        
         templateToClone = document.createElement('template');
         if(fromShadow){
             const beHive = (templ.shadowRoot!).querySelector('be-hive') as any;
@@ -132,10 +130,11 @@ export async function toTempl(templ: Element, fromShadow: boolean, tagName: stri
         }else{
             const beHive = (templ.getRootNode() as DocumentFragment).querySelector('be-hive') as any;
             const beatified = await beHive.beatify(templ);
-            templateToClone.innerHTML = beatified.outerHTML;
-            if(tagName === templ.localName){
-                templ.innerHTML = '';
-            }
+            templateToClone.innerHTML = beatified.innerHTML;
+            console.log({innerHTML: beatified.innerHTML});
+            // if(tagName === templ.localName){
+            //     templ.innerHTML = '';
+            // }
         }
         
                 
