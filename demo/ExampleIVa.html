@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-  <hello-world be-definitive='{
+  <hello-world enh-by-be-definitive='{
     "config":{
       "propDefaults":{
         "place": "Venus",
@@ -17,7 +17,7 @@
   }'>
     <template shadowrootmode=open>
       <div be='{
-        "linked": "Share * from host."
+        "linked": "Share * from $1."
       }'
       >Hello, <span itemprop=place>world</span></div>
       <style adopt>
@@ -25,6 +25,7 @@
           color: green;
         }
       </style>
+      <be-hive></be-hive>
     </template>
   </hello-world>
 
@@ -36,8 +37,10 @@
       {
           "imports":{
             "be-enhanced/": "../node_modules/be-enhanced/",
-            "be-hive/": "../node_modules/be-hive/",
-            "trans-render/": "../node_modules/trans-render/",
+            "be-hive/": "../be-hive/",
+            "be-linked/": "../be-linked/",
+            "be-propagating/": "../node_modules/be-propagating/",
+            "trans-render/": "../trans-render/",
             "xtal-element/": "../node_modules/xtal-element/"
           }
       }

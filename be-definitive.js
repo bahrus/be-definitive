@@ -2,6 +2,7 @@ import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
 import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
 import { TemplMgmt, beTransformed } from 'trans-render/lib/mixins/TemplMgmt.js';
+//import {} from 'be-hive/types';
 export class BeDefinitive extends BE {
     static get beConfig() {
         return {
@@ -118,8 +119,10 @@ export async function toTempl(templ, fromShadow, tagName) {
         templateToClone = document.createElement('template');
         if (fromShadow) {
             const beHive = (templ.shadowRoot).querySelector('be-hive');
-            const beatified = await beHive.beatify(templ.shadowRoot);
-            templateToClone.innerHTML = beatified.outerHTML;
+            const div = document.createElement('div');
+            div.innerHTML = templ.shadowRoot.innerHTML;
+            const beatified = await beHive.beatify(div);
+            templateToClone.innerHTML = div.innerHTML;
             const content = templateToClone.content;
         }
         else {
