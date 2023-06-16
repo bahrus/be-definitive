@@ -10,18 +10,24 @@ export class BeDefinitive extends BE {
         };
     }
     async attach(enhancedElement, enhancementInfo) {
-        enhancedElement.skipTemplateClone = true;
-        await super.attach(enhancedElement, enhancementInfo);
+        let wcElement = enhancedElement, attrElement = enhancedElement;
+        if (enhancedElement.localName === 'be-hive' || enhancedElement.localName === 'script') {
+            const { findRealm } = await import('trans-render/lib/findRealm.js');
+            wcElement = await findRealm(enhancedElement, 'hostish');
+            attrElement = enhancedElement;
+        }
+        wcElement.skipTemplateClone = true;
+        await super.attach(attrElement, enhancementInfo);
         const { enh } = enhancementInfo;
         let params = undefined;
-        if (enhancedElement.hasAttribute(enh)) {
-            const attrVal = enhancedElement.getAttribute(enh).trim();
+        if (attrElement.hasAttribute(enh)) {
+            const attrVal = attrElement.getAttribute(enh).trim();
             if (attrVal[0] !== '{' && attrVal[0] !== '[') {
                 params = {
                     config: {
                         tagName: attrVal,
                         propDefaults: {
-                            noshadow: enhancedElement.shadowRoot === null,
+                            noshadow: wcElement.shadowRoot === null,
                         }
                     }
                 };
@@ -43,9 +49,9 @@ export class BeDefinitive extends BE {
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params.config = params.config || {};
         const config = params.config;
-        let tagName = config.tagName || enhancedElement.localName;
+        let tagName = config.tagName || wcElement.localName;
         if (tagName.indexOf('-') === -1)
-            tagName = enhancedElement.id;
+            tagName = wcElement.id;
         config.tagName = tagName;
         if (customElements.get(config.tagName))
             return;
@@ -61,7 +67,7 @@ export class BeDefinitive extends BE {
         };
         if (params.scriptRef !== undefined) {
             const qry = '#' + params.scriptRef;
-            const scriptElement = enhancedElement.getRootNode().querySelector(qry) || (enhancedElement.shadowRoot?.querySelector(qry));
+            const scriptElement = attrElement.getRootNode().querySelector(qry) || (wcElement.shadowRoot?.querySelector(qry));
             if (scriptElement !== undefined) {
                 import('be-exportable/be-exportable.js');
                 await scriptElement.beEnhanced.whenResolved('be-exportable');
@@ -73,7 +79,7 @@ export class BeDefinitive extends BE {
             }
         }
         else {
-            await this.register(enhancedElement, params);
+            await this.register(wcElement, params);
         }
         this.resolved = true;
     }

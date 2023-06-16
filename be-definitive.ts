@@ -14,19 +14,24 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
     }
 
     override async attach(enhancedElement: Element, enhancementInfo: EnhancementInfo): Promise<void> {
-
-        (enhancedElement as any as TemplMgmtProps).skipTemplateClone = true;
-        await super.attach(enhancedElement, enhancementInfo);
+        let wcElement = enhancedElement, attrElement = enhancedElement;
+        if(enhancedElement.localName === 'be-hive' || enhancedElement.localName === 'script'){ 
+            const {findRealm} = await import('trans-render/lib/findRealm.js');
+            wcElement = await findRealm(enhancedElement, 'hostish') as Element; 
+            attrElement = enhancedElement;
+        }
+        (wcElement as any as TemplMgmtProps).skipTemplateClone = true;
+        await super.attach(attrElement, enhancementInfo);
         const {enh} = enhancementInfo;
         let params: any = undefined;
-        if(enhancedElement.hasAttribute(enh!)){
-            const attrVal = enhancedElement.getAttribute(enh!)!.trim();
+        if(attrElement.hasAttribute(enh!)){
+            const attrVal = attrElement.getAttribute(enh!)!.trim();
             if(attrVal[0] !== '{' && attrVal[0] !== '['){
                 params = {
                     config: {
                         tagName: attrVal,
                         propDefaults:{
-                            noshadow: enhancedElement.shadowRoot === null,
+                            noshadow: wcElement.shadowRoot === null,
                         }
                     }
                 };
@@ -47,8 +52,8 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
         //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
         params!.config = params!.config || {};
         const config = params!.config as WCConfig;
-        let tagName = config.tagName || enhancedElement.localName;
-        if(tagName.indexOf('-') === -1) tagName = enhancedElement.id;
+        let tagName = config.tagName || wcElement.localName;
+        if(tagName.indexOf('-') === -1) tagName = wcElement.id;
         config.tagName = tagName;
         if(customElements.get(config.tagName)) return;
         config.propDefaults = config.propDefaults || {};
@@ -63,7 +68,7 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
         };
         if(params!.scriptRef !== undefined){
             const qry = '#' + params!.scriptRef!
-            const scriptElement = (enhancedElement.getRootNode() as DocumentFragment).querySelector(qry) || (enhancedElement.shadowRoot?.querySelector(qry)) as any;
+            const scriptElement = (attrElement.getRootNode() as DocumentFragment).querySelector(qry) || (wcElement.shadowRoot?.querySelector(qry)) as any;
             if(scriptElement !== undefined){
                 import('be-exportable/be-exportable.js');
                 await scriptElement.beEnhanced.whenResolved('be-exportable');
@@ -73,7 +78,7 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
                 console.error({qry, message: '404'});
             }
         }else{
-            await this.register(enhancedElement, params!);
+            await this.register(wcElement, params!);
         }
         this.resolved = true;
     }
