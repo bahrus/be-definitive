@@ -125,11 +125,16 @@ export async function toTempl(templ, fromShadow, tagName) {
         templateToClone = document.createElement('template');
         if (fromShadow) {
             const beHive = (templ.shadowRoot).querySelector('be-hive');
-            const div = document.createElement('div');
-            div.innerHTML = templ.shadowRoot.innerHTML;
-            const beatified = await beHive.beatify(div);
-            templateToClone.innerHTML = div.innerHTML;
-            const content = templateToClone.content;
+            if (beHive) {
+                const div = document.createElement('div');
+                div.innerHTML = templ.shadowRoot.innerHTML;
+                const beatified = await beHive.beatify(div);
+                templateToClone.innerHTML = div.innerHTML;
+            }
+            else {
+                templateToClone.innerHTML = templ.shadowRoot.innerHTML;
+            }
+            //const content = templateToClone.content;
         }
         else {
             const beHive = templ.getRootNode().querySelector('be-hive');
