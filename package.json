@@ -25,17 +25,17 @@
     "safari": "npx playwright wk http://localhost:3030"
   },
   "dependencies": {
-    "be-enhanced": "0.0.28",
-    "be-exportable": "0.0.77",
-    "be-hive": "0.0.103",
-    "trans-render": "0.0.688",
-    "xtal-element": "0.0.566"
+    "be-enhanced": "0.0.29",
+    "be-exportable": "0.0.78",
+    "be-hive": "0.0.104",
+    "trans-render": "0.0.689",
+    "xtal-element": "0.0.567"
   },
   "devDependencies": {
     "@playwright/test": "1.35.0",
     "may-it-serve": "0.0.5",
     "xtal-shell": "0.0.27",
-    "be-linked": "0.0.21"
+    "be-linked": "0.0.22"
   },
   "repository": {
     "type": "git",
