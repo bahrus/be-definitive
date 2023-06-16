@@ -16,7 +16,7 @@
     }
   }'>
     <template shadowrootmode=open>
-      <div be='{
+      <div itemscope be='{
         "linked": "Share * from $1."
       }'
       >Hello, <span itemprop=place>world</span></div>
@@ -46,7 +46,8 @@
       }
   </script>
   <script type=module>
-      import '../be-definitive.js';
+    import 'be-linked/be-linked.js';
+    import '../be-definitive.js';
   </script>
 </body>
 </html>

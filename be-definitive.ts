@@ -134,7 +134,7 @@ export async function toTempl(templ: Element, fromShadow: boolean, tagName: stri
             const beHive = (templ.getRootNode() as DocumentFragment).querySelector('be-hive') as any;
             const beatified = await beHive.beatify(templ);
             templateToClone.innerHTML = beatified.innerHTML;
-            console.log({innerHTML: beatified.innerHTML});
+            //console.log({innerHTML: beatified.innerHTML});
             // if(tagName === templ.localName){
             //     templ.innerHTML = '';
             // }
