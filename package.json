@@ -27,12 +27,12 @@
   "dependencies": {
     "be-enhanced": "0.0.29",
     "be-exportable": "0.0.78",
-    "be-hive": "0.0.104",
-    "trans-render": "0.0.689",
+    "be-hive": "0.0.105",
+    "trans-render": "0.0.690",
     "xtal-element": "0.0.567"
   },
   "devDependencies": {
-    "@playwright/test": "1.35.0",
+    "@playwright/test": "1.35.1",
     "may-it-serve": "0.0.5",
     "xtal-shell": "0.0.27",
     "be-linked": "0.0.22"
