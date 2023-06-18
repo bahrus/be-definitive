@@ -14,11 +14,12 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
     }
 
     override async attach(enhancedElement: Element, enhancementInfo: EnhancementInfo): Promise<void> {
-        let wcElement = enhancedElement, attrElement = enhancedElement;
+        let wcElement = enhancedElement, attrElement = enhancedElement, isLocal = false;
         if(enhancedElement.localName === 'be-hive' || enhancedElement.localName === 'script'){ 
             const {findRealm} = await import('trans-render/lib/findRealm.js');
             wcElement = await findRealm(enhancedElement, 'hostish') as Element; 
             attrElement = enhancedElement;
+            isLocal = true;
         }
         (wcElement as any as TemplMgmtProps).skipTemplateClone = true;
         await super.attach(attrElement, enhancementInfo);
@@ -43,6 +44,9 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
                     this.rejected = true;
                     return;
                 }
+            }
+            if(isLocal){
+                attrElement.removeAttribute(enh!);
             }
         }else{
             params = {};

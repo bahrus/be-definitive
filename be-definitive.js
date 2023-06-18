@@ -10,11 +10,12 @@ export class BeDefinitive extends BE {
         };
     }
     async attach(enhancedElement, enhancementInfo) {
-        let wcElement = enhancedElement, attrElement = enhancedElement;
+        let wcElement = enhancedElement, attrElement = enhancedElement, isLocal = false;
         if (enhancedElement.localName === 'be-hive' || enhancedElement.localName === 'script') {
             const { findRealm } = await import('trans-render/lib/findRealm.js');
             wcElement = await findRealm(enhancedElement, 'hostish');
             attrElement = enhancedElement;
+            isLocal = true;
         }
         wcElement.skipTemplateClone = true;
         await super.attach(attrElement, enhancementInfo);
@@ -41,6 +42,9 @@ export class BeDefinitive extends BE {
                     this.rejected = true;
                     return;
                 }
+            }
+            if (isLocal) {
+                attrElement.removeAttribute(enh);
             }
         }
         else {
