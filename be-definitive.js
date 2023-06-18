@@ -129,7 +129,7 @@ export async function toTempl(templ, fromShadow, tagName) {
                 const div = document.createElement('div');
                 div.innerHTML = templ.shadowRoot.innerHTML;
                 const beatified = await beHive.beatify(div);
-                templateToClone.innerHTML = div.innerHTML;
+                templateToClone.innerHTML = beatified.innerHTML;
             }
             else {
                 templateToClone.innerHTML = templ.shadowRoot.innerHTML;
