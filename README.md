@@ -4,7 +4,6 @@
 [![NPM version](https://badge.fury.io/js/be-definitive.png)](http://badge.fury.io/js/be-definitive)
 [![Playwright Tests](https://github.com/bahrus/be-definitive/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-definitive/actions/workflows/CI.yml)
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-definitive?style=for-the-badge)](https://bundlephobia.com/result?p=be-definitive)
-
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-definitive?compression=gzip">
 
 be-definitive allows us to take some DOM that is in the live DOM tree, or DOM that is imported into the tree via fetch, and turn it into a web component.  This allows that DOM to appear again in other parts of the page via a single tag.  Customizations can be made to each instance based on the values of properties / attributes.
@@ -62,7 +61,7 @@ Renders:
 </hello-world>
 ```
 
-The need for prefixing be-definitive with enh-by is there to simply reduce the chances of causing conflicts with web components that uses be-definitive as an attribute it recognizes.
+The need for prefixing be-definitive with enh-by is there to simply reduce the chances of causing conflicts with web components that use be-definitive as an attribute they recognize.
 
 ## Example 2 -- With dynamic properties, binding from a distance
 
