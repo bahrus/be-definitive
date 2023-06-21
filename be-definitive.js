@@ -2,7 +2,6 @@ import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
 import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
 import { TemplMgmt, beTransformed } from 'trans-render/lib/mixins/TemplMgmt.js';
-//import {} from 'be-hive/types';
 export class BeDefinitive extends BE {
     static get beConfig() {
         return {
@@ -11,7 +10,9 @@ export class BeDefinitive extends BE {
     }
     async attach(enhancedElement, enhancementInfo) {
         let wcElement = enhancedElement, attrElement = enhancedElement, isLocal = false;
-        if (enhancedElement.localName === 'be-hive' || enhancedElement.localName === 'script') {
+        const { localName } = enhancedElement;
+        const isScript = localName === 'script';
+        if (localName === 'be-hive' || isScript) {
             const { findRealm } = await import('trans-render/lib/findRealm.js');
             wcElement = await findRealm(enhancedElement, 'hostish');
             attrElement = enhancedElement;
@@ -50,7 +51,18 @@ export class BeDefinitive extends BE {
         else {
             params = {};
         }
-        //const doUpdateTransformProps = Object.keys(params!.config.propDefaults || {});
+        const { scriptRef } = params;
+        if (scriptRef || isScript) {
+            const qry = `#${scriptRef}`;
+            const scriptElement = (isScript ? enhancedElement :
+                attrElement.getRootNode().querySelector(qry) || (wcElement.shadowRoot?.querySelector(qry)));
+            if (!scriptElement) {
+                throw { qry, message: '404' };
+            }
+            import('be-exportable/be-exportable.js');
+            const beExpAP = await scriptElement.beEnhanced.whenResolved('be-exportable');
+            await this.setParamsFromScript(enhancedElement, beExpAP.exports, params);
+        }
         params.config = params.config || {};
         const config = params.config;
         let tagName = config.tagName || wcElement.localName;
@@ -60,8 +72,8 @@ export class BeDefinitive extends BE {
         if (customElements.get(config.tagName))
             return;
         config.propDefaults = config.propDefaults || {};
-        const { propDefaults } = config;
-        propDefaults.transform = propDefaults.transform;
+        //const {propDefaults} = config;
+        //propDefaults.transform = propDefaults.transform;
         config.actions = {
             ...(config.actions || {}),
             ...beTransformed,
@@ -69,26 +81,17 @@ export class BeDefinitive extends BE {
         config.propInfo = {
             ...(config.propInfo || {})
         };
-        if (params.scriptRef !== undefined) {
-            const qry = '#' + params.scriptRef;
-            const scriptElement = attrElement.getRootNode().querySelector(qry) || (wcElement.shadowRoot?.querySelector(qry));
-            if (scriptElement !== undefined) {
-                import('be-exportable/be-exportable.js');
-                await scriptElement.beEnhanced.whenResolved('be-exportable');
-                const exports = scriptElement.exports;
-                await this.setParamsFromScript(enhancedElement, exports, params);
-            }
-            else {
-                console.error({ qry, message: '404' });
-            }
-        }
-        else {
-            await this.register(wcElement, params);
-        }
+        await this.register(wcElement, params);
         this.resolved = true;
     }
     async setParamsFromScript(self, exports, params) {
-        const { complexPropDefaults, mixins, superclass } = params;
+        const { complexPropDefaults, mixins, superclass, complexConfig } = params;
+        if (complexConfig !== undefined) {
+            const obj = exports[complexConfig];
+            const config = params.config || {};
+            Object.assign(config, obj);
+            params.config = config;
+        }
         if (complexPropDefaults !== undefined) {
             for (const key in complexPropDefaults) {
                 const val = complexPropDefaults[key];
@@ -104,7 +107,7 @@ export class BeDefinitive extends BE {
         if (superclass !== undefined) {
             params.superclass = exports[superclass];
         }
-        await this.register(self, params);
+        //await this.register(self, params);
     }
     async register(self, params) {
         const tagName = params.config.tagName;

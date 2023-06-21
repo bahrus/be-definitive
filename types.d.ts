@@ -5,6 +5,7 @@ import {IBE} from 'be-enhanced/types';
 export interface EndUserProps<Props = any, Actions = Props> extends IBE, XEArgs<Props, Actions>{
     scriptRef?: string;
     scriptPath?: string;
+    complexConfig?: string;
 }
 
 export interface AllProps extends EndUserProps {}

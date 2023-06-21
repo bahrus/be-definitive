@@ -7,14 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-  <hello-world enh-by-be-definitive='{
-    "config":{
-      "propDefaults":{
-        "place": "Venus",
-        "shadowRootMode": "open"
-      }
-    }
-  }'>
+  <hello-world>
     <template shadowrootmode=open>
       <div itemscope be='{
         "linked": "Share * from $1."
@@ -25,6 +18,16 @@
           color: green;
         }
       </style>
+      <script nomodule enh-by-be-definitive='{
+        "complexConfig": "config"
+      }'>
+        export const config = {
+            propDefaults:{
+                place: 'Venus',
+                shaddowRootMode: 'open'
+            }
+        }
+      </script>
       <be-hive></be-hive>
     </template>
   </hello-world>
@@ -37,6 +40,7 @@
       {
           "imports":{
             "be-enhanced/": "../node_modules/be-enhanced/",
+            "be-exportable/": "../node_modules/be-exportable/",
             "be-hive/": "../node_modules/be-hive/",
             "be-linked/": "../node_modules/be-linked/",
             "be-propagating/": "../node_modules/be-propagating/",

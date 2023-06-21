@@ -28,7 +28,7 @@
     "be-enhanced": "0.0.31",
     "be-exportable": "0.0.80",
     "be-hive": "0.0.107",
-    "trans-render": "0.0.690",
+    "trans-render": "0.0.691",
     "xtal-element": "0.0.569"
   },
   "devDependencies": {

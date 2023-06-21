@@ -6,7 +6,6 @@
 		"experimentalDecorators": false,
 		"newLine": "LF",
 		"strict": true,
-		"watch": true
 	},
 	"files":[
 		"be-definitive.ts"
