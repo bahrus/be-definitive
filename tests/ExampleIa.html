@@ -25,15 +25,15 @@
     <script type=module>
         import '../be-definitive.js';
     </script>
-        <script>
-            function runScript(){
-                if(document.querySelector('hello-world.second span').textContent === 'world'){
-                    target.setAttribute('mark', 'good');
-                }
+    <script>
+        function runScript(){
+            if(document.querySelector('hello-world.second span').textContent === 'world'){
+                target.setAttribute('mark', 'good');
             }
-            setTimeout(() => {
-                runScript();
-            }, 2000);
-        </script>
+        }
+        setTimeout(() => {
+            runScript();
+        }, 2000);
+    </script>
 </body>
 </html>
