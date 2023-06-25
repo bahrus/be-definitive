@@ -28,14 +28,15 @@
     "be-enhanced": "0.0.33",
     "be-exportable": "0.0.83",
     "be-hive": "0.0.109",
+    "be-linked": "0.0.30",
     "trans-render": "0.0.693",
     "xtal-element": "0.0.571"
   },
   "devDependencies": {
     "@playwright/test": "1.35.1",
     "may-it-serve": "0.0.5",
-    "xtal-shell": "0.0.27",
-    "be-linked": "0.0.30"
+    "xtal-shell": "0.0.27"
+    
   },
   "repository": {
     "type": "git",
