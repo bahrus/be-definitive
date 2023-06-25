@@ -115,15 +115,19 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
 
     async register(self: Element, params:any){
         const {config}: {config: WCConfig} = params;
+        const {propDefaults, propInfo} = config;
         const tagName = config.tagName;
         const fromShadow = self.localName === tagName && self.shadowRoot !== null;
+        if(fromShadow){
+            propDefaults!['shadowRootMode'] = self.shadowRoot.mode;
+        }
         const content = fromShadow ? self.shadowRoot : self;
         if(content.querySelector('[itemscope]') !== null){
             const {itemize} = await import('./itemize.js');
             const props = itemize(content);
-            const {propDefaults, propInfo} = config;
+            
             for(const propName in props){
-                if((propDefaults !== undefined && propName in propDefaults) || (propName in propInfo!)) continue;
+                if((propName in propDefaults!) || (propName in propInfo!)) continue;
                 propInfo![propName] = props[propName];
             }
             //console.log({props});
