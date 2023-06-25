@@ -3,8 +3,7 @@ import 'be-linked/be-linked.js';
 import {getIPsInScope} from 'be-linked/getIPsInScope.js';
 
 const defaultProp:PropInfoExt = {
-    parse: false,
-    type: 'Object'
+    type: 'String'
 }
 export function itemize(container: Element | ShadowRoot): {[key: string]: PropInfoExt}{
     const returnObj: {[key: string]: PropInfoExt} = {};

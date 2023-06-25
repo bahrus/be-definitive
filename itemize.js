@@ -1,8 +1,7 @@
 import 'be-linked/be-linked.js';
 import { getIPsInScope } from 'be-linked/getIPsInScope.js';
 const defaultProp = {
-    parse: false,
-    type: 'Object'
+    type: 'String'
 };
 export function itemize(container) {
     const returnObj = {};

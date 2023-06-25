@@ -6,7 +6,7 @@ export interface EndUserProps<Props = any, Actions = Props> extends IBE, XEArgs<
     scriptRef?: string;
     scriptPath?: string;
     complexConfig?: string;
-    config?: Config
+    //config?: Config
 }
 
 export interface AllProps extends EndUserProps {}

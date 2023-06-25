@@ -121,7 +121,12 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
         if(content.querySelector('[itemscope]') !== null){
             const {itemize} = await import('./itemize.js');
             const props = itemize(content);
-            console.log({props});
+            const {propDefaults, propInfo} = config;
+            for(const propName in props){
+                if((propDefaults !== undefined && propName in propDefaults) || (propName in propInfo!)) continue;
+                propInfo![propName] = props[propName];
+            }
+            //console.log({props});
         }
         const mainTemplate = await toTempl(self, fromShadow, tagName!);
 

@@ -1,6 +1,6 @@
 export const config = {
     propDefaults:{
-        place: 'Venus',
+        //place: 'Venus',
         shadowRootMode: 'open'
     }
 }
