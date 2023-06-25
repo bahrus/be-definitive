@@ -12,6 +12,12 @@ export function itemize(container) {
         if (parentElement !== null && parentElement.closest('[itemscope]') !== null)
             continue;
         const ips = getIPsInScope(itemscope);
+        if (ips.length === 0)
+            continue;
+        const attrName = itemscope.localName.includes('-') ? 'enh-by-be-linked' : 'be-linked';
+        if (!itemscope.hasAttribute(attrName)) {
+            itemscope.setAttribute(attrName, 'Share * from $1.');
+        }
         for (const ip of ips) {
             const { names } = ip;
             for (const name of names) {

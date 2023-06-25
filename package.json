@@ -26,9 +26,9 @@
   },
   "dependencies": {
     "be-enhanced": "0.0.33",
-    "be-exportable": "0.0.83",
-    "be-hive": "0.0.109",
-    "be-linked": "0.0.30",
+    "be-exportable": "0.0.84",
+    "be-hive": "0.0.110",
+    "be-linked": "0.0.31",
     "trans-render": "0.0.693",
     "xtal-element": "0.0.571"
   },

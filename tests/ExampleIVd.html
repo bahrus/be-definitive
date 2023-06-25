@@ -7,23 +7,20 @@
     <title>Document</title>
 </head>
 <body>
-  <hello-world>
+  <hello-world place="Venus">
     <template shadowrootmode=open>
-        <div itemscope be-linked='Share * from $1.'>Hello, <span itemprop=place>world</span></div>
+        <div itemscope be-linkedx='Share * from $1.'>Hello, <span itemprop=place>world</span></div>
       <style adopt>
         span {
           color: green;
         }
       </style>
-      <!-- <script src="./config.js" nomodule enh-by-be-definitive='{
-        "complexConfig": "config"
-      }'></script> -->
       <be-hive enh-by-be-definitive></be-hive>
     </template>
   </hello-world>
 
   <hello-world place=Mars></hello-world>
-  <hello-world></hello-world>
+  <hello-world place="Jupiter"></hello-world>
   <div id=target></div>
   <script type=importmap>
       {
@@ -33,7 +30,7 @@
             "be-hive/": "../node_modules/be-hive/",
             "be-linked/": "../node_modules/be-linked/",
             "be-propagating/": "../node_modules/be-propagating/",
-            "trans-render/": "../trans-render/",
+            "trans-render/": "../node_modules/trans-render/",
             "xtal-element/": "../node_modules/xtal-element/"
           }
       }
