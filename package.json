@@ -1,6 +1,6 @@
 {
   "name": "be-definitive",
-  "version": "0.0.102",
+  "version": "0.0.103",
   "keywords": [
     "web-components",
     "web-component",
@@ -25,17 +25,17 @@
     "safari": "npx playwright wk http://localhost:3030"
   },
   "dependencies": {
-    "be-enhanced": "0.0.32",
-    "be-exportable": "0.0.82",
-    "be-hive": "0.0.108",
-    "trans-render": "0.0.692",
-    "xtal-element": "0.0.570"
+    "be-enhanced": "0.0.33",
+    "be-exportable": "0.0.83",
+    "be-hive": "0.0.109",
+    "trans-render": "0.0.693",
+    "xtal-element": "0.0.571"
   },
   "devDependencies": {
     "@playwright/test": "1.35.1",
     "may-it-serve": "0.0.5",
     "xtal-shell": "0.0.27",
-    "be-linked": "0.0.29"
+    "be-linked": "0.0.30"
   },
   "repository": {
     "type": "git",
