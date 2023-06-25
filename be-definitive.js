@@ -110,8 +110,16 @@ export class BeDefinitive extends BE {
         //await this.register(self, params);
     }
     async register(self, params) {
-        const tagName = params.config.tagName;
-        const mainTemplate = await toTempl(self, self.localName === tagName && self.shadowRoot !== null, tagName);
+        const { config } = params;
+        const tagName = config.tagName;
+        const fromShadow = self.localName === tagName && self.shadowRoot !== null;
+        const content = fromShadow ? self.shadowRoot : self;
+        if (content.querySelector('[itemscope]') !== null) {
+            const { itemize } = await import('./itemize.js');
+            const props = itemize(content);
+            console.log({ props });
+        }
+        const mainTemplate = await toTempl(self, fromShadow, tagName);
         //TODO:  make this a transform plugin?
         const adopted = Array.from(mainTemplate.content.querySelectorAll('style[adopt]'));
         const styles = adopted.map(s => {
@@ -119,7 +127,7 @@ export class BeDefinitive extends BE {
             s.remove();
             return inner;
         }).join('');
-        const beGone = mainTemplate.content.querySelectorAll('[be-gone],[data-be-gone]').forEach(g => g.remove());
+        mainTemplate.content.querySelectorAll('[be-gone],[data-be-gone]').forEach(g => g.remove());
         params.complexPropDefaults = { ...params.complexPropDefaults, mainTemplate, styles };
         params.mixins = [...(params.mixins || []), TemplMgmt];
         const { XE } = await import('xtal-element/XE.js');
@@ -141,16 +149,11 @@ export async function toTempl(templ, fromShadow, tagName) {
             else {
                 templateToClone.innerHTML = templ.shadowRoot.innerHTML;
             }
-            //const content = templateToClone.content;
         }
         else {
             const beHive = templ.getRootNode().querySelector('be-hive');
             const beatified = await beHive.beatify(templ);
             templateToClone.innerHTML = beatified.innerHTML;
-            //console.log({innerHTML: beatified.innerHTML});
-            // if(tagName === templ.localName){
-            //     templ.innerHTML = '';
-            // }
         }
     }
     return templateToClone;

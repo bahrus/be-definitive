@@ -1,4 +1,4 @@
-import {XEArgs} from 'xtal-element/types';
+import {XEArgs, Config} from 'xtal-element/types';
 import { ActionOnEventConfigs } from "trans-render/froop/types";
 import {IBE} from 'be-enhanced/types';
 
@@ -6,6 +6,7 @@ export interface EndUserProps<Props = any, Actions = Props> extends IBE, XEArgs<
     scriptRef?: string;
     scriptPath?: string;
     complexConfig?: string;
+    config?: Config
 }
 
 export interface AllProps extends EndUserProps {}
