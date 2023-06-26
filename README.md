@@ -79,8 +79,7 @@ So the first instance of the pattern displays without a single byte of Javascrip
 
 Subsequent instances take less bandwidth to download, and generate quite quickly due to use of templates.  It does require the be-definitive library to be loaded once.
 
-
-## Example IIc -- With dynamic properties, binding from a distance
+## Example IIb -- With dynamic properties, binding from a distance
 
 ```html
 <div be-definitive='{
@@ -183,25 +182,24 @@ The "definer" can be a template to start with, and we can also apply "interpolat
 
 The interpolation is currently a bit limited  (can't interpolate between a closing tag and an opening tag), and doesn't use Ranges[TODO].
 
-## Example 4 -- Pre-rendered web components that use declarative Shadow DOM.
+## Example 4 -- Pre-rendered web components that use streaming declarative Shadow DOM.
 
 This syntax also works:
 
 ```html
-  <hello-world be-definitive='{
-    "config":{
-      "propDefaults":{
-        "place": "Venus",
-        "transform":{
-          "span": "place"
-        }
+<hello-world>
+  <template shadowrootmode=open>
+      <div itemscope>Hello, <span itemprop=place>world</span></div>
+    <style adopt>
+      span {
+        color: green;
       }
-    }
-  }'>
-    <template shadowrootmode=open>
-      <div>Hello, <span>world</span></div>
-    </template>
-  </hello-world>
+    </style>
+    <be-hive enh-by-be-definitive></be-hive>
+  </template>
+</hello-world>
+<hello-world place=Mars></hello-world>
+<hello-world place=Venus></hello-world>
 ```
 
 It requires declarative [ShadowDOM polyfill for Firefox](https://web.dev/declarative-shadow-dom/#detection-support).
