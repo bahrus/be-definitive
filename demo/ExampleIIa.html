@@ -7,20 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <div be-definitive='{
-        "config":{
-          "tagName":"hello-world",
-          "propDefaults":{
-            "place": "Venus"
-          }
-        }
-      }'>
-        <div itemscope be='{
-            "linked": "Share * from host."
-        }'>Hello, <span itemprop=place>world</span></div>
-    </div>
+    <hello-world enh-by-be-definitive>
+        <div itemscope>Hello, <span itemprop=place>world</span></div>
+    </hello-world>
+    <hello-world place=Venus></hello-world>
     <hello-world place=Mars></hello-world>
-    <hello-world></hello-world>
     <script type=importmap>
         {
             "imports":{
@@ -34,7 +25,6 @@
         }
     </script>
     <script type=module>
-        import 'be-linked/be-linked.js';
         import '../be-definitive.js';
     </script>
 </body>

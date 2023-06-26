@@ -1,12 +1,13 @@
-import {PropInfoExt} from 'xtal-element/types';
+//import {PropInfoExt2} from './types';
 import 'be-linked/be-linked.js';
 import {getIPsInScope} from 'be-linked/getIPsInScope.js';
+import {getItemPropVal} from 'be-linked/getItemPropVal.js';
 
-const defaultProp:PropInfoExt = {
-    type: 'String'
-}
-export function itemize(container: Element | ShadowRoot): {[key: string]: PropInfoExt}{
-    const returnObj: {[key: string]: PropInfoExt} = {};
+// const defaultProp:PropInfoExt2 = {
+//     type: 'String'
+// }
+export async function itemize(container: Element | ShadowRoot): Promise<{[key: string]: any}>{
+    const returnObj: {[key: string]: any} = {};
     //TODO: use @scoped css selector when available
     const itemscopes = Array.from(container.querySelectorAll('[itemscope]'));
     for(const itemscope of itemscopes){
@@ -19,10 +20,11 @@ export function itemize(container: Element | ShadowRoot): {[key: string]: PropIn
             itemscope.setAttribute(attrName, 'Share * from $1.');
         }
         for(const ip of ips){
-            const {names} = ip;
+            const {names, el} = ip;
+            const defaultVal = await getItemPropVal(el) || el.textContent;
             for(const name of names){
                 if(returnObj[name]) continue;
-                returnObj[name] = {...defaultProp};
+                returnObj[name] = defaultVal;
             }
         }
         

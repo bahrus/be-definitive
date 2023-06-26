@@ -63,7 +63,24 @@ Renders:
 
 The need for prefixing be-definitive with enh-by is there to simply reduce the chances of causing conflicts with web components that use be-definitive as an attribute they recognize.
 
-## Example 2 -- With dynamic properties, binding from a distance
+## Example IIa:  With inline binding
+
+We get the same results with explicit inline binding imported via be-enhanced custom enhancements:
+
+```html
+<hello-world enh-by-be-definitive>
+    <div itemscope>Hello, <span itemprop=place>world</span></div>
+</hello-world>
+<hello-world place=Venus></hello-world>
+<hello-world place=Mars></hello-world>
+```
+
+So the first instance of the pattern displays without a single byte of Javascript being downloaded. 
+
+Subsequent instances take less bandwidth to download, and generate quite quickly due to use of templates.  It does require the be-definitive library to be loaded once.
+
+
+## Example IIc -- With dynamic properties, binding from a distance
 
 ```html
 <div be-definitive='{
@@ -119,39 +136,6 @@ To enable ShadowDOM, use the "shadowRootMode" setting:
 <hello-world place=Mars></hello-world>
 ```
 
-So the first instance of the pattern displays without a single byte of Javascript being downloaded.  
-
-Subsequent instances take less bandwidth to download, and generate quite quickly due to use of templates.  It does require the be-definitive library to be loaded once.
-
-The "transform" setting uses [DTR](https://github.com/bahrus/trans-render) syntax, similar to CSS, in order to bind the template, but *be-definitive* eagerly awaits inline binding with Template Instantiation being built into the platform as well.
-
-To apply multiple transforms, use an array.  Each transform should only be applied when the dependent properties change ("place" in this case).
-
-Example IIa:  With inline binding
-
-We get the same results with explicit inline binding imported via be-enhanced custom enhancements:
-
-```html
-<div be-definitive='{
-    "config":{
-      "tagName":"hello-world",
-      "propDefaults":{
-        "place": "Venus",
-      }
-    }
-  }'>
-    <div itemscope be='{
-            "linked": "Share * from host."
-        }'>Hello, <span itemprop=place>world</span>
-    </div>
-</div>
-<hello-world place=Mars></hello-world>
-<hello-world></hello-world>
-```
-
-
-
-
 ## I Object
 
 <!--If we need our HTML to be HTML5 compliant, we should probably prefix be- with data-.  That is supported.
@@ -167,6 +151,13 @@ And in practice, it is also quite ergonomic to edit these declarative web compon
 3.  [cotus](https://github.com/bahrus/cotus)
 
 Anyway.
+
+
+
+The "transform" setting uses [DTR](https://github.com/bahrus/trans-render) syntax, similar to CSS, in order to bind the template, but *be-definitive* eagerly awaits inline binding with Template Instantiation being built into the platform as well.
+
+To apply multiple transforms, use an array.  Each transform should only be applied when the dependent properties change ("place" in this case).
+
 
 ## Example 3 -- Template-based declarative web components
 

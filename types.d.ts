@@ -1,4 +1,4 @@
-import {XEArgs, Config} from 'xtal-element/types';
+import {XEArgs, Config, PropInfoExt} from 'xtal-element/types';
 import { ActionOnEventConfigs } from "trans-render/froop/types";
 import {IBE} from 'be-enhanced/types';
 
@@ -8,6 +8,10 @@ export interface EndUserProps<Props = any, Actions = Props> extends IBE, XEArgs<
     complexConfig?: string;
     //config?: Config
 }
+
+// export interface PropInfoExt2 extends PropInfoExt{
+//     defaultVal?: any,
+// }
 
 export interface AllProps extends EndUserProps {}
 

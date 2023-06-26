@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <hello-world enh-by-be-definitive='{
+    <div be-definitive='{
         "config":{
           "tagName":"hello-world",
           "propDefaults":{
@@ -15,20 +15,18 @@
           }
         }
       }'>
-        <div itemscope 
-            be-linked='Share * from $1.'
-        >Hello, <span itemprop=place>world</span></div>
-    </hello-world>
+        <div itemscope>Hello, <span itemprop=place>world</span></div>
+    </div>
     <hello-world place=Mars></hello-world>
     <hello-world></hello-world>
     <script type=importmap>
         {
             "imports":{
               "be-enhanced/": "../node_modules/be-enhanced/",
-              "be-hive/": "../be-hive/",
-              "be-linked/": "../be-linked/",
+              "be-hive/": "../node_modules/be-hive/",
+              "be-linked/": "../node_modules/be-linked/",
               "be-propagating/": "../node_modules/be-propagating/",
-              "trans-render/": "../trans-render/",
+              "trans-render/": "../node_modules/trans-render/",
               "xtal-element/": "../node_modules/xtal-element/"
             }
         }
