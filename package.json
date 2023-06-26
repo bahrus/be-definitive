@@ -1,6 +1,6 @@
 {
   "name": "be-definitive",
-  "version": "0.0.103",
+  "version": "0.0.104",
   "keywords": [
     "web-components",
     "web-component",
@@ -36,7 +36,6 @@
     "@playwright/test": "1.35.1",
     "may-it-serve": "0.0.5",
     "xtal-shell": "0.0.27"
-    
   },
   "repository": {
     "type": "git",
