@@ -22,7 +22,10 @@ export async function itemize(container) {
         }
         for (const ip of ips) {
             const { names, el } = ip;
-            const defaultVal = await getItemPropVal(el) || el.textContent;
+            let defaultVal = await getItemPropVal(el);
+            if (defaultVal === undefined) {
+                defaultVal = el.textContent;
+            }
             for (const name of names) {
                 if (returnObj[name])
                     continue;
