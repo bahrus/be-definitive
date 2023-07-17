@@ -2,6 +2,7 @@ import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
 import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
 import { TemplMgmt, beTransformed } from 'trans-render/lib/mixins/TemplMgmt.js';
+import { toTempl } from 'be-hive/toTempl.js';
 export class BeDefinitive extends BE {
     static get beConfig() {
         return {
@@ -129,7 +130,7 @@ export class BeDefinitive extends BE {
             }
             //console.log({props});
         }
-        const mainTemplate = await toTempl(self, fromShadow, tagName);
+        const mainTemplate = await toTempl(self, fromShadow, self);
         //TODO:  make this a transform plugin?
         const adopted = Array.from(mainTemplate.content.querySelectorAll('style[adopt]'));
         const styles = adopted.map(s => {
@@ -143,30 +144,6 @@ export class BeDefinitive extends BE {
         const { XE } = await import('xtal-element/XE.js');
         const ce = new XE(params);
     }
-}
-export async function toTempl(templ, fromShadow, tagName) {
-    let templateToClone = templ;
-    if (!(templateToClone instanceof HTMLTemplateElement)) {
-        templateToClone = document.createElement('template');
-        if (fromShadow) {
-            const beHive = (templ.shadowRoot).querySelector('be-hive');
-            if (beHive) {
-                const div = document.createElement('div');
-                div.innerHTML = templ.shadowRoot.innerHTML;
-                const beatified = await beHive.beatify(div);
-                templateToClone.innerHTML = beatified.innerHTML;
-            }
-            else {
-                templateToClone.innerHTML = templ.shadowRoot.innerHTML;
-            }
-        }
-        else {
-            const beHive = templ.getRootNode().querySelector('be-hive');
-            const beatified = await beHive.beatify(templ);
-            templateToClone.innerHTML = beatified.innerHTML;
-        }
-    }
-    return templateToClone;
 }
 const tagName = 'be-definitive';
 const ifWantsToBe = 'definitive';

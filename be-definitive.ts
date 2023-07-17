@@ -6,6 +6,7 @@ import {register} from 'be-hive/register.js';
 import { WCConfig } from 'trans-render/lib/types';
 import {Action, TemplMgmt, TemplMgmtActions, TemplMgmtProps, beTransformed} from 'trans-render/lib/mixins/TemplMgmt.js';
 import {AllProps as BeExportableAP} from 'be-exportable/types';
+import {toTempl} from 'be-hive/toTempl.js';
 
 export class BeDefinitive extends BE<AP, Actions> implements Actions {
     static override get beConfig(): BEConfig<any> {
@@ -133,7 +134,7 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
             }
             //console.log({props});
         }
-        const mainTemplate = await toTempl(self, fromShadow, tagName!);
+        const mainTemplate = await toTempl(self, fromShadow, self);
 
         //TODO:  make this a transform plugin?
         const adopted = Array.from(mainTemplate.content.querySelectorAll('style[adopt]'));
@@ -153,31 +154,7 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
 
 }
 
-export async function toTempl(templ: Element, fromShadow: boolean, tagName: string){
-    let templateToClone = templ as HTMLTemplateElement;
-    if(!(templateToClone instanceof HTMLTemplateElement)){
-        templateToClone = document.createElement('template');
-        if(fromShadow){
-            const beHive = (templ.shadowRoot!).querySelector('be-hive') as any;
-            if(beHive){
-                const div = document.createElement('div');
-                div.innerHTML = templ.shadowRoot!.innerHTML;
-                const beatified = await beHive.beatify(div);
-                templateToClone.innerHTML = beatified.innerHTML;
-            }else{
-                templateToClone.innerHTML = templ.shadowRoot!.innerHTML;
-            }
-        }else{
-            const beHive = (templ.getRootNode() as DocumentFragment).querySelector('be-hive') as any;
-            const beatified = await beHive.beatify(templ);
-            templateToClone.innerHTML = beatified.innerHTML;
-            
-        }
-        
-                
-    }
-    return templateToClone;
-}
+
 
 export interface BeDefinitive extends AllProps{}
 
