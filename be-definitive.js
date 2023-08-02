@@ -19,7 +19,9 @@ export class BeDefinitive extends BE {
             attrElement = enhancedElement;
             isLocal = true;
         }
-        wcElement.skipTemplateClone = true;
+        const templProps = wcElement;
+        templProps.skipTemplateClone = true;
+        templProps.clonedTemplate = wcElement.shadowRoot || wcElement;
         await super.attach(attrElement, enhancementInfo);
         const { enh } = enhancementInfo;
         let params = undefined;

@@ -25,7 +25,9 @@ export class BeDefinitive extends BE<AP, Actions> implements Actions {
             attrElement = enhancedElement;
             isLocal = true;
         }
-        (wcElement as any as TemplMgmtProps).skipTemplateClone = true;
+        const templProps = wcElement as any as TemplMgmtProps;
+        templProps.skipTemplateClone = true;
+        templProps.clonedTemplate = wcElement.shadowRoot || wcElement;
         await super.attach(attrElement, enhancementInfo);
         const {enh} = enhancementInfo;
         let params: Partial<EndUserProps> | undefined = undefined;
