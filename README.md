@@ -148,6 +148,8 @@ And in practice, it is also quite ergonomic to edit these declarative web compon
 1.  [xtal-side-nav](https://github.com/bahrus/xtal-side-nav)
 2.  [xtal-editor](https://github.com/bahrus/xtal-editor)
 3.  [cotus](https://github.com/bahrus/cotus)
+4.  [plus-minus](https://github.com/bahrus/plus-minus)
+5.  [scratch-box](https://github.com/bahrus/scratch-box)
 
 Anyway.
 
