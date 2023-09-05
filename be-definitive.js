@@ -23,16 +23,16 @@ export class BeDefinitive extends BE {
         templProps.skipTemplateClone = true;
         templProps.clonedTemplate = wcElement.shadowRoot || wcElement;
         await super.attach(attrElement, enhancementInfo);
-        const { enh } = enhancementInfo;
+        const { fqn } = enhancementInfo;
         let params = undefined;
-        if (attrElement.hasAttribute(enh)) {
-            const attrVal = attrElement.getAttribute(enh).trim();
+        if (attrElement.hasAttribute(fqn)) {
+            const attrVal = attrElement.getAttribute(fqn).trim();
             if (attrVal[0] !== '{' && attrVal[0] !== '[') {
                 params = {
                     config: {
                         tagName: attrVal,
                         propDefaults: {
-                            noshadow: wcElement.shadowRoot === null,
+                            shadowRootMode: wcElement.shadowRoot === null ? undefined : 'open',
                         }
                     }
                 };
@@ -42,13 +42,13 @@ export class BeDefinitive extends BE {
                     params = JSON.parse(attrVal);
                 }
                 catch (e) {
-                    console.error({ enh, attrVal, e });
+                    console.error({ fqn, attrVal, e });
                     this.rejected = true;
                     return;
                 }
             }
             if (isLocal) {
-                attrElement.removeAttribute(enh);
+                attrElement.removeAttribute(fqn);
             }
         }
         else {
