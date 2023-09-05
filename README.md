@@ -65,7 +65,7 @@ The need for prefixing be-definitive with enh-by is there to simply reduce the c
 
 ## Example IIa:  With inline binding
 
-We get the same results with explicit inline binding imported via be-enhanced custom enhancements:
+We can add explicit inline binding using microdata attributes:
 
 ```html
 <hello-world enh-by-be-definitive>
@@ -74,6 +74,22 @@ We get the same results with explicit inline binding imported via be-enhanced cu
 <hello-world place=Venus></hello-world>
 <hello-world place=Mars></hello-world>
 ```
+
+
+...renders:
+
+```html
+<hello-world enh-by-be-definitive>
+    <div itemscope>Hello, <span itemprop=place>world</span></div>
+</hello-world>
+<hello-world place=Venus>
+    <div itemscope>Hello, <span itemprop=place>Venus</span></div>
+</hello-world>
+<hello-world place=Mars>
+    <div itemscope>Hello, <span itemprop=place>Mars</span></div>
+</hello-world>
+```
+
 
 So the first instance of the pattern displays without a single byte of Javascript being downloaded. 
 
@@ -112,7 +128,7 @@ Subsequent instances take less bandwidth to download, and generate quite quickly
 </hello-world>
 ```
 
-Again, using ShadowDOM is somewhat iffy, as styling is fundamentally different between the "defining" element and subsequent elements.  But it is the default behavior, in order provide the developer the ability to choose which way to go in a consistent manner.
+Again, using ShadowDOM is somewhat iffy, as styling is fundamentally different between the "defining" element and subsequent elements.  But it is the default behavior.
 
 To enable ShadowDOM, use the "shadowRootMode" setting:
 
@@ -137,10 +153,6 @@ To enable ShadowDOM, use the "shadowRootMode" setting:
 
 ## I Object
 
-<!--If we need our HTML to be HTML5 compliant, we should probably prefix be- with data-.  That is supported.
-
-The ending -definitive is configurable also, within each ShadowDOM realm.-->
-
 Editing JSON-in-html can be rather error prone.  A [VS Code extension](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html) is available to help with that, and is compatible with web versions of VSCode.
 
 And in practice, it is also quite ergonomic to edit these declarative web components in a *.mjs file that executes in node as the file changes, and compiles to an html file via the [may-it-be](https://github.com/bahrus/may-it-be) compiler.  This allows the attributes to be editable with JS-like syntax.  Typescript 4.6 supports compiling mts to mjs files, which then allows typing of the attributes.  Examples of this in practice are:
@@ -152,8 +164,6 @@ And in practice, it is also quite ergonomic to edit these declarative web compon
 5.  [scratch-box](https://github.com/bahrus/scratch-box)
 
 Anyway.
-
-
 
 The "transform" setting uses [DTR](https://github.com/bahrus/trans-render) syntax, similar to CSS, in order to bind the template, but *be-definitive* eagerly awaits inline binding with Template Instantiation being built into the platform as well.
 
@@ -230,12 +240,11 @@ The good people of github, in particular, earn a definitive stamp of approval fr
 [Music to my ears!](https://youtu.be/rnM-ULNxDus?t=239)
 
 
-
 The client-side approach is more conducive to fine-grained caching, while the server-side stream approach better for above-the-fold initial view metrics.
 
 If going with the server-side route, there are certainly scenarios where weaving in dynamic content in the server is useful, beyond what can be done with slots, in order to provide a better initial view.
 
-One solution being pursued for this functionality is the [xodus cloudflare helper classes project](https://github.com/bahrus/xodus)/[edge-of-tomorrow](https://github.com/bahrus/edge-of-tomorrow).  Eventually.
+One solution being pursued for this functionality is the [xodus cloudflare helper classes project](https://github.com/bahrus/xodus)/[edge-of-tomorrow](https://github.com/bahrus/edge-of-tomorrow).  Eventually, [w3c willing](https://github.com/whatwg/dom/issues/1222).
 
 Its goal is to apply the "transform(s)" specified above, but in the cloud (or service worker) for the initial render (or pre-render?).
 
@@ -257,10 +266,7 @@ The following is supported:
     "messageHandler": "messageHandler"
   },
   "superclass": "myClass",
-  "mixins": ["myMixin1"],
-  "transformPlugins": [
-    "beBased": "beBasedPlugin"
-  ]
+  "mixins": ["myMixin1"]
 }'>
   <template shadowroot=open>
     <div>Hello, <span>world</span></div>
@@ -280,9 +286,6 @@ The following is supported:
 
   }
 
-  export const beBasedPlugin = (ctx) => {
-    
-  }
 </script>
 ```
 
@@ -292,7 +295,7 @@ This also allows us to tap into powerful rendering libraries like [lit-html](htt
 
 be-exportable script tags can use ESM Module imports, so the amount of code found in this somewhat unorthodox location can be minimized.
 
-Another way to reference external web components is via the [be-active](https://github.com/bahrus/be-active) template tag decorator.
+Another way to reference external web components is via the [be-active](https://github.com/bahrus/be-active) template tag custom enhancement.
 
 ## Styling
 
