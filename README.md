@@ -257,19 +257,20 @@ Other recognized "inputs" that can go into a web component definition are non-se
 The following is supported:
 
 ```html
-<hello-world be-definitive='{
-  "config":{
-    "...": "..."
-  },
-  "scriptRef": "my-script",
-  "complexPropDefaults": {
-    "messageHandler": "messageHandler"
-  },
-  "superclass": "myClass",
-  "mixins": ["myMixin1"]
-}'>
+<hello-world be-definitive>
   <template shadowroot=open>
     <div>Hello, <span>world</span></div>
+    <be-hive be-definitive='{
+      "config":{
+        "...": "..."
+      },
+      "scriptRef": "my-script",
+      "complexPropDefaults": {
+        "messageHandler": "messageHandler"
+      },
+      "superclass": "myClass",
+      "mixins": ["myMixin1"]
+    }'>
   </template>
 </hello-world>
 
