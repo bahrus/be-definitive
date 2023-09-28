@@ -26,16 +26,16 @@
     "update": "ncu -u && npm install"
   },
   "dependencies": {
-    "be-enhanced": "0.0.48",
-    "be-exportable": "0.0.88",
-    "be-hive": "0.0.118",
-    "be-linked": "0.0.42",
-    "trans-render": "0.0.705",
-    "xtal-element": "0.0.577"
+    "be-enhanced": "0.0.52",
+    "be-exportable": "0.0.93",
+    "be-hive": "0.0.123",
+    "be-linked": "0.0.48",
+    "trans-render": "0.0.706",
+    "xtal-element": "0.0.579"
   },
   "devDependencies": {
-    "@playwright/test": "1.37.1",
-    "may-it-serve": "0.0.5",
+    "@playwright/test": "1.38.1",
+    "may-it-serve": "0.0.6",
     "xtal-shell": "0.0.27"
   },
   "repository": {
