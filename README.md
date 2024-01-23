@@ -6,6 +6,9 @@
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-definitive?style=for-the-badge)](https://bundlephobia.com/result?p=be-definitive)
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-definitive?compression=gzip">
 
+> [!Note]
+> The functionality supported by be-definitive has been moved "closer to the core", and is supported by [xtal-element](https://github.com/bahrus/xtal-element?tab=readme-ov-file#part-iii---web-components-from-html-streamed-content) now.  Perhaps this enhancement will be provided a new (reduced) role in the future, but for now, consider it to be deprecated.
+
 be-definitive allows us to take some DOM that is in the live DOM tree, or DOM that is imported into the tree via fetch, and turn it into a web component.  This allows that DOM to appear again in other parts of the page via a single tag.  Customizations can be made to each instance based on the values of properties / attributes.
 
 And even with the original DOM that was in the live DOM tree, turning it into a web component allows us to "hydrate" the static DOM  into something that is interactive.
