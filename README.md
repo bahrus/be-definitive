@@ -23,7 +23,7 @@
         </tr>
         <tr id=b39596>
             <td itemprop=address>654 Penny Lane</td>
-            <td itemprop=cellphone>345-25-2686<</td>>
+            <td itemprop=cellphone>345-25-2686<</td>
         </tr>
         <template itemscope=my-item></template>
     </tbody>
