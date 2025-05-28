@@ -6,15 +6,14 @@
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-definitive?style=for-the-badge)](https://bundlephobia.com/result?p=be-definitive)
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-definitive?compression=gzip">
 
-> [!Note]
-> The functionality supported by be-definitive has been moved "closer to the core", and is supported by [xtal-element](https://github.com/bahrus/xtal-element?tab=readme-ov-file#part-iii---web-components-from-html-streamed-content) now.  Perhaps this enhancement will be provided a new (reduced) role in the future, but for now, consider it to be deprecated.
+Turn a fragment of live HTML, or a template element, into a Reusable ItemScoped Scriplet.
 
 ```html
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
     <tbody>
         <template be-definitive 🫚 itemscope=my-item itemref="a13245 b39596"></template>
-        <tr id=a13245>
+        <tr id=a13245 be-definitive>
             <td>
                 <my-item></my-item>
                 <span itemprop=name>Burt</span>
