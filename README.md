@@ -20,9 +20,12 @@ Example 1:  Inferred props
             <script be-definitive='{"inferProps": true}'></script>
         </tr>
         <tr data-ld='{"@type": "Person", "name": "Sally", "ssn": "987-65-4321"}'></tr>
+        <tr data-ld='{"@type": "Person", "name": "Sally", "ssn": "987-65-4321"}'></tr>
     </tbody>
 </table>
 ```
+
+Only clone the template for other tr's if innerHTML is empty.
 
 
 ```html

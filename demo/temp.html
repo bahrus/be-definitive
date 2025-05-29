@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+    <thead><th>Name</th><th>SSN Number</th></thead>
+    <tbody>
+        <tr data-ld='{"@type": "Person"}'>
+            <td itemprop=name>Burt</td>
+            <td itemprop=ssn>123-45-6789</td>
+            <script be-definitive='{"inferProps": true}'></script>
+        </tr>
+        <tr data-ld='{"@type": "Person", "name": "Sally", "ssn": "987-65-4321"}'></tr>
+        <tr data-ld='{"@type": "Person", "name": "Sally", "ssn": "987-65-4321"}'></tr>
+    </tbody>
+</table>
+</body>
+</html>
