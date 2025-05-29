@@ -8,6 +8,31 @@
 
 Turn a fragment of live HTML, or a template element, into a Reusable ItemScoped Scriplet.
 
+Example 1:  Inferred props
+
+```html
+<script id=Person></script>
+<table>
+    <thead><th>Name</th><th>SSN Number</th></thead>
+    <tbody>
+        <tr itemscope>
+            <td itemprop=name>Burt</td>
+            <td itemprop=ssn>123-45-6789</td>
+            <script href=Person be-definitive='{"inferProps": true}'></script>
+        </tr>
+        <tr itemscope=Person>
+            <script type=application/json>{"name": "Sally", "ssn": "987-65-4321"}</script>
+        </tr>
+    </tbody>
+</table>
+```
+
+```html
+<script type="application/ld+json">...</script>
+```
+
+is also supported
+
 ```html
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
