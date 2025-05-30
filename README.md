@@ -6,7 +6,6 @@
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-definitive?style=for-the-badge)](https://bundlephobia.com/result?p=be-definitive)
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-definitive?compression=gzip">
 
-Turn a fragment of live HTML, or a template element, into a Reusable ItemScoped Scriplet.
 
 Example 1:  Inferred props
 
@@ -14,13 +13,17 @@ Example 1:  Inferred props
 <table>
     <thead><th>Name</th><th>SSN Number</th></thead>
     <tbody>
-        <tr data-ld='{"@type": "Person"}'>
+        <tr data-ld='{"@type": "Person"}' id=temp>
             <td itemprop=name>Burt</td>
             <td itemprop=ssn>123-45-6789</td>
             <script be-definitive='{"inferProps": true}'></script>
         </tr>
-        <tr data-ld='{"@type": "Person", "name": "Sally", "ssn": "987-65-4321"}'></tr>
-        <tr data-ld='{"@type": "Person", "name": "Sally", "ssn": "987-65-4321"}'></tr>
+        <tr data-ld='{"@type": "Person", "name": "Sally", "ssn": "987-65-4321"}'>
+            <template href=#temp></template>
+        </tr>
+        <tr data-ld='{"@type": "Person", "name": "Sally", "ssn": "987-65-4321"}'>
+            <template href=#temp></template>
+        </tr>
     </tbody>
 </table>
 ```
